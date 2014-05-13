@@ -2,6 +2,11 @@ package ar.fiuba.tecnicas.logging;
 
 import java.util.List;
 
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LoggerConfig;
+import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
+import ar.fiuba.tecnicas.logging.handlers.IHandler;
+
 public class Logger {
 	
 	private List<IHandler> outputs;
