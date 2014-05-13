@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
@@ -15,10 +16,13 @@ public class Logger {
 	
 	public Logger(LoggerConfig config) {
 		this.config = config;
+		this.outputs = new ArrayList<IHandler>();
 	}
 	
 	public void log(String message, LogLevel level) {
-	
+		for (IHandler handler : this.outputs){
+			handler.write(message);
+		}
 	}
 
 	public void log(String message, LogLevel level, ILogFormatter formatter) {
@@ -26,6 +30,6 @@ public class Logger {
 	}
 	
 	public void addHandler(IHandler handler) {
-		
+		outputs.add(handler);
 	}
 }
