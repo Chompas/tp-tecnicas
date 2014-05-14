@@ -9,6 +9,7 @@ public class LogFormatter implements ILogFormatter {
 
 	public LogFormatter() {
 		super();
+		//TODO: Agregar formato por defecto
 	}
 	
 	public LogFormatter(String format) {
@@ -18,6 +19,8 @@ public class LogFormatter implements ILogFormatter {
 
 	@Override
 	public String format(String message, LogLevel level) {
+		
+		//TODO: Modificar mensaje de acuerdo al format
 	
 		return Thread.currentThread().getStackTrace()[3].getLineNumber() + " - " + message + "-" + level;
 	}

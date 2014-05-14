@@ -20,6 +20,7 @@ public class Logger {
 		this.config = new LoggerConfig(configPath);
 		this.outputs = new ArrayList<IHandler>();
 		
+		//TODO: Verificar por que si no existe la clave "Format" tira una excepcion
 		if (this.config.getFormat().equals("")) {
 			logFormatter = new LogFormatter();
 		} else {
