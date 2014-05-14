@@ -11,7 +11,8 @@ public class FileHandler implements IHandler {
 
 	@Override
 	public void write(String message) {
-		try(PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.filename, true)))) {
+		try {
+			PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.filename, true)));
 			logFile.println(message);
 		}catch (IOException e) {
 			e.printStackTrace();
