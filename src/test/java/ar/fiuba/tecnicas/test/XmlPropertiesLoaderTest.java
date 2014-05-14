@@ -7,18 +7,18 @@ import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.config.XmlPropertiesLoader;
+import ar.fiuba.tecnicas.logging.config.XmlProperties;
 
 public class XmlPropertiesLoaderTest {
 	
-	private XmlPropertiesLoader loader;
+	private XmlProperties loader;
 	
 	@Test
 	public void testValueReadCorrectlyFromConfigFile() throws FileNotFoundException
 	{
 		// arrange
 		FileInputStream xmlFile = new FileInputStream("config.xml");
-		this.loader = new XmlPropertiesLoader(xmlFile);
+		this.loader = new XmlProperties(xmlFile);
 		
 		// act
 		String actualSeparator = loader.getValue("Separator");
@@ -32,7 +32,7 @@ public class XmlPropertiesLoaderTest {
 	public void testEmptyValueReturnedIfConfigFileNotFound()
 	{
 		// arrange
-		this.loader = new XmlPropertiesLoader(null);
+		this.loader = new XmlProperties(null);
 		
 		// act
 		String actualSeparator = loader.getValue("Separator");

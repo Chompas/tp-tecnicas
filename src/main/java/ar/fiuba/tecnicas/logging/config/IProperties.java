@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.logging.config;
 
-public interface IPropertiesLoader {
+public interface IProperties {
 
 	public String getValue(String key);
 	

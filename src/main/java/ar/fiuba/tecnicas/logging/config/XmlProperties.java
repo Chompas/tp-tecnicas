@@ -2,14 +2,13 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-public class XmlPropertiesLoader implements IPropertiesLoader {
+public class XmlProperties implements IProperties {
 	
 	private FileInputStream xmlFile;
 	
-	public XmlPropertiesLoader(FileInputStream xmlFile)
+	public XmlProperties(FileInputStream xmlFile)
 	{
 		this.xmlFile = xmlFile;
 	}
