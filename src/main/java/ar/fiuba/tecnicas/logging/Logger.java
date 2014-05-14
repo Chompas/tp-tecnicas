@@ -6,28 +6,31 @@ import java.util.List;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class Logger {
 	
 	private List<IHandler> outputs;
-	
 	private LoggerConfig config;
+	private ILogFormatter logFormatter;
 	
-	public Logger(LoggerConfig config) {
-		this.config = config;
+	public Logger(String configPath) {
+		
+		this.config = new LoggerConfig(configPath);
 		this.outputs = new ArrayList<IHandler>();
+		
+		if (this.config.getFormat().equals("")) {
+			logFormatter = new LogFormatter();
+		} else {
+			logFormatter = new LogFormatter(this.config.getFormat());
+		}
+		
 	}
 	
 	public void log(String message, LogLevel level) {
+		String formattedMessage = logFormatter.format(message, level);
 		for (IHandler handler : this.outputs){
-			handler.write(message);
-		}
-	}
-
-	public void log(String message, LogLevel level, ILogFormatter formatter) {
-		for (IHandler handler : this.outputs){
-			String formattedMessage = formatter.format(message, level);
 			handler.write(formattedMessage);
 		}
 	}

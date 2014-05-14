@@ -3,4 +3,5 @@
    <properties> 
    	<entry key="LogLevel">DEBUG</entry>
     <entry key="Separator">-</entry>
+    <entry key="Format">-</entry>
    </properties>
