@@ -18,7 +18,8 @@ public class LogFormatter implements ILogFormatter {
 
 	@Override
 	public String format(String message, LogLevel level) {
-		return message + "-" + level;
+	
+		return Thread.currentThread().getStackTrace()[3].getLineNumber() + " - " + message + "-" + level;
 	}
 
 }
