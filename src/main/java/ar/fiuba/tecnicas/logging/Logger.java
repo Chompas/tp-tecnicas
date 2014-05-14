@@ -26,7 +26,10 @@ public class Logger {
 	}
 
 	public void log(String message, LogLevel level, ILogFormatter formatter) {
-		
+		for (IHandler handler : this.outputs){
+			String formattedMessage = formatter.format(message, level);
+			handler.write(formattedMessage);
+		}
 	}
 	
 	public void addHandler(IHandler handler) {
