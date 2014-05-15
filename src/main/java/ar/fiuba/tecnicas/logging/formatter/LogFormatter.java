@@ -49,11 +49,11 @@ public class LogFormatter implements ILogFormatter {
 		Date d = new Date();
 		String date = dateFormat.format(d);
 
-		String threadName = "";
-		String separator = "";
-		String lineNumber = "";
-		String filename = "";
-		String methodName = "";
+		String threadName = Thread.currentThread().getName();
+		String separator = "*";
+		String lineNumber = Integer.toString(Thread.currentThread().getStackTrace()[3].getLineNumber());
+		String filename = Thread.currentThread().getStackTrace()[3].getFileName();
+		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
 
 		String formattedMessage = this.format;
 		formattedMessage = formattedMessage.replaceAll(this.dateRegex, date);

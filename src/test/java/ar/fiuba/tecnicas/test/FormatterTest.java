@@ -58,5 +58,33 @@ public class FormatterTest {
 		
 		assertEquals(formattedMessage, dateString + " - " + message + " - " + level.name());	
 	}
+	
+	@Test
+	public void testFormatterReturningAnotherSimpleDateFormatCorrectly() {
+		
+		String pattern = "dd/MM/yyyy HH:mm";
+		DateFormat dateFormat = new SimpleDateFormat(pattern);
+		String dateString = dateFormat.format(date);
+		
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} - %m - %p");
+		String formattedMessage = formatter.format(message, level);
+		
+		assertEquals(formattedMessage, dateString + " - " + message + " - " + level.name());	
+	}
+	
+	@Test
+	public void testFormatterReturningFormatWithAllPosibilitiesCorrectly() {
+		
+		String pattern = "HH:mm dd-MM-yyyy";
+		DateFormat dateFormat = new SimpleDateFormat(pattern);
+		String dateString = dateFormat.format(date);
+		
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} ­%n %p %n­ %t %n­ %m %%");
+		String formattedMessage = formatter.format(message, level);
+		
+//		System.out.println(formattedMessage);
+//		System.out.println(dateString + " * " + level.name() + " * " + "main" + " * " + message + " %");
+		assertEquals(formattedMessage, dateString + " * " + level.name() + " * " + "main" + " * " + message + " %");	
+	}
 
 }
