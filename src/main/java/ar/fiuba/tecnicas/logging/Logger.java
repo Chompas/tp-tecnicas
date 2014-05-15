@@ -22,6 +22,9 @@ public class Logger {
 		this.filter = new Filter(this.config.getGlobalLogLevel());
 		this.outputs = new ArrayList<IHandler>();
 		this.logFormatter = new LogFormatter(this.config.getFormat(),this.config.getSeparator());
+		
+		this.addHandlersFromConfig();
+		
 	}
 	
 	public void log(String message, LogLevel level) {
@@ -36,7 +39,7 @@ public class Logger {
 		this.outputs.add(handler);
 	}
 	
-	public void addHandlersFromConfig() {
+	private void addHandlersFromConfig() {
 		for (IHandler handler : this.config.getHandlers()) {
 			this.outputs.add(handler);
 		}

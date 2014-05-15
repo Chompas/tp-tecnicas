@@ -34,7 +34,7 @@ public class LoggerTest {
 	{	
 		// arrange
 		ConsoleHandler mockedConsoleHandler = mock(ConsoleHandler.class);
-		logger.addHandler(mockedConsoleHandler);
+		//logger.addHandler(mockedConsoleHandler);
 		
 		// act
 		logger.log(message, level);
