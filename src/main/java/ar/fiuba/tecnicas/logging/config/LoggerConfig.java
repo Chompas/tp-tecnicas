@@ -3,6 +3,10 @@ package ar.fiuba.tecnicas.logging.config;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
+
+import ar.fiuba.tecnicas.logging.handlers.HandlerFactory;
+import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class LoggerConfig {
 
@@ -35,6 +39,12 @@ public class LoggerConfig {
 
 	public String getSeparator() {
 		return this.properties.getValue("Separator");
+	}
+	
+	public List<IHandler> getHandlers()
+	{
+		HandlerFactory factory = new HandlerFactory();		
+		return factory.createHandlers(this.properties.getValue("Outputs"));
 	}
 	
 }

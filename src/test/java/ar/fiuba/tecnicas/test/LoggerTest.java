@@ -30,7 +30,7 @@ public class LoggerTest {
 	}
 	
 	@Test
-	public void logCallsWrite()
+	public void testlogCallsWrite()
 	{	
 		// arrange
 		ConsoleHandler mockedConsoleHandler = mock(ConsoleHandler.class);
@@ -42,5 +42,4 @@ public class LoggerTest {
 		// assert
 		Mockito.verify(mockedConsoleHandler).write(formattedMessage);
 	}
-
 }

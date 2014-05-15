@@ -29,4 +29,21 @@ public class LoggerConfigTest {
 		Mockito.verify(mockedProperties).getValue("LogLevel");
 		assertEquals(LogLevel.INFO, config.getGlobalLogLevel());		
 	}
+	
+	@Test
+	public void testGetHandlers()
+	{		
+		// arrange
+		XmlProperties mockedProperties = mock(XmlProperties.class);
+		when(mockedProperties.getValue("LogLevel")).thenReturn("INFO");
+		
+		config = new LoggerConfig(mockedProperties);
+		
+		// act
+		config.getGlobalLogLevel();
+		
+		// assert
+		Mockito.verify(mockedProperties).getValue("LogLevel");
+		assertEquals(LogLevel.INFO, config.getGlobalLogLevel());		
+	}
 }
