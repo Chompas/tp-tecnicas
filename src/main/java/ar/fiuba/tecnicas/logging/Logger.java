@@ -15,24 +15,25 @@ public class Logger {
 	private LoggerConfig config;
 	private ILogFormatter logFormatter;
 	
+	private boolean showLevel(LogLevel level) {
+		return (level.getCode() <= config.getGlobalLogLevel().getCode()); 
+	}
+	
 	public Logger(String configPath) {
 		
 		this.config = new LoggerConfig(configPath);
 		this.outputs = new ArrayList<IHandler>();
 		
-		//TODO: Verificar por que si no existe la clave "Format" tira una excepcion
-		if (this.config.getFormat().equals("")) {
-			logFormatter = new LogFormatter();
-		} else {
-			logFormatter = new LogFormatter(this.config.getFormat());
-		}
+		logFormatter = new LogFormatter(this.config.getFormat());
 		
 	}
 	
 	public void log(String message, LogLevel level) {
-		String formattedMessage = logFormatter.format(message, level);
-		for (IHandler handler : this.outputs){
-			handler.write(formattedMessage);
+		if (showLevel(level)) {
+			String formattedMessage = logFormatter.format(message, level);
+			for (IHandler handler : this.outputs){
+				handler.write(formattedMessage);
+			}
 		}
 	}
 	

@@ -24,11 +24,12 @@ public class LoggerConfig {
 	}
 
 	public LogLevel getGlobalLogLevel() {
-		//TODO
-		return null;
+		//TODO: read level from config
+		return LogLevel.ERROR;
 	}
 	
 	public String getFormat() {
 		return this.properties.getValue("Format");
 	}
+	
 }
