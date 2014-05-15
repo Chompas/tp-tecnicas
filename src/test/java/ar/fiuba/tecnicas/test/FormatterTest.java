@@ -84,9 +84,12 @@ public class FormatterTest {
 		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} ­%n %p %n­ %t %n­ %m %%", "*");
 		String formattedMessage = formatter.format(message, level);
 		
-//		System.out.println(formattedMessage);
-//		System.out.println(dateString + " * " + level.name() + " * " + "main" + " * " + message + " %");
-		assertEquals(formattedMessage, dateString + " * " + level.name() + " * " + "main" + " * " + message + " %");	
+		String expectedMessage = dateString + " * " + level.name() + " * " + "main" + " * " + message + " %";
+
+		System.out.println(formattedMessage);
+		System.out.println(expectedMessage);
+		
+		assertEquals(formattedMessage, expectedMessage);	
 	}
 
 }
