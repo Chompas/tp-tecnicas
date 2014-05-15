@@ -10,8 +10,6 @@ import org.mockito.Mockito;
 
 import ar.fiuba.tecnicas.logging.*;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
-import ar.fiuba.tecnicas.logging.config.LoggerConfig;
-import ar.fiuba.tecnicas.logging.config.XmlProperties;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class LoggerTest {

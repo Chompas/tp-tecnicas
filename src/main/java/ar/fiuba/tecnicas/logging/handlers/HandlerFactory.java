@@ -3,8 +3,6 @@ package ar.fiuba.tecnicas.logging.handlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.fiuba.tecnicas.logging.exceptions.InvalidFileNameException;
-
 public class HandlerFactory {
 	
 	public List<IHandler> createHandlers(String outputs) {

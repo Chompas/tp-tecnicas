@@ -4,4 +4,5 @@
    	<entry key="LogLevel">DEBUG</entry>
     <entry key="Separator">-</entry>
     <entry key="Format">-</entry>
+    <entry key="Outputs">Console,log.txt</entry>
    </properties>

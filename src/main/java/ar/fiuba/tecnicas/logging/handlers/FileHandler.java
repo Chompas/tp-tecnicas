@@ -1,13 +1,9 @@
 package ar.fiuba.tecnicas.logging.handlers;
 
 import java.io.BufferedWriter;
-import java.util.regex.Matcher;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import ar.fiuba.tecnicas.logging.exceptions.InvalidFileNameException;
 
 public class FileHandler implements IHandler {
 
