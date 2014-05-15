@@ -18,14 +18,16 @@ public class FormatterTest {
 	private LogFormatter defaultFormatter;
 	private String message;
 	private LogLevel level;
+	private String separator;
 	private Date date;
 
 	@Before
 	public void initialize()
 	{
-		defaultFormatter = new LogFormatter();
+		defaultFormatter = new LogFormatter("","");
 		message = "simple message";
 		level = LogLevel.ERROR;
+		separator = "-";
 		date = new Date();
 	}
 	
@@ -39,7 +41,7 @@ public class FormatterTest {
 	@Test
 	public void testFormatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {
 		
-		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m");
+		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m","");
 		
 		String formattedMessage = formatter.format(message, level);
 		
@@ -53,10 +55,10 @@ public class FormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} - %m - %p");
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p",separator);
 		String formattedMessage = formatter.format(message, level);
 		
-		assertEquals(formattedMessage, dateString + " - " + message + " - " + level.name());	
+		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
 	
 	@Test
@@ -66,10 +68,10 @@ public class FormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} - %m - %p");
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p",separator);
 		String formattedMessage = formatter.format(message, level);
 		
-		assertEquals(formattedMessage, dateString + " - " + message + " - " + level.name());	
+		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
 	
 	@Test
@@ -79,7 +81,7 @@ public class FormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} ­%n %p %n­ %t %n­ %m %%");
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} ­%n %p %n­ %t %n­ %m %%", "*");
 		String formattedMessage = formatter.format(message, level);
 		
 //		System.out.println(formattedMessage);

@@ -11,24 +11,31 @@ import ar.fiuba.tecnicas.logging.config.LogLevel;
 public class LogFormatter implements ILogFormatter {
 
 	private String format;
+	private String separator;
 	
 	private String dateRegex = Pattern.quote("%d{") + "(.*?)" + Pattern.quote("}");
 
-	public LogFormatter() {
+	public LogFormatter(String format, String separator) {
 		super();
-		// formato por defecto
-		this.format = "[%p] - %m";
-	}
-
-	public LogFormatter(String format) {
-		super();
-		this.format = format;
+		
+		if(format.equals("")) {
+			//default format
+			this.format = "[%p] %n %m";
+		} else {
+			this.format = format;
+		}
+		
+		if(separator.equals("")) {
+			//default separator
+			this.separator = "-";
+		} else {
+			this.separator = separator;
+		}
 	}
 
 	@Override
 	public String format(String message, LogLevel level) {
 
-		// TODO: Modificar mensaje de acuerdo al format
 		/****************
 		 * FORMATOS *****************
 		 * %d{xxxxxxx} debería aceptar cualquier formato
@@ -43,14 +50,12 @@ public class LogFormatter implements ILogFormatter {
 		 * %M method name. 
 		 ******************************************/
 
-		// TODO: agarrar formato del format
-		
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat());
 		Date d = new Date();
 		String date = dateFormat.format(d);
 
 		String threadName = Thread.currentThread().getName();
-		String separator = "*";
+		String separator = this.separator;
 		String lineNumber = Integer.toString(Thread.currentThread().getStackTrace()[3].getLineNumber());
 		String filename = Thread.currentThread().getStackTrace()[3].getFileName();
 		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
@@ -65,8 +70,6 @@ public class LogFormatter implements ILogFormatter {
 		formattedMessage = formattedMessage.replace("%L", lineNumber);
 		formattedMessage = formattedMessage.replace("%F", filename);
 		formattedMessage = formattedMessage.replace("%M", methodName);
-		// return Thread.currentThread().getStackTrace()[3].getLineNumber() +
-		// " - " + message + "-" + level;
 
 		return formattedMessage;
 	}

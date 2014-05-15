@@ -32,5 +32,9 @@ public class LoggerConfig {
 	public String getFormat() {
 		return this.properties.getValue("Format");
 	}
+
+	public String getSeparator() {
+		return this.properties.getValue("Separator");
+	}
 	
 }

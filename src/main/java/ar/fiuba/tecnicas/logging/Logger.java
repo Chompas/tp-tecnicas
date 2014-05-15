@@ -21,7 +21,7 @@ public class Logger {
 		this.config = new LoggerConfig(configFile);
 		this.filter = new Filter(this.config.getGlobalLogLevel());
 		this.outputs = new ArrayList<IHandler>();
-		this.logFormatter = new LogFormatter(this.config.getFormat());		
+		this.logFormatter = new LogFormatter(this.config.getFormat(),this.config.getSeparator());		
 	}
 	
 	public void log(String message, LogLevel level) {
