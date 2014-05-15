@@ -34,7 +34,7 @@ public class LoggerTest {
 		logger.addHandler(consoleHandler);
 		
 		// act
-		logger.log(message, LogLevel.ERROR);
+		logger.log(message, LogLevel.FATAL);
 		
 		// assert
 		//Mockito.verify(mockedConsoleHandler).write(message);
