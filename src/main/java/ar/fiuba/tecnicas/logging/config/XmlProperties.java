@@ -2,26 +2,33 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 public class XmlProperties implements IProperties {
 	
-	private FileInputStream xmlFile;
+	private Properties properties;
 	
 	public XmlProperties(FileInputStream xmlFile)
 	{
-		this.xmlFile = xmlFile;
+		this.properties = new Properties();
+		try {
+			this.properties.loadFromXML(xmlFile);
+		} catch (InvalidPropertiesFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public String getValue(String key) {
-		Properties properties = new Properties();
-		
 		try {
-			properties.loadFromXML(xmlFile);
 			return properties.getProperty(key);
-		} catch (NullPointerException | IOException e) {
+		} catch (NullPointerException e) {
 			return "";
-		}		
+		}			
 	}
 }
