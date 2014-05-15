@@ -9,7 +9,6 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 

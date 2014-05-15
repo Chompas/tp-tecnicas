@@ -10,7 +10,6 @@ import org.mockito.Mockito;
 
 import ar.fiuba.tecnicas.logging.*;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class LoggerTest {
@@ -18,13 +17,16 @@ public class LoggerTest {
 	private Logger logger;
 	private String message;
 	private String formattedMessage;
+	private LogLevel level;
 	
 	@Before
 	public void iniatilize()
 	{
-		logger = new Logger(new File("config.xml"));
-		message = "simple message";
-		formattedMessage = "simple message - DEBUG";
+		this.logger = new Logger(new File("config.xml"));
+		this.message = "simple message";
+		
+		this.level = LogLevel.DEBUG;
+		this.formattedMessage = "[" + this.level + "] - " + this.message;
 	}
 	
 	@Test
@@ -35,7 +37,7 @@ public class LoggerTest {
 		logger.addHandler(mockedConsoleHandler);
 		
 		// act
-		logger.log(message, LogLevel.DEBUG);
+		logger.log(message, level);
 		
 		// assert
 		Mockito.verify(mockedConsoleHandler).write(formattedMessage);

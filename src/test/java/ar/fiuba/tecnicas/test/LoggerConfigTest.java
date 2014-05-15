@@ -11,22 +11,22 @@ import ar.fiuba.tecnicas.logging.config.XmlProperties;
 
 public class LoggerConfigTest {
 	
+	private LoggerConfig config;
+	
 	@Test
 	public void testGetGlobalLogLevel()
-	{
-		/*
+	{		
 		// arrange
 		XmlProperties mockedProperties = mock(XmlProperties.class);
 		when(mockedProperties.getValue("LogLevel")).thenReturn("INFO");
 		
-		LoggerConfig config = new LoggerConfig(mockedProperties);
+		config = new LoggerConfig(mockedProperties);
 		
 		// act
-		config.setGlobalLogLevel();
+		config.getGlobalLogLevel();
 		
 		// assert
 		Mockito.verify(mockedProperties).getValue("LogLevel");
-		assertEquals(LogLevel.INFO, config.getGlobalLogLevel());
-		*/
+		assertEquals(LogLevel.INFO, config.getGlobalLogLevel());		
 	}
 }
