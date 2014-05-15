@@ -15,12 +15,25 @@ public class LoggerConfig {
 	public LoggerConfig(File configFile) {
 		FileInputStream xmlConfig;
 		
-		try {
-			xmlConfig = new FileInputStream(configFile);
-			this.properties = new XmlProperties(xmlConfig);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String extension = "";
+		int i = configFile.getAbsolutePath().lastIndexOf('.');
+		if (i > 0) {
+		    extension = configFile.getAbsolutePath().substring(i+1);
+		    
+		    switch (FileExtension.valueOf(extension)) {
+			case xml:
+				try {
+					xmlConfig = new FileInputStream(configFile);
+					this.properties = new XmlProperties(xmlConfig);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			default:
+				break;
+			}
 		}
 	}
 	
