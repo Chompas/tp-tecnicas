@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging.config;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -8,10 +9,10 @@ public class LoggerConfig {
 	private LogLevel globalLogLevel;
 	private IProperties properties;
 	
-	public LoggerConfig(String configPath) {
+	public LoggerConfig(File configFile) {
 		FileInputStream xmlConfig;
 		try {
-			xmlConfig = new FileInputStream(configPath);
+			xmlConfig = new FileInputStream(configFile);
 			this.properties = new XmlProperties(xmlConfig);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -24,8 +25,8 @@ public class LoggerConfig {
 	}
 
 	public LogLevel getGlobalLogLevel() {
-		//TODO: read level from config
-		return LogLevel.ERROR;
+		String globalLogLevel = this.properties.getValue("LogLevel");
+		return LogLevel.valueOf(globalLogLevel);
 	}
 	
 	public String getFormat() {
