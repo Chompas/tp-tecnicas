@@ -20,7 +20,7 @@ public class LoggerTest {
 	private LogLevel level;
 	
 	@Before
-	public void iniatilize()
+	public void initialize()
 	{
 		this.logger = new Logger(new File("config.xml"));
 		this.message = "simple message";
