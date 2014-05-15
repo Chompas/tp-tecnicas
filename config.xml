@@ -3,6 +3,6 @@
    <properties> 
    	<entry key="LogLevel">DEBUG</entry>
     <entry key="Separator">-</entry>
-    <entry key="Format">%d{"HH:mm:ss"} %n %p %n %m-</entry>
+    <entry key="Format">%d{HH:mm:ss} %n %p %n %m</entry>
     <entry key="Outputs">Console,log.txt</entry>
    </properties>

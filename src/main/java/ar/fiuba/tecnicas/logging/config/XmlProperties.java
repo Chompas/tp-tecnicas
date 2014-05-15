@@ -20,15 +20,23 @@ public class XmlProperties implements IProperties {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public String getValue(String key) {
+		String value;
 		try {
-			return properties.getProperty(key);
+			value = properties.getProperty(key);
+			if(value == null) {
+				value = "";
+			} 
 		} catch (NullPointerException e) {
-			return "";
+			value = "";
 		}			
+		return value;
 	}
 }

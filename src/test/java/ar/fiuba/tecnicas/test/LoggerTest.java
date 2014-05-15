@@ -28,18 +28,4 @@ public class LoggerTest {
 		this.level = LogLevel.DEBUG;
 		this.formattedMessage = "[" + this.level + "] - " + this.message;
 	}
-	
-	@Test
-	public void testlogCallsWrite()
-	{	
-		// arrange
-		ConsoleHandler mockedConsoleHandler = mock(ConsoleHandler.class);
-		//logger.addHandler(mockedConsoleHandler);
-		
-		// act
-		logger.log(message, level);
-		
-		// assert
-		Mockito.verify(mockedConsoleHandler).write(formattedMessage);
-	}
 }

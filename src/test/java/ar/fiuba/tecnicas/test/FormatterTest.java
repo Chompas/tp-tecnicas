@@ -72,23 +72,5 @@ public class FormatterTest {
 		
 		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
-	
-	@Test
-	public void testFormatterReturningFormatWithAllPosibilitiesCorrectly() {
-		
-		String pattern = "HH:mm dd-MM-yyyy";
-		DateFormat dateFormat = new SimpleDateFormat(pattern);
-		String dateString = dateFormat.format(date);
-		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} ­%n %p %n­ %t %n­ %m %%", "*");
-		String formattedMessage = formatter.format(message, level);
-		
-		String expectedMessage = dateString + " * " + level.name() + " * " + "main" + " * " + message + " %";
-
-		System.out.println(formattedMessage);
-		System.out.println(expectedMessage);
-		
-		assertEquals(formattedMessage, expectedMessage);	
-	}
 
 }
