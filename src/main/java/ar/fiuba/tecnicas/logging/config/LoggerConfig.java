@@ -6,11 +6,11 @@ import java.io.FileNotFoundException;
 
 public class LoggerConfig {
 
-	private LogLevel globalLogLevel;
 	private IProperties properties;
 	
 	public LoggerConfig(File configFile) {
 		FileInputStream xmlConfig;
+		
 		try {
 			xmlConfig = new FileInputStream(configFile);
 			this.properties = new XmlProperties(xmlConfig);
@@ -20,8 +20,8 @@ public class LoggerConfig {
 		}
 	}
 	
-	public void setGlobalLogLevel() {
-		//TODO
+	public LoggerConfig(IProperties properties) {
+		this.properties = properties;
 	}
 
 	public LogLevel getGlobalLogLevel() {
