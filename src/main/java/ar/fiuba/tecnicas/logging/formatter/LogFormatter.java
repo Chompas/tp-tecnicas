@@ -3,12 +3,16 @@ package ar.fiuba.tecnicas.logging.formatter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public class LogFormatter implements ILogFormatter {
 
 	private String format;
+	
+	private String dateRegex = Pattern.quote("%d{") + "(.*?)" + Pattern.quote("}");
 
 	public LogFormatter() {
 		super();
@@ -40,7 +44,8 @@ public class LogFormatter implements ILogFormatter {
 		 ******************************************/
 
 		// TODO: agarrar formato del format
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat());
 		Date d = new Date();
 		String date = dateFormat.format(d);
 
@@ -51,7 +56,7 @@ public class LogFormatter implements ILogFormatter {
 		String methodName = "";
 
 		String formattedMessage = this.format;
-		formattedMessage = formattedMessage.replace("%d", date);
+		formattedMessage = formattedMessage.replaceAll(this.dateRegex, date);
 		formattedMessage = formattedMessage.replace("%p", level.name());
 		formattedMessage = formattedMessage.replace("%t", threadName);
 		formattedMessage = formattedMessage.replace("%m", message);
@@ -64,6 +69,18 @@ public class LogFormatter implements ILogFormatter {
 		// " - " + message + "-" + level;
 
 		return formattedMessage;
+	}
+	
+	private String getDateFormat() {
+		Pattern pattern = Pattern.compile(this.dateRegex);
+		Matcher matcher = pattern.matcher(this.format);
+
+		String textInBetween = "";
+		while (matcher.find()) {
+		  textInBetween = matcher.group(1); 
+		}	
+		return textInBetween;
+	
 	}
 
 }

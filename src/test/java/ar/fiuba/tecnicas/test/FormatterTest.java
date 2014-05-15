@@ -2,6 +2,10 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +18,7 @@ public class FormatterTest {
 	private LogFormatter defaultFormatter;
 	private String message;
 	private LogLevel level;
+	private Date date;
 
 	@Before
 	public void initialize()
@@ -21,6 +26,7 @@ public class FormatterTest {
 		defaultFormatter = new LogFormatter();
 		message = "simple message";
 		level = LogLevel.ERROR;
+		date = new Date();
 	}
 	
 	@Test
@@ -38,6 +44,19 @@ public class FormatterTest {
 		String formattedMessage = formatter.format(message, level);
 		
 		assertEquals(formattedMessage, level.name()+ " + " + level.name() + " + " + message + level.name() + "% " + message);	
+	}
+	
+	@Test
+	public void testFormatterReturningSimpleDateFormatCorrectly() {
+		
+		String pattern = "yyyy.MM.dd";
+		DateFormat dateFormat = new SimpleDateFormat(pattern);
+		String dateString = dateFormat.format(date);
+		
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} - %m - %p");
+		String formattedMessage = formatter.format(message, level);
+		
+		assertEquals(formattedMessage, dateString + " - " + message + " - " + level.name());	
 	}
 
 }
