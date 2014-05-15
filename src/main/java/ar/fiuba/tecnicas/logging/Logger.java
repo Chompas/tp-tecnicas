@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,26 +15,20 @@ public class Logger {
 	private List<IHandler> outputs;
 	private LoggerConfig config;
 	private ILogFormatter logFormatter;
+	private Filter filter;
 	
-	private boolean showLevel(LogLevel level) {
-		return (level.getCode() <= config.getGlobalLogLevel().getCode()); 
-	}
-	
-	public Logger(String configPath) {
-		
-		this.config = new LoggerConfig(configPath);
+	public Logger(File configFile) {		
+		this.config = new LoggerConfig(configFile);
+		this.filter = new Filter(this.config.getGlobalLogLevel());
 		this.outputs = new ArrayList<IHandler>();
-		
-		logFormatter = new LogFormatter(this.config.getFormat());
-		
+		this.logFormatter = new LogFormatter(this.config.getFormat());		
 	}
 	
 	public void log(String message, LogLevel level) {
-		if (showLevel(level)) {
-			String formattedMessage = logFormatter.format(message, level);
-			for (IHandler handler : this.outputs){
-				handler.write(formattedMessage);
-			}
+		String filteredMessage = this.filter.filter(message, level);
+		String formattedMessage = this.logFormatter.format(filteredMessage, level);
+		for (IHandler handler : this.outputs){
+			handler.write(formattedMessage);
 		}
 	}
 	
