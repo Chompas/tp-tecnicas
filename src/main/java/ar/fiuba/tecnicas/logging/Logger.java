@@ -11,21 +11,21 @@ import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class Logger {
-	
+
 	private List<IHandler> outputs;
 	private LoggerConfig config;
 	private ILogFormatter logFormatter;
 	private Filter filter;
-	
+
 	public Logger(File configFile) {		
-		this.config = new LoggerConfig(configFile);
+		this.config = new LoggerConfig(configFile.getAbsolutePath());
 		this.filter = new Filter(this.config.getGlobalLogLevel());
 		this.outputs = new ArrayList<IHandler>();
 		this.logFormatter = new LogFormatter(this.config.getFormat(),this.config.getSeparator());
-		
+
 		this.addHandlersFromConfig();		
 	}
-	
+
 	public void log(String message, LogLevel level) {
 		String filteredMessage = this.filter.filter(message, level);
 		String formattedMessage = this.logFormatter.format(filteredMessage, level);
@@ -33,11 +33,11 @@ public class Logger {
 			handler.write(formattedMessage);
 		}
 	}
-	
+
 	public void addHandler(IHandler handler) {
 		this.outputs.add(handler);
 	}
-	
+
 	private void addHandlersFromConfig() {
 		for (IHandler handler : this.config.getHandlers()) {
 			this.outputs.add(handler);

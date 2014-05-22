@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
-import ar.fiuba.tecnicas.logging.config.XmlProperties;
+import ar.fiuba.tecnicas.logging.config.JavaProperties;
 
 public class LoggerConfigTest {
 	
@@ -15,7 +15,7 @@ public class LoggerConfigTest {
 	
 	@Test
 	public void getGlobalLogLevel() {		
-		XmlProperties mockedProperties = mock(XmlProperties.class);
+		JavaProperties mockedProperties = mock(JavaProperties.class);
 		when(mockedProperties.getValue("LogLevel")).thenReturn("INFO");
 		
 		config = new LoggerConfig(mockedProperties);
@@ -28,7 +28,7 @@ public class LoggerConfigTest {
 	
 	@Test
 	public void getHandlers() {		
-		XmlProperties mockedProperties = mock(XmlProperties.class);
+		JavaProperties mockedProperties = mock(JavaProperties.class);
 		when(mockedProperties.getValue("LogLevel")).thenReturn("INFO");
 		
 		config = new LoggerConfig(mockedProperties);

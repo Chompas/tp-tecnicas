@@ -6,7 +6,7 @@ import java.util.List;
 public class HandlerFactory {
 	
 	public List<IHandler> createHandlers(String outputs) {
-		List <IHandler> handlers = new ArrayList<IHandler>();
+		List <IHandler> handlers = new ArrayList<>();
 		
 		String[] outputsSplitted = outputs.split(",");
 		

@@ -2,22 +2,20 @@ package ar.fiuba.tecnicas.test;
 
 import static org.junit.Assert.*;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.config.XmlProperties;
+import ar.fiuba.tecnicas.logging.config.JavaProperties;
 
-public class XmlPropertiesLoaderTest {
+public class JavaPropertiesTest {
 	
-	private XmlProperties loader;
+	private JavaProperties loader;
 	
 	@Test
 	public void valueReadCorrectlyFromConfigFile()
 			throws FileNotFoundException {
-		FileInputStream xmlFile = new FileInputStream("config.xml");
-		this.loader = new XmlProperties(xmlFile);
+		this.loader = new JavaProperties("config.properties");
 		
 		String actualSeparator = loader.getValue("Separator");
 		
@@ -28,7 +26,7 @@ public class XmlPropertiesLoaderTest {
 	@Test
 	public void emptyValueReturnedIfConfigFileNotFound() {
 
-		this.loader = new XmlProperties(null);
+		this.loader = new JavaProperties("");
 		
 		String actualSeparator = loader.getValue("Separator");
 		

@@ -18,14 +18,14 @@ public class LogFormatter implements ILogFormatter {
 	public LogFormatter(String format, String separator) {
 		super();
 		
-		if(format.equals("")) {
+		if (format.equals("")) {
 			//default format
 			this.format = "[%p] %n %m";
 		} else {
 			this.format = format;
 		}
 		
-		if(separator.equals("")) {
+		if (separator.equals("")) {
 			//default separator
 			this.separator = "-";
 		} else {
@@ -82,8 +82,7 @@ public class LogFormatter implements ILogFormatter {
 		while (matcher.find()) {
 		  textInBetween = matcher.group(1); 
 		}	
-		return textInBetween;
-	
+		return textInBetween;	
 	}
 
 }
