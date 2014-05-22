@@ -21,8 +21,7 @@ public class FormatterTest {
 	private Date date;
 
 	@Before
-	public void initialize()
-	{
+	public void initialize() {
 		defaultFormatter = new LogFormatter("","");
 		message = "simple message";
 		level = LogLevel.ERROR;
@@ -31,14 +30,14 @@ public class FormatterTest {
 	}
 	
 	@Test
-	public void testDefaultFormatterReturningMessageWithDefaultFormatCorrectly() {
+	public void defaultFormatterReturningMessageWithDefaultFormatCorrectly() {
 		String formattedMessage = defaultFormatter.format(message, level);
 		
 		assertEquals(formattedMessage, "[" + level.name() + "] - " + message);	
 	}
 	
 	@Test
-	public void testFormatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {
+	public void formatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {
 		
 		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m","");
 		
@@ -48,7 +47,7 @@ public class FormatterTest {
 	}
 	
 	@Test
-	public void testFormatterReturningSimpleDateFormatCorrectly() {
+	public void formatterReturningSimpleDateFormatCorrectly() {
 		
 		String pattern = "yyyy.MM.dd";
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -61,7 +60,7 @@ public class FormatterTest {
 	}
 	
 	@Test
-	public void testFormatterReturningAnotherSimpleDateFormatCorrectly() {
+	public void formatterReturningAnotherSimpleDateFormatCorrectly() {
 		
 		String pattern = "dd/MM/yyyy HH:mm";
 		DateFormat dateFormat = new SimpleDateFormat(pattern);

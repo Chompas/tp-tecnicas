@@ -9,19 +9,16 @@ public class XmlProperties implements IProperties {
 	
 	private Properties properties;
 	
-	public XmlProperties(FileInputStream xmlFile)
-	{
+	public XmlProperties(FileInputStream xmlFile) {
 		this.properties = new Properties();
 		try {
 			this.properties.loadFromXML(xmlFile);
 		} catch (InvalidPropertiesFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-
+			e.printStackTrace();
 		}
 	}
 

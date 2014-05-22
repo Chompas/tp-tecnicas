@@ -26,7 +26,6 @@ public class LoggerConfig {
 					xmlConfig = new FileInputStream(configFile);
 					this.properties = new XmlProperties(xmlConfig);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -54,8 +53,7 @@ public class LoggerConfig {
 		return this.properties.getValue("Separator");
 	}
 	
-	public List<IHandler> getHandlers()
-	{
+	public List<IHandler> getHandlers()	{
 		HandlerFactory factory = new HandlerFactory();		
 		return factory.createHandlers(this.properties.getValue("Outputs"));
 	}

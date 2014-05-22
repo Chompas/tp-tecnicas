@@ -9,8 +9,7 @@ public class FileHandler implements IHandler {
 
 	private String filename;
 	
-	public FileHandler(String filename)
-	{
+	public FileHandler(String filename){ 
 		this.filename = filename;
 	}
 	
@@ -20,7 +19,7 @@ public class FileHandler implements IHandler {
 			PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.filename, true)));
 			logFile.println(message);
 			logFile.close();
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

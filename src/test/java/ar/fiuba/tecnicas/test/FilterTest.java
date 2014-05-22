@@ -13,29 +13,21 @@ public class FilterTest {
 	private static String message = "test";
 	
 	@Test
-	public void returnsEmptyStringIfLevelIsLower()
-	{	
-		// arrange
+	public void returnsEmptyStringIfLevelIsLower() {
 		this.filter = new Filter(LogLevel.ERROR);
 		
-		// act
 		String filteredMessage = this.filter.filter(message, LogLevel.DEBUG);
 		
-		// assert
 		String expectedMessage = "";
 		assertEquals(expectedMessage, filteredMessage);
 	}
 	
 	@Test
-	public void returnsStringIfLevelIsHigher()
-	{	
-		// arrange
+	public void returnsStringIfLevelIsHigher() {	
 		this.filter = new Filter(LogLevel.DEBUG);
 		
-		// act
 		String filteredMessage = this.filter.filter(message, LogLevel.ERROR);
 		
-		// assert
 		assertEquals(message, filteredMessage);
 	}
 

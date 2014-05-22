@@ -17,14 +17,12 @@ public class HandlerFactoryTest {
 	private HandlerFactory factory;
 	
 	@Before
-	public void initialize()
-	{
+	public void initialize() {
 		this.factory = new HandlerFactory();
 	}
 	
 	@Test
-	public void testConsoleHandlerIsBuilt()
-	{		
+	public void consoleHandlerIsBuilt() {		
 		List<IHandler> handlers = this.factory.createHandlers("Console");
 		
 		assertEquals(1,handlers.size());
@@ -32,8 +30,7 @@ public class HandlerFactoryTest {
 	}
 	
 	@Test
-	public void testFileHandlerIsBuiltForValidFile()
-	{		
+	public void fileHandlerIsBuiltForValidFile() {		
 		List<IHandler> handlers = this.factory.createHandlers("output.txt");
 		
 		assertEquals(1,handlers.size());

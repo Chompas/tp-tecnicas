@@ -14,30 +14,24 @@ public class XmlPropertiesLoaderTest {
 	private XmlProperties loader;
 	
 	@Test
-	public void testValueReadCorrectlyFromConfigFile() throws FileNotFoundException
-	{
-		// arrange
+	public void valueReadCorrectlyFromConfigFile()
+			throws FileNotFoundException {
 		FileInputStream xmlFile = new FileInputStream("config.xml");
 		this.loader = new XmlProperties(xmlFile);
 		
-		// act
 		String actualSeparator = loader.getValue("Separator");
 		
-		// assert
 		String expectedSeparator = "-";
 		assertEquals(expectedSeparator, actualSeparator);	
 	}
 	
 	@Test
-	public void testEmptyValueReturnedIfConfigFileNotFound()
-	{
-		// arrange
+	public void emptyValueReturnedIfConfigFileNotFound() {
+
 		this.loader = new XmlProperties(null);
 		
-		// act
 		String actualSeparator = loader.getValue("Separator");
 		
-		// assert
 		String expectedSeparator = "";
 		assertEquals(expectedSeparator, actualSeparator);		
 	}

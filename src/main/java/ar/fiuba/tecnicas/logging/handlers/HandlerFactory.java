@@ -11,8 +11,7 @@ public class HandlerFactory {
 		String[] outputsSplitted = outputs.split(",");
 		
 		for (String output : outputsSplitted) {
-			if (output.equals("Console"))
-			{
+			if (output.equals("Console")) {
 				handlers.add(new ConsoleHandler());
 			}
 			else {

@@ -23,14 +23,13 @@ public class Logger {
 		this.outputs = new ArrayList<IHandler>();
 		this.logFormatter = new LogFormatter(this.config.getFormat(),this.config.getSeparator());
 		
-		this.addHandlersFromConfig();
-		
+		this.addHandlersFromConfig();		
 	}
 	
 	public void log(String message, LogLevel level) {
 		String filteredMessage = this.filter.filter(message, level);
 		String formattedMessage = this.logFormatter.format(filteredMessage, level);
-		for (IHandler handler : this.outputs){
+		for (IHandler handler : this.outputs) {
 			handler.write(formattedMessage);
 		}
 	}
