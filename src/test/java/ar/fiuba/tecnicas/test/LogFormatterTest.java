@@ -12,7 +12,7 @@ import org.junit.Test;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 
-public class FormatterTest {
+public class LogFormatterTest {
 	
 	private LogFormatter defaultFormatter;
 	private String message;
@@ -22,7 +22,7 @@ public class FormatterTest {
 
 	@Before
 	public void initialize() {
-		defaultFormatter = new LogFormatter("","");
+		defaultFormatter = new LogFormatter("", "");
 		message = "simple message";
 		level = LogLevel.ERROR;
 		separator = "-";
@@ -39,7 +39,7 @@ public class FormatterTest {
 	@Test
 	public void formatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {
 		
-		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m","");
+		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m", "");
 		
 		String formattedMessage = formatter.format(message, level);
 		
@@ -53,7 +53,7 @@ public class FormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p",separator);
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
 		String formattedMessage = formatter.format(message, level);
 		
 		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
@@ -66,7 +66,7 @@ public class FormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p",separator);
+		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
 		String formattedMessage = formatter.format(message, level);
 		
 		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	

@@ -26,7 +26,7 @@ public class HandlerFactoryTest {
 		List<IHandler> handlers = this.factory.createHandlers("Console");
 		
 		assertEquals(1,handlers.size());
-		assertEquals(ConsoleHandler.class,handlers.get(0).getClass());		
+		assertEquals(ConsoleHandler.class,handlers.get(0).getClass());
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class HandlerFactoryTest {
 		List<IHandler> handlers = this.factory.createHandlers("output.txt");
 		
 		assertEquals(1,handlers.size());
-		assertEquals(FileHandler.class,handlers.get(0).getClass());		
+		assertEquals(FileHandler.class,handlers.get(0).getClass());
 	}
 
 }

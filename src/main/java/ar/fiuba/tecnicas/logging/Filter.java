@@ -13,8 +13,7 @@ public class Filter {
 	public String filter(String message, LogLevel level) {
 		if (shouldShowMessage(level)) {
 			return message;
-		}
-		else {
+		} else {
 			return "";
 		}
 	}

@@ -56,9 +56,9 @@ public class LogFormatter implements ILogFormatter {
 
 		String threadName = Thread.currentThread().getName();
 		String separator = this.separator;
-		String lineNumber = Integer.toString(Thread.currentThread().getStackTrace()[3].getLineNumber());
-		String filename = Thread.currentThread().getStackTrace()[3].getFileName();
-		String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
+		String lineNumber = FormatterHelper.getCallingLineNumber();
+		String filename = FormatterHelper.getCallingFilename();
+		String methodName = FormatterHelper.getCallingMethod();
 
 		String formattedMessage = this.format;
 		formattedMessage = formattedMessage.replaceAll(this.dateRegex, date);

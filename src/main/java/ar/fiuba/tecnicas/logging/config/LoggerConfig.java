@@ -9,12 +9,15 @@ public class LoggerConfig {
 
 	private IProperties properties;
 
-	public LoggerConfig(String absolutePathConfigFile) {
-		this.properties = new JavaProperties(absolutePathConfigFile);
-	}
-
-	public LoggerConfig(IProperties properties) {
-		this.properties = properties;
+	public LoggerConfig() {
+	// si existe config.properties
+		// instanciar JavaProperties
+		// si existe config xml
+		// instanciar XmlProperties
+		// si no
+		// .... clase que tenga valores por default
+		//TODO
+		this.properties = new DefaultProperties();
 	}
 
 	public LogLevel getGlobalLogLevel() {

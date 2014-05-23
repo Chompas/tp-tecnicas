@@ -9,7 +9,7 @@ public class FileHandler implements IHandler {
 
 	private String filename;
 	
-	public FileHandler(String filename){ 
+	public FileHandler(String filename) { 
 		this.filename = filename;
 	}
 	

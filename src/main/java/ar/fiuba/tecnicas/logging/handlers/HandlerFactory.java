@@ -16,7 +16,7 @@ public class HandlerFactory {
 			}
 			else {
 				String filename = output;
-				handlers.add(new FileHandler(filename));				
+				handlers.add(new FileHandler(filename));
 			}
 		}
 		
