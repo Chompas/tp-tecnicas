@@ -27,12 +27,16 @@ public class JavaPropertiesTest {
 	@Test
 	public void emptyValueReturnedIfConfigFileNotFound() {
 
-		this.loader = new JavaProperties("");
-		
-		String actualSeparator = loader.getValue("Separator");
-		
-		String expectedSeparator = "";
-		assertEquals(expectedSeparator, actualSeparator);		
+		try {
+			this.loader = new JavaProperties("");
+			
+			String actualSeparator = loader.getValue("Separator");
+			
+			String expectedSeparator = "";
+			assertEquals(expectedSeparator, actualSeparator);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 }

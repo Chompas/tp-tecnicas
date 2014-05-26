@@ -16,7 +16,6 @@ public class JavaProperties implements IProperties {
 			properties.load(file);
 			file.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
