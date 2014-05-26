@@ -3,15 +3,15 @@ package ar.fiuba.tecnicas.logging.formatter;
 public class FormatterHelper {
 	
 	public static String getCallingMethod() {
-		return Thread.currentThread().getStackTrace()[3].getMethodName();
+		return Thread.currentThread().getStackTrace()[2].getMethodName();
 	}
 	
 	public static String getCallingFilename() {
-		return Thread.currentThread().getStackTrace()[3].getFileName();
+		return Thread.currentThread().getStackTrace()[2].getFileName();
 	}
 	
 	public static String getCallingLineNumber() {
-		return Integer.toString(Thread.currentThread().getStackTrace()[3].getLineNumber());
+		return Integer.toString(Thread.currentThread().getStackTrace()[2].getLineNumber());
 	}
 
 }
