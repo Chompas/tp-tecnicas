@@ -11,7 +11,7 @@ public class LoggerConfigTest {
 	
 	@Test
 	public void getGlobalLogLevel() {
-		config = new LoggerConfig();
+		this.config = new LoggerConfig();
 		
 		IProperties defaultConfig = new DefaultProperties();
 		

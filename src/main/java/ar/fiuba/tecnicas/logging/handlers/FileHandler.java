@@ -20,7 +20,6 @@ public class FileHandler implements IHandler {
 			logFile.println(message);
 			logFile.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }

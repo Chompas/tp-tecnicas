@@ -18,7 +18,7 @@ public class LoggerTest {
 	private LogLevel level;
 	
 	@Before
-	public void initialize() {
+	public void init() {
 		this.logger = new Logger();
 		this.message = "simple message";
 		
