@@ -20,6 +20,6 @@ public class HandlerFactory {
 			}
 		}
 		
-		return handlers;		
+		return handlers;
 	}
 }

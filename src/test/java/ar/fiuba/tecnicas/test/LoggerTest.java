@@ -2,8 +2,13 @@ package ar.fiuba.tecnicas.test;
 
 import static org.mockito.Mockito.mock;
 
-import org.junit.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import org.junit.*;
 import org.mockito.*;
 
 import ar.fiuba.tecnicas.logging.*;
@@ -23,7 +28,17 @@ public class LoggerTest {
 		this.message = "simple message";
 		
 		this.level = LogLevel.DEBUG;
-		this.formattedMessage = this.level + " - " + this.message;
+	}
+	
+	@After
+	public void tearDown()
+	{
+		File file = new File("log.txt");
+		try {
+			Files.delete(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -33,6 +48,8 @@ public class LoggerTest {
 		
 		this.logger.log(this.message, this.level);
 		
+		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		this.formattedMessage = now + " - " + this.level + " - " + this.message;
 		Mockito.verify(mockedHandler).write(this.formattedMessage);
-	}
+	}	
 }

@@ -1,5 +1,6 @@
 package ar.fiuba.tecnicas.logging.config;
 
+import java.io.File;
 import java.util.List;
 
 import ar.fiuba.tecnicas.logging.handlers.HandlerFactory;
@@ -10,14 +11,14 @@ public class LoggerConfig {
 	private IProperties properties;
 
 	public LoggerConfig() {
-	// si existe config.properties
-		// instanciar JavaProperties
-		// si existe config xml
-		// instanciar XmlProperties
-		// si no
-		// .... clase que tenga valores por default
-		//TODO
-		this.properties = new DefaultProperties();
+		String filename = "config.properties";
+		File file = new File(filename);
+		
+		if (file.exists()) {
+			this.properties = new JavaProperties(filename);
+		} else {
+			this.properties = new DefaultProperties();
+		}
 	}
 
 	public LogLevel getGlobalLogLevel() {
