@@ -8,7 +8,7 @@
 
 - Multiples logggers
 	
-	logger = xx.getLogger("nombre-del-modulo")
+    logger = xx.getLogger("nombre-del-modulo")
 
 ó
 
@@ -32,6 +32,8 @@
 - binding a SL4J (simple logging  facade for java)
 
 - api += throwables
+
+*__Javier__: Agregué un método en la clase `Logger` que recibe un `Throwable`, y este le appendea al mensaje ya formateado el mensaje de la excepción *
 
 - inicializacion automatica del logger (ya está implementado asi en el constructor de `LoggerConfig`)
 
