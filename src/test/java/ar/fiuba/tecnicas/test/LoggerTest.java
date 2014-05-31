@@ -19,6 +19,7 @@ public class LoggerTest {
 	
 	private Logger logger;
 	private String message;
+	private String anotherMessage;
 	private String formattedMessage;
 	private String errorMessage;
 	private String filterRegex;
@@ -28,6 +29,7 @@ public class LoggerTest {
 	public void init() {
 		this.logger = new Logger();
 		this.message = "simple message";
+		this.anotherMessage = "another message";
 		this.errorMessage = "ERROR MESSAGE";
 		this.filterRegex = "^((?!simple).)*$";
 		
@@ -70,7 +72,7 @@ public class LoggerTest {
 	}	
 	
 	@Test
-	public void logWithFilterRegex() {
+	public void logWithFilterRegexNoExpectedMessage() {
 		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
 		this.logger.addHandler(mockedHandler);
 		this.logger.addFilterRegex(this.filterRegex);
@@ -79,6 +81,20 @@ public class LoggerTest {
 		
 		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
 		String expected = now + " - " + this.level + " - ";
+		
+		Mockito.verify(mockedHandler).write(expected);
+	}	
+	
+	@Test
+	public void logWithFilterRegex() {
+		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
+		this.logger.addHandler(mockedHandler);
+		this.logger.addFilterRegex(this.filterRegex);
+		
+		this.logger.log(this.anotherMessage, this.level);
+		
+		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		String expected = now + " - " + this.level + " - "+ this.anotherMessage ;
 		
 		Mockito.verify(mockedHandler).write(expected);
 	}	
