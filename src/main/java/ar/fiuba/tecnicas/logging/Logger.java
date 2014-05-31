@@ -32,6 +32,15 @@ public class Logger {
 			handler.write(formattedMessage);
 		}
 	}
+	
+	public void log(String message, LogLevel level, Throwable e) {
+		String filteredMessage = this.filter.filter(message, level);
+		String formattedMessage = this.logFormatter.format(filteredMessage, level);
+		formattedMessage+=" Exception: "+ e.getMessage();
+		for (IHandler handler : this.outputs) {
+			handler.write(formattedMessage);
+		}
+	}
 
 	public void addHandler(IHandler handler) {
 		this.outputs.add(handler);

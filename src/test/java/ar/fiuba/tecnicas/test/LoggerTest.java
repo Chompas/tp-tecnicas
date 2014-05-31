@@ -20,12 +20,14 @@ public class LoggerTest {
 	private Logger logger;
 	private String message;
 	private String formattedMessage;
+	private String errorMessage;
 	private LogLevel level;
 	
 	@Before
 	public void init() {
 		this.logger = new Logger();
 		this.message = "simple message";
+		this.errorMessage = "ERROR MESSAGE";
 		
 		this.level = LogLevel.DEBUG;
 	}
@@ -50,6 +52,18 @@ public class LoggerTest {
 		
 		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
 		this.formattedMessage = now + " - " + this.level + " - " + this.message;
+		Mockito.verify(mockedHandler).write(this.formattedMessage);
+	}
+	
+	@Test
+	public void logWithException() {
+		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
+		this.logger.addHandler(mockedHandler);
+		
+		this.logger.log(this.message, this.level, new Exception(this.errorMessage));
+		
+		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		this.formattedMessage = now + " - " + this.level + " - " + this.message + " Exception: "+this.errorMessage;
 		Mockito.verify(mockedHandler).write(this.formattedMessage);
 	}	
 }
