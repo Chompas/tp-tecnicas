@@ -16,7 +16,7 @@ public class FilterTest {
 	public void returnsEmptyStringIfLevelIsLower() {
 		this.filter = new Filter(LogLevel.ERROR);
 		
-		String filteredMessage = this.filter.filter(message, LogLevel.DEBUG);
+		String filteredMessage = this.filter.filter(message, LogLevel.DEBUG,"");
 		
 		String expectedMessage = "";
 		assertEquals(expectedMessage, filteredMessage);
@@ -26,7 +26,7 @@ public class FilterTest {
 	public void returnsStringIfLevelIsHigher() {	
 		this.filter = new Filter(LogLevel.DEBUG);
 		
-		String filteredMessage = this.filter.filter(message, LogLevel.ERROR);
+		String filteredMessage = this.filter.filter(message, LogLevel.ERROR,"");
 		
 		assertEquals(message, filteredMessage);
 	}

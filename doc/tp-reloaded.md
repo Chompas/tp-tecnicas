@@ -33,13 +33,15 @@
 
 - api += throwables
 
-*__Javier__: Agregué un método en la clase `Logger` que recibe un `Throwable`, y este le appendea al mensaje ya formateado el mensaje de la excepción *
+_**Javier**: Agregué un método en la clase `Logger` que recibe un `Throwable`, y este le appendea al mensaje ya formateado el mensaje de la excepción_
 
 - inicializacion automatica del logger (ya está implementado asi en el constructor de `LoggerConfig`)
 
 - filtrado regex
 
 por ejemplo, filtrar los logs que tengan una palabra en particular
+
+_**Javier**: Agregué la regex como atributo del `Logger`, modificando el método de filter, el cual evalua la expresión regular_
 
 - filtros custom (?)
 

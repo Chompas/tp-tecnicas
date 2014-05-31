@@ -10,8 +10,8 @@ public class Filter {
 		this.globalLogLevel = globalLogLevel;
 	}
 
-	public String filter(String message, LogLevel level) {
-		if (shouldShowMessage(level)) {
+	public String filter(String message, LogLevel level, String filterRegex) {
+		if (shouldShowMessage(level) && shouldShowMessage(message, filterRegex)) {
 			return message;
 		} else {
 			return "";
@@ -19,7 +19,15 @@ public class Filter {
 	}
 
 	private boolean shouldShowMessage(LogLevel level) {
-		return level.getCode() <= globalLogLevel.getCode(); 
+		return level.getCode() <= globalLogLevel.getCode();
+	}
+
+	private boolean shouldShowMessage(String message, String filterRegex) {
+		boolean result = true;
+		if (!filterRegex.equals("")) {
+			result = message.matches(filterRegex);
+		}
+		return result;
 	}
 
 }

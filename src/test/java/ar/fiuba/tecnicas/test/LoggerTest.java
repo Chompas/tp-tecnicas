@@ -21,6 +21,7 @@ public class LoggerTest {
 	private String message;
 	private String formattedMessage;
 	private String errorMessage;
+	private String filterRegex;
 	private LogLevel level;
 	
 	@Before
@@ -28,6 +29,7 @@ public class LoggerTest {
 		this.logger = new Logger();
 		this.message = "simple message";
 		this.errorMessage = "ERROR MESSAGE";
+		this.filterRegex = "^((?!simple).)*$";
 		
 		this.level = LogLevel.DEBUG;
 	}
@@ -65,5 +67,19 @@ public class LoggerTest {
 		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
 		this.formattedMessage = now + " - " + this.level + " - " + this.message + " Exception: "+this.errorMessage;
 		Mockito.verify(mockedHandler).write(this.formattedMessage);
+	}	
+	
+	@Test
+	public void logWithFilterRegex() {
+		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
+		this.logger.addHandler(mockedHandler);
+		this.logger.addFilterRegex(this.filterRegex);
+		
+		this.logger.log(this.message, this.level);
+		
+		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		String expected = now + " - " + this.level + " - ";
+		
+		Mockito.verify(mockedHandler).write(expected);
 	}	
 }
