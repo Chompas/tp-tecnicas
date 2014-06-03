@@ -45,6 +45,11 @@ public class LogMessage {
 		return this.hashMessage;
 	}
 	
+	public void addException (Throwable e) {
+		plainMessage += " Exception: " + e.getMessage();
+		hashMessage.put("exception", e.getMessage());
+	}
+	
 	private void setupHashMessage(String format, String separator, String message, LogLevel logLevel) {
 		
 		hashMessage.put("level", logLevel.name());

@@ -5,6 +5,6 @@ import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public interface ILogFormatter {
 
-	public String format(String message, LogLevel level);
+	public LogMessage format(String message, LogLevel level);
 	
 }

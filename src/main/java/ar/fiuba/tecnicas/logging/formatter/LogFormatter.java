@@ -28,8 +28,8 @@ public class LogFormatter implements ILogFormatter {
 	}
 
 	@Override
-	public String format(String message, LogLevel level) {
-
+	public LogMessage format(String message, LogLevel level) {
+		return new LogMessage(this.format, this.separator, message, level);
 
 	}
 	
