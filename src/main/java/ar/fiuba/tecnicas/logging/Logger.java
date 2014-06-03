@@ -9,7 +9,7 @@ import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
-public class Logger {
+public class Logger implements ILogger {
 
 	private List<IHandler> outputs;
 	private LoggerConfig config;
@@ -38,7 +38,7 @@ public class Logger {
 	public void log(String message, LogLevel level, Throwable e) {
 		String filteredMessage = this.filter.filter(message, level,this.filterRegex);
 		String formattedMessage = this.logFormatter.format(filteredMessage, level);
-		formattedMessage+=" Exception: "+ e.getMessage();
+		formattedMessage += " Exception: "+ e.getMessage();
 		for (IHandler handler : this.outputs) {
 			handler.write(formattedMessage);
 		}
