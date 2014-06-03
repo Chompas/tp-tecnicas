@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+
 public class FileHandler implements IHandler {
 
 	private String filename;
@@ -14,10 +16,10 @@ public class FileHandler implements IHandler {
 	}
 	
 	@Override
-	public void write(String message) {
+	public void write(LogMessage message) {
 		try {
 			PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.filename, true)));
-			logFile.println(message);
+			logFile.println(message.getPlainMessage());
 			logFile.close();
 		} catch (IOException e) {
 		}
