@@ -11,12 +11,13 @@ public class LoggerConfig {
 	private IProperties properties;
 
 	public LoggerConfig() {
-		String filename = "config.properties";
-		File file = new File(filename);
-		
-		if (file.exists()) {
-			this.properties = new JavaProperties(filename);
-		} else {
+		if ((new File("config.properties")).exists()) {
+			this.properties = new JavaProperties("config.properties");
+		} 
+		else if ((new File("config.xml")).exists()) {
+			this.properties = new XmlProperties("config.xml");
+		}
+		else {
 			this.properties = new DefaultProperties();
 		}
 	}
