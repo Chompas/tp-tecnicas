@@ -5,8 +5,13 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
@@ -17,25 +22,32 @@ import com.google.gson.stream.JsonReader;
 
 public class JsonHandlerTest {
 	
-	private static String filename = "outputFile.json";
 	private static String message = "testtest";
+	private static File jsonFile = new File("outputFile.json");
 	
 	@After
 	public void tearDown()
 	{
-		File file = new File(filename);
-		file.delete();
+		try {
+			Path path = jsonFile.toPath();
+			Files.delete(path);
+		} catch (IOException e) {
+		}
 	}
-	
+
 	@Test
 	public void shouldWrite() {
+		LogMessage logMessage = new LogMessage("[%p] %n %m", "-", message, LogLevel.INFO);		
+		JsonHandler jsonHandler = new JsonHandler(jsonFile.getName());
+		
+		jsonHandler.write(logMessage);
+		
+		assertShouldWrite();
+	}
+
+	private void assertShouldWrite() {
 		try {
-			LogMessage logMessage = new LogMessage("[%p] %n %m", "-", message, LogLevel.INFO);
-			
-			JsonHandler jsonHandler = new JsonHandler(filename);			
-			jsonHandler.write(logMessage);
-			
-			JsonReader jsonReader = new JsonReader(new FileReader(filename));
+			JsonReader jsonReader = new JsonReader(new FileReader(jsonFile.getAbsolutePath()));
 			jsonReader.beginObject();
 			
 			while (jsonReader.hasNext()) {
@@ -43,14 +55,15 @@ public class JsonHandlerTest {
 				if (name.equals("message")) {
 					String messageFromJson = jsonReader.nextString();
 					assertEquals(message, messageFromJson);
+				} else {
+					jsonReader.skipValue();
 				}
-				break;
 			}
 							
 			jsonReader.endObject();
-			jsonReader.close();			
+			jsonReader.close();
 		} catch (Exception e) {
-			fail();
+			fail("Couldn't read the jSON file");
 		}
 	}
 

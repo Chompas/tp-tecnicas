@@ -104,10 +104,13 @@ public class LogMessage {
 		return textInBetween;	
 	}
 	
-	public boolean equals( Object obj ){
+	public boolean equals(Object obj) {
+		if (obj.getClass() != LogMessage.class) {
+			return false;
+		}
+		
 		LogMessage logmessage = (LogMessage) obj;
-		return this.getPlainMessage().equals(logmessage.getPlainMessage());
-	}
-	
+		return this.plainMessage.equals(logmessage.getPlainMessage());
+	}	
 
 }
