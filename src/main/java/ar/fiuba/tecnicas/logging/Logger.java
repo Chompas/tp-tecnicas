@@ -30,16 +30,18 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-		String filteredMessage = this.filter.filter(message, level,this.filterRegex);
-		LogMessage logMessage = this.logFormatter.format(filteredMessage, level);
+
+		LogMessage logMessage = filter(message, level);
+		
 		for (IHandler handler : this.outputs) {
 			handler.write(logMessage);
 		}
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-		String filteredMessage = this.filter.filter(message, level,this.filterRegex);
-		LogMessage logMessage = this.logFormatter.format(filteredMessage, level);
+
+		LogMessage logMessage = filter(message, level);
+		
 		logMessage.addException(e);
 		for (IHandler handler : this.outputs) {
 			handler.write(logMessage);
@@ -52,6 +54,14 @@ public class Logger implements ILogger {
 
 	public void addFilterRegex(String filterRegex) {
 		this.filterRegex = filterRegex;
+	}
+	
+	private LogMessage filter(String message, LogLevel level) {
+		
+		LogMessage logMessage = this.logFormatter.format(message, level);
+		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex);
+		
+		return filteredMessage;
 	}
 	
 	private void addHandlersFromConfig() {

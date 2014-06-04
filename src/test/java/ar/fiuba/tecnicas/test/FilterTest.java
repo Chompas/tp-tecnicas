@@ -1,11 +1,14 @@
 package ar.fiuba.tecnicas.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.Date;
 
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.Filter;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class FilterTest {
 	
@@ -16,19 +19,20 @@ public class FilterTest {
 	public void returnsEmptyStringIfLevelIsLower() {
 		this.filter = new Filter(LogLevel.ERROR);
 		
-		String filteredMessage = this.filter.filter(message, LogLevel.DEBUG,"");
+		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.DEBUG);
+		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.DEBUG,"");
 		
-		String expectedMessage = "";
-		assertEquals(expectedMessage, filteredMessage);
+		assertEquals(null, filteredMessage);
 	}
 	
 	@Test
 	public void returnsStringIfLevelIsHigher() {	
 		this.filter = new Filter(LogLevel.DEBUG);
 		
-		String filteredMessage = this.filter.filter(message, LogLevel.ERROR,"");
+		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
+		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"");
 		
-		assertEquals(message, filteredMessage);
+		assertEquals(message, filteredMessage.getPlainMessage());
 	}
 
 }

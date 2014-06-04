@@ -1,6 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class Filter {
 
@@ -10,11 +11,11 @@ public class Filter {
 		this.globalLogLevel = globalLogLevel;
 	}
 
-	public String filter(String message, LogLevel level, String filterRegex) {
-		if (shouldShowMessage(level) && shouldShowMessage(message, filterRegex)) {
-			return message;
+	public LogMessage filter(LogMessage logMessage, LogLevel level, String filterRegex) {
+		if (shouldShowMessage(level) && shouldShowMessage(logMessage.getPlainMessage(), filterRegex)) {
+			return logMessage;
 		} else {
-			return "";
+			return null;
 		}
 	}
 
