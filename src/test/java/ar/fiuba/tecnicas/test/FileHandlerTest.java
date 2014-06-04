@@ -3,6 +3,7 @@ package ar.fiuba.tecnicas.test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
@@ -32,13 +33,17 @@ public class FileHandlerTest {
 			FileHandler fileHandler = new FileHandler(filename);			
 			fileHandler.write(logMessage);
 			
-			Scanner fileReader = new Scanner(new FileReader(filename));
-					
-			assertEquals(logMessage.getPlainMessage(), fileReader.nextLine());
-			
-			fileReader.close();			
+			assertShouldWrite();			
 		} catch (Exception e) {
 			fail();
 		}
+	}
+
+	private void assertShouldWrite() throws FileNotFoundException {
+		Scanner fileReader = new Scanner(new FileReader(filename));
+				
+		assertEquals(logMessage.getPlainMessage(), fileReader.nextLine());
+		
+		fileReader.close();
 	}	
 }
