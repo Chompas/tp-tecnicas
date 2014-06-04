@@ -36,7 +36,15 @@ public class Filter {
 	private boolean shouldShowMessage(LogMessage logMessage, CustomFilter customFilter) {
 		boolean result = true;
 		
-		if (result && customFilter.getFromDate() != null && customFilter.getFromDate().after(logMessage.getDate())) {
+		if (result && customFilter.fromDate != null && customFilter.fromDate.after(logMessage.getDate())) {
+			result = false;
+		}
+		
+		if (result && customFilter.toDate != null && customFilter.toDate.before(logMessage.getDate())) {
+			result = false;
+		}
+		
+		if (result && customFilter.lineNumber != null && customFilter.lineNumber.equals(logMessage.getLineNumber())) {
 			result = false;
 		}
 		

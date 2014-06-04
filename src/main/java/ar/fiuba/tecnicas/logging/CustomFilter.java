@@ -6,19 +6,8 @@ public class CustomFilter {
 	
 	public Date fromDate;
 	public Date toDate;
+	public String lineNumber;
 	
 	
-	public Date getFromDate() {
-		return fromDate;
-	}
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
-	}
-	public Date getToDate() {
-		return toDate;
-	}
-	public void setToDate(Date toDate) {
-		this.toDate = toDate;
-	}
 
 }

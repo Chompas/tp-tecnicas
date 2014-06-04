@@ -42,7 +42,7 @@ public class FilterTest {
 		this.filter = new Filter(LogLevel.DEBUG);
 		Date today = new Date();
 		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
-		this.customFilter.setFromDate(tomorrow);
+		this.customFilter.fromDate = tomorrow;
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
 		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
@@ -55,7 +55,7 @@ public class FilterTest {
 		this.filter = new Filter(LogLevel.DEBUG);
 		Date today = new Date();
 		Date yesterday = new Date(today.getTime() - (1000 * 60 * 60 * 24));
-		this.customFilter.setFromDate(yesterday);
+		this.customFilter.fromDate = yesterday;
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
 		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
