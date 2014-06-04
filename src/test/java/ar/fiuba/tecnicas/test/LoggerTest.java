@@ -5,14 +5,15 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import org.junit.*;
-import org.mockito.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
-import ar.fiuba.tecnicas.logging.*;
+import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class LoggerTest {
@@ -20,10 +21,10 @@ public class LoggerTest {
 	private Logger logger;
 	private String message;
 	private String anotherMessage;
-	private String formattedMessage;
 	private String errorMessage;
 	private String filterRegex;
 	private LogLevel level;
+	private LogMessage logMessage;
 	
 	@Before
 	public void init() {
@@ -54,9 +55,11 @@ public class LoggerTest {
 		
 		this.logger.log(this.message, this.level);
 		
-		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
-		this.formattedMessage = now + " - " + this.level + " - " + this.message;
-		Mockito.verify(mockedHandler).write(this.formattedMessage);
+//		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		//this.formattedMessage = now + " - " + this.level + " - " + this.message;
+		this.logMessage = new LogMessage("HH:mm:ss", "-", this.message, this.level);
+		//Mockito.verify(mockedHandler).write(this.formattedMessage);
+		Mockito.verify(mockedHandler).write(this.logMessage);
 	}
 	
 	@Test
@@ -66,9 +69,11 @@ public class LoggerTest {
 		
 		this.logger.log(this.message, this.level, new Exception(this.errorMessage));
 		
-		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
-		this.formattedMessage = now + " - " + this.level + " - " + this.message + " Exception: "+this.errorMessage;
-		Mockito.verify(mockedHandler).write(this.formattedMessage);
+//		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+		//this.formattedMessage = now + " - " + this.level + " - " + this.message + " Exception: "+this.errorMessage;
+		//Mockito.verify(mockedHandler).write(this.formattedMessage);
+		this.logMessage = new LogMessage("HH:mm:ss", "-", this.message, this.level);
+		Mockito.verify(mockedHandler).write(this.logMessage);
 	}	
 	
 	@Test
@@ -79,10 +84,13 @@ public class LoggerTest {
 		
 		this.logger.log(this.message, this.level);
 		
-		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
-		String expected = now + " - " + this.level + " - ";
+//		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//		String expected = now + " - " + this.level + " - ";
 		
-		Mockito.verify(mockedHandler).write(expected);
+		this.logMessage = new LogMessage("HH:mm:ss", "-", "", this.level);
+		
+//		Mockito.verify(mockedHandler).write(expected);
+		Mockito.verify(mockedHandler).write(this.logMessage);
 	}	
 	
 	@Test
@@ -93,9 +101,12 @@ public class LoggerTest {
 		
 		this.logger.log(this.anotherMessage, this.level);
 		
-		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
-		String expected = now + " - " + this.level + " - "+ this.anotherMessage ;
+//		String now = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//		String expected = now + " - " + this.level + " - "+ this.anotherMessage ;
 		
-		Mockito.verify(mockedHandler).write(expected);
+		this.logMessage = new LogMessage("HH:mm:ss", "-", this.anotherMessage, this.level);
+		
+//		Mockito.verify(mockedHandler).write(expected);
+		Mockito.verify(mockedHandler).write(this.logMessage);
 	}	
 }

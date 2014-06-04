@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class LogFormatterTest {
 	
@@ -31,9 +32,9 @@ public class LogFormatterTest {
 	
 	@Test
 	public void defaultFormatterReturningMessageWithDefaultFormatCorrectly() {
-		String formattedMessage = defaultFormatter.format(message, level);
+		LogMessage formattedMessage = defaultFormatter.format(message, level);
 		
-		assertEquals(formattedMessage, "[" + level.name() + "] - " + message);	
+		assertEquals(formattedMessage.getPlainMessage(), "[" + level.name() + "] - " + message);	
 	}
 	
 	@Test
@@ -41,9 +42,9 @@ public class LogFormatterTest {
 		
 		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m", "");
 		
-		String formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(message, level);
 		
-		assertEquals(formattedMessage, level.name()+ " + " + level.name() + " + " + message + level.name() + "% " + message);	
+		assertEquals(formattedMessage.getPlainMessage(), level.name()+ " + " + level.name() + " + " + message + level.name() + "% " + message);	
 	}
 	
 	@Test
@@ -54,9 +55,9 @@ public class LogFormatterTest {
 		String dateString = dateFormat.format(date);
 		
 		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
-		String formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(message, level);
 		
-		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
+		assertEquals(formattedMessage.getPlainMessage(), dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
 	
 	@Test
@@ -67,9 +68,9 @@ public class LogFormatterTest {
 		String dateString = dateFormat.format(date);
 		
 		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
-		String formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(message, level);
 		
-		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
+		assertEquals(formattedMessage.getPlainMessage(), dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
 
 }

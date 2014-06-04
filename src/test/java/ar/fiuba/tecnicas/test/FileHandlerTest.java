@@ -9,12 +9,15 @@ import java.util.Scanner;
 import org.junit.After;
 import org.junit.Test;
 
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.FileHandler;
 
 public class FileHandlerTest {
 	
 	private static String filename = "outputFile.txt";
 	private static String message = "test";
+	private LogMessage logMessage = new LogMessage("", "", message, LogLevel.DEBUG);
 	
 	@After
 	public void tearDown()
@@ -27,11 +30,11 @@ public class FileHandlerTest {
 	public void shouldWrite() {
 		try {
 			FileHandler fileHandler = new FileHandler(filename);			
-			fileHandler.write(message);
+			fileHandler.write(logMessage);
 			
 			Scanner fileReader = new Scanner(new FileReader(filename));
 					
-			assertEquals(message, fileReader.nextLine());
+			assertEquals(logMessage.getPlainMessage(), fileReader.nextLine());
 			
 			fileReader.close();			
 		} catch (Exception e) {
