@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,6 +27,7 @@ public class LoggerTest {
 	private LogLevel level;
 	private LogMessage logMessage;
 	private LogMessage logEmptyMessage;
+	private static Date now = new Date();
 	
 	@Before
 	public void init() {
@@ -35,8 +37,8 @@ public class LoggerTest {
 		this.errorMessage = "ERROR MESSAGE";
 		this.filterRegex = "^((?!simple).)*$";		
 		this.level = LogLevel.DEBUG;
-		this.logMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.message, this.level);
-		this.logEmptyMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", "", this.level);	
+		this.logMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.message, this.level);
+		this.logEmptyMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", "", this.level);	
 	}
 	
 	@After
@@ -55,7 +57,7 @@ public class LoggerTest {
 		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
 		this.logger.addHandler(mockedHandler);
 		
-		this.logger.log(this.message, this.level);
+		this.logger.log(now, this.message, this.level);
 		
 		Mockito.verify(mockedHandler).write(this.logMessage);
 	}
@@ -65,9 +67,9 @@ public class LoggerTest {
 		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
 		this.logger.addHandler(mockedHandler);
 		
-		this.logger.log(this.message, this.level, new Exception(this.errorMessage));
+		this.logger.log(now, this.message, this.level, new Exception(this.errorMessage));
 		
-		LogMessage logErrorMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
+		LogMessage logErrorMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
 				
 		Mockito.verify(mockedHandler).write(logErrorMessage);
 	}	
@@ -78,7 +80,7 @@ public class LoggerTest {
 		this.logger.addHandler(mockedHandler);
 		this.logger.addFilterRegex(this.filterRegex);
 		
-		this.logger.log(this.message, this.level);
+		this.logger.log(now, this.message, this.level);
 		
 		Mockito.verify(mockedHandler).write(this.logEmptyMessage);
 	}	
@@ -89,9 +91,9 @@ public class LoggerTest {
 		this.logger.addHandler(mockedHandler);
 		this.logger.addFilterRegex(this.filterRegex);
 		
-		this.logger.log(this.anotherMessage, this.level);
+		this.logger.log(now, this.anotherMessage, this.level);
 				
-		this.logMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.anotherMessage, this.level);
+		this.logMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.anotherMessage, this.level);
 		
 		Mockito.verify(mockedHandler).write(this.logMessage);
 	}	

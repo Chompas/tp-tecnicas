@@ -1,5 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
+import java.util.Date;
+
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public class LoggerWithName extends LoggerDecorator {
@@ -16,8 +18,8 @@ public class LoggerWithName extends LoggerDecorator {
 	}
 
 	@Override
-	public void log(String message, LogLevel level) {
-		this.logger.log(message, level);
+	public void log(Date date, String message, LogLevel level) {
+		this.logger.log(date, message, level);
 	}
 
 }

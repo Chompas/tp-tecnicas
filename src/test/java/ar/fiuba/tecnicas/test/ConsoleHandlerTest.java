@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,12 +19,14 @@ public class ConsoleHandlerTest {
 	private PrintStream originalSysOut;
     private ByteArrayOutputStream mockOut;
     private LogMessage logMessage;
+    private Date now;
 
     @Before
     public void setSysOut() {
         originalSysOut = System.out;
         mockOut = new ByteArrayOutputStream();
-        logMessage = new LogMessage("", "", "hello", LogLevel.DEBUG);
+        now = new Date();
+        logMessage = new LogMessage(now, "", "", "hello", LogLevel.DEBUG);
         System.setOut(new PrintStream(mockOut));
     }
 

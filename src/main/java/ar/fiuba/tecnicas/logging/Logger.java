@@ -1,6 +1,7 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
@@ -25,10 +26,10 @@ public class Logger implements ILogger {
 		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
 		this.filterRegex = "";
 
-		this.addHandlersFromConfig();		
+		this.addHandlersFromConfig();
 	}
 
-	public void log(String message, LogLevel level) {
+	public void log(Date date, String message, LogLevel level) {
 		String filteredMessage = this.filter.filter(message, level,this.filterRegex);
 		LogMessage logMessage = this.logFormatter.format(filteredMessage, level);
 		for (IHandler handler : this.outputs) {
@@ -36,7 +37,7 @@ public class Logger implements ILogger {
 		}
 	}
 	
-	public void log(String message, LogLevel level, Throwable e) {
+	public void log(Date date, String message, LogLevel level, Throwable e) {
 		String filteredMessage = this.filter.filter(message, level,this.filterRegex);
 		LogMessage logMessage = this.logFormatter.format(filteredMessage, level);
 		logMessage.addException(e);

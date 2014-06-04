@@ -5,9 +5,11 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
@@ -18,7 +20,13 @@ public class FileHandlerTest {
 	
 	private static String filename = "outputFile.txt";
 	private static String message = "test";
-	private LogMessage logMessage = new LogMessage("", "", message, LogLevel.DEBUG);
+	private static Date now = new Date();
+	private LogMessage logMessage;
+	
+	@Before
+	public void init() {
+		this.logMessage = new LogMessage(now, "", "", message, LogLevel.DEBUG);
+	}
 	
 	@After
 	public void tearDown()

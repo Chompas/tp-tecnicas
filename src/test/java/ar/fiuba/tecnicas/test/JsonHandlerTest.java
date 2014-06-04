@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Test;
@@ -22,6 +23,7 @@ public class JsonHandlerTest {
 	
 	private static String message = "testtest";
 	private static File jsonFile = new File("outputFile.json");
+	private static Date now = new Date();
 	
 	@After
 	public void tearDown()
@@ -35,7 +37,7 @@ public class JsonHandlerTest {
 
 	@Test
 	public void shouldWrite() {
-		LogMessage logMessage = new LogMessage("[%p] %n %m", "-", message, LogLevel.INFO);		
+		LogMessage logMessage = new LogMessage(now, "[%p] %n %m", "-", message, LogLevel.INFO);		
 		JsonHandler jsonHandler = new JsonHandler(jsonFile.getName());
 		
 		jsonHandler.write(logMessage);

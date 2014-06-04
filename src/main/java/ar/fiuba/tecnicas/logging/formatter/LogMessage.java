@@ -20,12 +20,9 @@ public class LogMessage {
 	private String filename;
 	private String methodName;
 	
-	public LogMessage(String format, String separator, String message, LogLevel logLevel) {
-		super();
-		
+	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
-		Date d = new Date();
-		this.date = dateFormat.format(d);
+		this.date = dateFormat.format(date);
 
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();

@@ -1,12 +1,15 @@
 package ar.fiuba.tecnicas.logging.formatter;
 
+import java.util.Date;
+
 import ar.fiuba.tecnicas.logging.config.DefaultProperties;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public class LogFormatter implements ILogFormatter {
 
 	private String format;
-	private String separator;	
+	private String separator;
+	private static Date now = new Date();
 
 	public LogFormatter(String format, String separator) {
 		if (format.equals("")) {
@@ -26,7 +29,7 @@ public class LogFormatter implements ILogFormatter {
 
 	@Override
 	public LogMessage format(String message, LogLevel level) {
-		return new LogMessage(this.format, this.separator, message, level);
+		return new LogMessage(now, this.format, this.separator, message, level);
 	}
 	
 }
