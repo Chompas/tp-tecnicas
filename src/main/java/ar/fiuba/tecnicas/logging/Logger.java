@@ -18,6 +18,7 @@ public class Logger implements ILogger {
 	private ILogFormatter logFormatter;
 	private Filter filter;
 	private String filterRegex;
+	private CustomFilter customFilter;
 
 	public Logger() {		
 		this.config = new LoggerConfig();
@@ -25,6 +26,7 @@ public class Logger implements ILogger {
 		this.outputs = new ArrayList<>();
 		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
 		this.filterRegex = "";
+		this.customFilter = new CustomFilter();
 
 		this.addHandlersFromConfig();
 	}
@@ -52,10 +54,14 @@ public class Logger implements ILogger {
 		this.filterRegex = filterRegex;
 	}
 	
+	public void addCustomFilter(CustomFilter customFilter) {
+		this.customFilter = customFilter;
+	}
+	
 	private LogMessage filter(String message, LogLevel level) {
 		
 		LogMessage logMessage = this.logFormatter.format(message, level);
-		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex);
+		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
 		
 		return filteredMessage;
 	}

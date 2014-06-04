@@ -14,7 +14,8 @@ public class LogMessage {
 	private String plainMessage;
 	private HashMap<String, String> hashMessage = new HashMap<String, String>();
 	private String dateRegex = Pattern.quote("%d{") + "(.*?)" + Pattern.quote("}");
-	private String date;
+	private Date date;
+	private String dateString;
 	private String threadName;
 	private String lineNumber;
 	private String filename;
@@ -22,7 +23,8 @@ public class LogMessage {
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
-		this.date = dateFormat.format(date);
+		this.date = date;
+		this.dateString = dateFormat.format(date);
 
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();
@@ -77,7 +79,7 @@ public class LogMessage {
 
 
 		String formattedMessage = format;
-		formattedMessage = formattedMessage.replaceAll(this.dateRegex, this.date);
+		formattedMessage = formattedMessage.replaceAll(this.dateRegex, this.dateString);
 		formattedMessage = formattedMessage.replace("%p", logLevel.name());
 		formattedMessage = formattedMessage.replace("%t", this.threadName);
 		formattedMessage = formattedMessage.replace("%m", message);
@@ -108,6 +110,30 @@ public class LogMessage {
 		
 		LogMessage logmessage = (LogMessage) obj;
 		return this.plainMessage.equals(logmessage.getPlainMessage());
+	}
+
+	public String getDateString() {
+		return dateString;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public String getThreadName() {
+		return threadName;
+	}
+
+	public String getLineNumber() {
+		return lineNumber;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public String getMethodName() {
+		return methodName;
 	}	
 
 }
