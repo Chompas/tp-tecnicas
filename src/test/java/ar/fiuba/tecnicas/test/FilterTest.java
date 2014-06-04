@@ -18,7 +18,7 @@ public class FilterTest {
 	private CustomFilter customFilter = new CustomFilter();
 	
 	@Test
-	public void returnsEmptyStringIfLevelIsLower() {
+	public void returnsEmptyMessageIfLevelIsLower() {
 		this.filter = new Filter(LogLevel.ERROR);
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.DEBUG);
@@ -30,6 +30,32 @@ public class FilterTest {
 	@Test
 	public void returnsStringIfLevelIsHigher() {	
 		this.filter = new Filter(LogLevel.DEBUG);
+		
+		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
+		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
+		
+		assertEquals(message, filteredMessage.getPlainMessage());
+	}
+	
+	@Test
+	public void customFilterWithFutureFromDate() {
+		this.filter = new Filter(LogLevel.DEBUG);
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		this.customFilter.setFromDate(tomorrow);
+		
+		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
+		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
+		
+		assertEquals(null, filteredMessage);
+	}
+	
+	@Test
+	public void customFilterWithPastFromDate() {
+		this.filter = new Filter(LogLevel.DEBUG);
+		Date today = new Date();
+		Date yesterday = new Date(today.getTime() - (1000 * 60 * 60 * 24));
+		this.customFilter.setFromDate(yesterday);
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
 		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
