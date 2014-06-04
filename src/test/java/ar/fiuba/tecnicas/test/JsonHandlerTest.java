@@ -6,12 +6,10 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;

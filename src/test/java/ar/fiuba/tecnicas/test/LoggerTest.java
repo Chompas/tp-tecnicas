@@ -25,7 +25,6 @@ public class LoggerTest {
 	private String filterRegex;
 	private LogLevel level;
 	private LogMessage logMessage;
-	private LogMessage logErrorMessage;
 	private LogMessage logEmptyMessage;
 	
 	@Before
@@ -37,8 +36,7 @@ public class LoggerTest {
 		this.filterRegex = "^((?!simple).)*$";		
 		this.level = LogLevel.DEBUG;
 		this.logMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.message, this.level);
-		this.logEmptyMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", "", this.level);
-		this.logErrorMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
+		this.logEmptyMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", "", this.level);	
 	}
 	
 	@After
@@ -68,8 +66,10 @@ public class LoggerTest {
 		this.logger.addHandler(mockedHandler);
 		
 		this.logger.log(this.message, this.level, new Exception(this.errorMessage));
+		
+		LogMessage logErrorMessage = new LogMessage("%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
 				
-		Mockito.verify(mockedHandler).write(this.logErrorMessage);
+		Mockito.verify(mockedHandler).write(logErrorMessage);
 	}	
 	
 	@Test
