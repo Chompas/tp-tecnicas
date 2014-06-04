@@ -1,27 +1,24 @@
 package ar.fiuba.tecnicas.logging.formatter;
 
+import ar.fiuba.tecnicas.logging.config.DefaultProperties;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public class LogFormatter implements ILogFormatter {
 
 	private String format;
-	private String separator;
-	
-	
+	private String separator;	
 
 	public LogFormatter(String format, String separator) {
-		super();
-		
 		if (format.equals("")) {
 			//default format
-			this.format = "[%p] %n %m";
+			this.format = (new DefaultProperties()).getValue("Format");
 		} else {
 			this.format = format;
 		}
 		
 		if (separator.equals("")) {
 			//default separator
-			this.separator = "-";
+			this.separator = (new DefaultProperties()).getValue("Separator");
 		} else {
 			this.separator = separator;
 		}
@@ -30,9 +27,6 @@ public class LogFormatter implements ILogFormatter {
 	@Override
 	public LogMessage format(String message, LogLevel level) {
 		return new LogMessage(this.format, this.separator, message, level);
-
 	}
 	
-
-
 }

@@ -11,7 +11,7 @@ public class DefaultProperties implements IProperties {
 		} else if (key == "Outputs") {
 			return "Console";
 		} else if (key == "Format") {
-			return "%p %n %m";
+			return "[%p] %n %m";
 		} else {
 			return "";
 		}

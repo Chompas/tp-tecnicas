@@ -18,7 +18,7 @@ public class JsonHandler implements IHandler {
 
 	@Override
 	public void write(LogMessage message) {
-		try {			
+		try {
 			JsonWriter jsonWriter = new JsonWriter(new FileWriter(this.filename, true));
 			jsonWriter.beginObject(); 
 			
@@ -32,7 +32,6 @@ public class JsonHandler implements IHandler {
 			jsonWriter.close();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 	}
