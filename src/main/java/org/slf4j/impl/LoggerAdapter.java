@@ -1,375 +1,357 @@
 package org.slf4j.impl;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.Marker;
-import org.slf4j.helpers.MessageFormatter;
+
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
 
 public class LoggerAdapter implements Logger{
+	
+	private ar.fiuba.tecnicas.logging.Logger logger;
+	private String name;
+	
+	public LoggerAdapter() {
+		logger = new ar.fiuba.tecnicas.logging.Logger();
+	}
+	
+	public LoggerAdapter(String name) {
+		this.name = name;
+	}
+	
+	private LogLevel generateLogLevel() {
+		String callingMethod = FormatterHelper.getLogLevelCallingMethod();
+		LogLevel logLevel = LogLevel.DEBUG;
+		if(callingMethod.equals("debug")) {
+			logLevel = LogLevel.DEBUG;
+		} else if(callingMethod.equals("trace")) {
+			logLevel = LogLevel.TRACE;
+		} else if(callingMethod.equals("error")) {
+			logLevel = LogLevel.ERROR;
+		} else if(callingMethod.equals("info")) {
+			logLevel = LogLevel.INFO;
+		} else if(callingMethod.equals("warn")) {
+			logLevel = LogLevel.WARN;
+		}
+		return logLevel;
+	}
+	
+	private void log(String msg){
+		logger.log(new Date(), msg, this.generateLogLevel());
+	}
+	
+	private void log(String msg, Throwable e){
+		logger.log(new Date(), msg, this.generateLogLevel(),e);
+	}
 
 	@Override
 	public void debug(String arg0) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void debug(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void debug(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);	
 	}
 
 	@Override
 	public void debug(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
+		this.log(arg0,arg1);
 		
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void debug(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
+		this.log(arg0);
 		
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);		
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
+		this.log(arg1);
 		
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1,arg2);
 	}
 
 	@Override
 	public void debug(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void error(String arg0) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void error(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void error(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);	
 	}
 
 	@Override
 	public void error(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0,arg1);
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void error(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);	
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);	
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1,arg2);	
 	}
 
 	@Override
 	public void error(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);	
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void info(String arg0) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void info(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);	
 	}
 
 	@Override
 	public void info(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void info(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0,arg1);
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void info(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);		
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);		
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1,arg2);
 	}
 
 	@Override
 	public void info(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);		
 	}
 
 	@Override
 	public boolean isDebugEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isDebugEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isErrorEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isErrorEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isInfoEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isInfoEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isTraceEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isTraceEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isWarnEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isWarnEnabled(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void trace(String arg0) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void trace(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);	
 	}
 
 	@Override
 	public void trace(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void trace(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0,arg1);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void trace(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1,arg2);
 	}
 
 	@Override
 	public void trace(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void warn(String arg0) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void warn(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void warn(String arg0, Object... arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void warn(String arg0, Throwable arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0,arg1);
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void warn(String arg0, Object arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg0);
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Throwable arg2) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1,arg2);
 	}
 
 	@Override
 	public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
-		// TODO Auto-generated method stub
-		
+		this.log(arg1);
 	}
 
 }
