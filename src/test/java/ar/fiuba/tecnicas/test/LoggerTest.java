@@ -82,7 +82,7 @@ public class LoggerTest {
 		
 		this.logger.log(now, this.message, this.level);
 		
-		Mockito.verify(mockedHandler).write(this.logEmptyMessage);
+		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage);
 	}	
 	
 	@Test

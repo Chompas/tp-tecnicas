@@ -32,18 +32,18 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-
 		LogMessage logMessage = filter(message, level);
-		write(logMessage);
-
+		if (logMessage != null) {
+			write(logMessage);
+		}
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-
 		LogMessage logMessage = filter(message, level);
 		logMessage.addException(e);
-		write(logMessage);
-
+		if (logMessage != null) {
+			write(logMessage);
+		}
 	}
 
 	public void addHandler(IHandler handler) {
@@ -59,7 +59,6 @@ public class Logger implements ILogger {
 	}
 	
 	private LogMessage filter(String message, LogLevel level) {
-		
 		LogMessage logMessage = this.logFormatter.format(message, level);
 		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
 		
