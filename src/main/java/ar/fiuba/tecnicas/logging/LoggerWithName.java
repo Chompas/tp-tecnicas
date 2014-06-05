@@ -21,5 +21,9 @@ public class LoggerWithName extends LoggerDecorator {
 	public void log(Date date, String message, LogLevel level) {
 		this.logger.log(date, message, level);
 	}
+	
+	public void log(Date date, String message, LogLevel level, Throwable e) {
+		this.logger.log(date, message, level, e);
+	}
 
 }
