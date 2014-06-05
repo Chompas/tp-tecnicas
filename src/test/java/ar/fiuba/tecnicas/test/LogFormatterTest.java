@@ -32,7 +32,7 @@ public class LogFormatterTest {
 	
 	@Test
 	public void defaultFormatterReturningMessageWithDefaultFormatCorrectly() {
-		LogMessage formattedMessage = defaultFormatter.format(message, level);
+		LogMessage formattedMessage = defaultFormatter.format(date, message, level);
 		
 		assertEquals(formattedMessage.getPlainMessage(), "[" + level.name() + "] - " + message);	
 	}
@@ -42,7 +42,7 @@ public class LogFormatterTest {
 		
 		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m", "");
 		
-		LogMessage formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(date, message, level);
 		
 		assertEquals(formattedMessage.getPlainMessage(), level.name()+ " + " + level.name() + " + " + message + level.name() + "% " + message);	
 	}
@@ -55,7 +55,7 @@ public class LogFormatterTest {
 		String dateString = dateFormat.format(date);
 		
 		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
-		LogMessage formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(date, message, level);
 		
 		assertEquals(formattedMessage.getPlainMessage(), dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}
@@ -68,7 +68,7 @@ public class LogFormatterTest {
 		String dateString = dateFormat.format(date);
 		
 		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
-		LogMessage formattedMessage = formatter.format(message, level);
+		LogMessage formattedMessage = formatter.format(date, message, level);
 		
 		assertEquals(formattedMessage.getPlainMessage(), dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
 	}

@@ -9,7 +9,6 @@ public class LogFormatter implements ILogFormatter {
 
 	private String format;
 	private String separator;
-	private static Date now = new Date();
 
 	public LogFormatter(String format, String separator) {
 		if (format.equals("")) {
@@ -28,8 +27,8 @@ public class LogFormatter implements ILogFormatter {
 	}
 
 	@Override
-	public LogMessage format(String message, LogLevel level) {
-		return new LogMessage(now, this.format, this.separator, message, level);
+	public LogMessage format(Date date, String message, LogLevel level) {
+		return new LogMessage(date, this.format, this.separator, message, level);
 	}
 	
 }

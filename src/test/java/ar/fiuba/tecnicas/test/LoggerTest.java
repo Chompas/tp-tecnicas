@@ -48,7 +48,6 @@ public class LoggerTest {
 		try {
 			Files.delete(file.toPath());
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	

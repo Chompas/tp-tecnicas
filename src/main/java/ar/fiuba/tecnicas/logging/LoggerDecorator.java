@@ -5,7 +5,7 @@ abstract class LoggerDecorator implements ILogger {
 	protected ILogger logger;
 	
 	public LoggerDecorator (ILogger loggerToBeDecorated) {
-        this.logger = loggerToBeDecorated;
-    }
+		this.logger = loggerToBeDecorated;
+	}
 
 }
