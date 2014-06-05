@@ -42,7 +42,3 @@ La clase principal es `Logger`, que tiene un método principal `log()`. Este mé
 - Filter custom: nueva clase `CustomFilter` la cual define los atributos posibles para el filtrado y adaptación de la clase `Logger` para su uso
 
 - Binding SL4J: nuevo paquete y clases `LoggerFactory` y `LoggerAdapter` para redefinir los métodos de SL4J
-
-- Nueva variable %g: fuerte impacto en el diseño. Se tuvo que agregar nuevos métodos de `log()` en `ILogger` recibiendo el nombre para poder implementarla. Esto produjo la incorporación de los mismos en la clase `Logger`
-
-- Destinos custom: no implementada
