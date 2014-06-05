@@ -7,7 +7,5 @@ public class CustomFilter {
 	public Date fromDate;
 	public Date toDate;
 	public String lineNumber;
-	
-	
 
 }
