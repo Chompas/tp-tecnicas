@@ -21,6 +21,24 @@ public class LogMessage {
 	private String filename;
 	private String methodName;
 	private LogLevel logLevel;
+	private String loggerName;
+	
+	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
+		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
+		this.date = date;
+		this.dateString = dateFormat.format(date);
+				
+		this.logLevel = logLevel;
+		this.loggerName = loggerName;
+		
+		this.threadName = Thread.currentThread().getName();
+		this.lineNumber = FormatterHelper.getCallingLineNumber();
+		this.filename = FormatterHelper.getCallingFilename();
+		this.methodName = FormatterHelper.getCallingMethod();
+		
+		this.setupPlainMessage(format, separator, message);
+		this.setupHashMessage(format, separator, message);		
+	}
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
@@ -28,6 +46,7 @@ public class LogMessage {
 		this.dateString = dateFormat.format(date);
 				
 		this.logLevel = logLevel;
+		this.loggerName = "";
 		
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();
@@ -81,6 +100,7 @@ public class LogMessage {
 		hashMessage.put("lineNumber", this.lineNumber);
 		hashMessage.put("filename", this.filename);
 		hashMessage.put("methodName", this.methodName);
+		hashMessage.put("loggerName", this.loggerName);
 	}
 	
 	private void setupPlainMessage(String format, String separator, String message) {
@@ -97,6 +117,7 @@ public class LogMessage {
 		 * ” con el que el usuario configuró la herramienta
 		 *  o un default a elección.  %L line number.  %F filename. 
 		 * %M method name. 
+		 * %g logger name
 		 ******************************************/
 
 		String formattedMessage = format;
@@ -109,6 +130,7 @@ public class LogMessage {
 		formattedMessage = formattedMessage.replace("%L", this.lineNumber);
 		formattedMessage = formattedMessage.replace("%F", this.filename);
 		formattedMessage = formattedMessage.replace("%M", this.methodName);
+		formattedMessage = formattedMessage.replace("%g", this.loggerName);
 
 		this.plainMessage = formattedMessage;
 	}

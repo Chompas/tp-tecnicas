@@ -32,21 +32,21 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-		LogMessage logMessage = filter(date, message, level);
+		LogMessage logMessage = filter(date, message, level, "");
 		if (logMessage != null) {
 			write(logMessage);
 		}
 	}
 	
 	public void log(Date date, String message, LogLevel level, String loggerName) {
-		LogMessage logMessage = filter(date, message, level);
+		LogMessage logMessage = filter(date, message, level, loggerName);
 		if (logMessage != null) {
 			write(logMessage);
 		}
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-		LogMessage logMessage = filter(date, message, level);		
+		LogMessage logMessage = filter(date, message, level, "");		
 		if (logMessage != null) {
 			logMessage.addException(e);
 			write(logMessage);
@@ -54,7 +54,7 @@ public class Logger implements ILogger {
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e, String loggerName) {
-		LogMessage logMessage = filter(date, message, level);		
+		LogMessage logMessage = filter(date, message, level, loggerName);		
 		if (logMessage != null) {
 			logMessage.addException(e);
 			write(logMessage);
@@ -73,8 +73,8 @@ public class Logger implements ILogger {
 		this.customFilter = customFilter;
 	}
 	
-	private LogMessage filter(Date date, String message, LogLevel level) {
-		LogMessage logMessage = this.logFormatter.format(date, message, level);
+	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
+		LogMessage logMessage = this.logFormatter.format(date, message, level, loggerName);
 		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
 		
 		return filteredMessage;

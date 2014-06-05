@@ -27,6 +27,11 @@ public class LogFormatter implements ILogFormatter {
 	}
 
 	@Override
+	public LogMessage format(Date date, String message, LogLevel level, String loggerName) {
+		return new LogMessage(date, this.format, this.separator, message, level, loggerName);
+	}
+	
+	@Override
 	public LogMessage format(Date date, String message, LogLevel level) {
 		return new LogMessage(date, this.format, this.separator, message, level);
 	}
