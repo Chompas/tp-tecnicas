@@ -38,7 +38,22 @@ public class Logger implements ILogger {
 		}
 	}
 	
+	public void log(Date date, String message, LogLevel level, String loggerName) {
+		LogMessage logMessage = filter(date, message, level);
+		if (logMessage != null) {
+			write(logMessage);
+		}
+	}
+	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
+		LogMessage logMessage = filter(date, message, level);		
+		if (logMessage != null) {
+			logMessage.addException(e);
+			write(logMessage);
+		}
+	}
+	
+	public void log(Date date, String message, LogLevel level, Throwable e, String loggerName) {
 		LogMessage logMessage = filter(date, message, level);		
 		if (logMessage != null) {
 			logMessage.addException(e);
