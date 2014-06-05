@@ -22,6 +22,7 @@ public class LoggerWithName extends LoggerDecorator {
 		this.logger.log(date, message, level);
 	}
 	
+	@Override
 	public void log(Date date, String message, LogLevel level, Throwable e) {
 		this.logger.log(date, message, level, e);
 	}
