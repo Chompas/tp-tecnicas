@@ -42,8 +42,7 @@ public class LoggerTest {
 	}
 	
 	@After
-	public void tearDown()
-	{
+	public void tearDown() {
 		File file = new File("log.txt");
 		try {
 			Files.delete(file.toPath());

@@ -3,7 +3,7 @@ package org.slf4j.impl;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.spi.LoggerFactoryBinder;
 
-public class StaticLoggerBinder implements LoggerFactoryBinder {
+public final class StaticLoggerBinder implements LoggerFactoryBinder {
 
 	/**
      * The unique instance of this class.

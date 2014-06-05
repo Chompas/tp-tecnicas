@@ -44,7 +44,7 @@ public class LogFormatterTest {
 		
 		LogMessage formattedMessage = formatter.format(date, message, level);
 		
-		assertEquals(formattedMessage.getPlainMessage(), level.name()+ " + " + level.name() + " + " + message + level.name() + "% " + message);	
+		assertEquals(formattedMessage.getPlainMessage(), level.name() + " + " + level.name() + " + " + message + level.name() + "% " + message);	
 	}
 	
 	@Test

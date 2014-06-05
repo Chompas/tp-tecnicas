@@ -2,7 +2,7 @@ package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 
-public class LoggersWithNameFactory {
+public final class LoggersWithNameFactory {
 	
 	private static LoggersWithNameFactory uniqueInstance;
 	private ArrayList<LoggerWithName> loggersWithName;
@@ -20,8 +20,9 @@ public class LoggersWithNameFactory {
 	
 	public LoggerWithName getLogger(String name) {
 		for (LoggerWithName logger : this.loggersWithName) {
-			if (logger.getName() == name)
+			if (logger.getName() == name) {
 				return logger;
+			}
 		}
 		return null;
 	}
@@ -36,8 +37,9 @@ public class LoggersWithNameFactory {
 	
 	private boolean loggerWithNameExists(String name) {
 		for (LoggerWithName logger : loggersWithName) {
-			if (logger.getName() == name)
+			if (logger.getName() == name) {
 				return true;
+			}
 		}
 		return false;
 	}

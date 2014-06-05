@@ -8,7 +8,7 @@ import org.slf4j.Marker;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
 
-public class LoggerAdapter implements Logger{
+public class LoggerAdapter implements Logger {
 	
 	private ar.fiuba.tecnicas.logging.Logger logger;
 	private String name;
@@ -24,26 +24,26 @@ public class LoggerAdapter implements Logger{
 	private LogLevel generateLogLevel() {
 		String callingMethod = FormatterHelper.getLogLevelCallingMethod();
 		LogLevel logLevel = LogLevel.DEBUG;
-		if(callingMethod.equals("debug")) {
+		if (callingMethod.equals("debug")) {
 			logLevel = LogLevel.DEBUG;
-		} else if(callingMethod.equals("trace")) {
+		} else if (callingMethod.equals("trace")) {
 			logLevel = LogLevel.TRACE;
-		} else if(callingMethod.equals("error")) {
+		} else if (callingMethod.equals("error")) {
 			logLevel = LogLevel.ERROR;
-		} else if(callingMethod.equals("info")) {
+		} else if (callingMethod.equals("info")) {
 			logLevel = LogLevel.INFO;
-		} else if(callingMethod.equals("warn")) {
+		} else if (callingMethod.equals("warn")) {
 			logLevel = LogLevel.WARN;
 		}
 		return logLevel;
 	}
 	
-	private void log(String msg){
+	private void log(String msg) {
 		logger.log(new Date(), msg, this.generateLogLevel());
 	}
 	
-	private void log(String msg, Throwable e){
-		logger.log(new Date(), msg, this.generateLogLevel(),e);
+	private void log(String msg, Throwable e) {
+		logger.log(new Date(), msg, this.generateLogLevel(), e);
 	}
 
 	@Override

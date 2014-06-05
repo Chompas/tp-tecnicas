@@ -26,8 +26,7 @@ public class JsonHandlerTest {
 	private static Date now = new Date();
 	
 	@After
-	public void tearDown()
-	{
+	public void tearDown() {
 		try {
 			Path path = jsonFile.toPath();
 			Files.delete(path);

@@ -47,6 +47,11 @@ public class LogMessage {
 		return this.plainMessage.equals(logmessage.getPlainMessage());
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.getClass().toString().hashCode();
+	}
+	
 	public Date getDate() {
 		return date;
 	}
@@ -63,7 +68,7 @@ public class LogMessage {
 		return this.hashMessage;
 	}
 	
-	public void addException (Throwable e) {
+	public void addException(Throwable e) {
 		plainMessage += " Exception: " + e.getMessage();
 		hashMessage.put("exception", e.getMessage());
 	}

@@ -30,8 +30,7 @@ public class FileHandlerTest {
 	}
 	
 	@After
-	public void tearDown()
-	{
+	public void tearDown() {
 		File file = new File(filename);
 		file.delete();
 	}

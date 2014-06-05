@@ -17,8 +17,7 @@ public class LoggerConfigTest {
 	private static File xmlFileOriginal = new File("config.xml");
 	private static File xmlFileCopy = new File("config2.xml");
 	
-	private void deletePropertiesFile()
-	{		
+	private void deletePropertiesFile() {		
 		try {
 			Files.copy(propertiesFileOriginal.toPath(), propertiesFileCopy.toPath());
 			Files.delete(propertiesFileOriginal.toPath());
@@ -27,8 +26,7 @@ public class LoggerConfigTest {
 		}
 	}
 	
-	private void deleteXmlFile()
-	{		
+	private void deleteXmlFile() {		
 		try {
 			Files.copy(xmlFileOriginal.toPath(), xmlFileCopy.toPath());
 			Files.delete(xmlFileOriginal.toPath());
@@ -37,8 +35,7 @@ public class LoggerConfigTest {
 		}
 	}
 	
-	private void restorePropertiesFile()
-	{
+	private void restorePropertiesFile() {
 		try {
 			Files.copy(propertiesFileCopy.toPath(), propertiesFileOriginal.toPath());
 			Files.delete(propertiesFileCopy.toPath());
@@ -47,8 +44,7 @@ public class LoggerConfigTest {
 		}
 	}
 	
-	private void restoreXmlFile()
-	{
+	private void restoreXmlFile() {
 		try {
 			Files.copy(xmlFileCopy.toPath(), xmlFileOriginal.toPath());
 			Files.delete(xmlFileCopy.toPath());
