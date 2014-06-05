@@ -71,6 +71,17 @@ public class LoggerTest {
 		LogMessage logErrorMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
 				
 		Mockito.verify(mockedHandler).write(logErrorMessage);
+	}
+	
+	@Test
+	public void logWithExceptionWithFilterRegexNoExpectedMessage() {
+		ConsoleHandler mockedHandler = mock(ConsoleHandler.class);
+		this.logger.addHandler(mockedHandler);
+		this.logger.addFilterRegex(this.filterRegex);
+		
+		this.logger.log(now, this.message, this.level, new Exception(this.errorMessage));
+		
+		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage);
 	}	
 	
 	@Test

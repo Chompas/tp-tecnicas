@@ -20,20 +20,39 @@ public class LogMessage {
 	private String lineNumber;
 	private String filename;
 	private String methodName;
+	private LogLevel logLevel;
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
 		this.date = date;
 		this.dateString = dateFormat.format(date);
-
+				
+		this.logLevel = logLevel;
+		
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();
 		this.filename = FormatterHelper.getCallingFilename();
 		this.methodName = FormatterHelper.getCallingMethod();
 		
-		this.setupPlainMessage(format, separator, message, logLevel);
-		this.setupHashMessage(format, separator, message, logLevel);
+		this.setupPlainMessage(format, separator, message);
+		this.setupHashMessage(format, separator, message);		
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj.getClass() != LogMessage.class) {
+			return false;
+		}
 		
+		LogMessage logmessage = (LogMessage) obj;
+		return this.plainMessage.equals(logmessage.getPlainMessage());
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public String getLineNumber() {
+		return lineNumber;
 	}
 	
 	public String getPlainMessage() {
@@ -49,9 +68,8 @@ public class LogMessage {
 		hashMessage.put("exception", e.getMessage());
 	}
 	
-	private void setupHashMessage(String format, String separator, String message, LogLevel logLevel) {
-		
-		hashMessage.put("level", logLevel.name());
+	private void setupHashMessage(String format, String separator, String message) {		
+		hashMessage.put("level", this.logLevel.name());
 		hashMessage.put("threadName", this.threadName);
 		hashMessage.put("message", message);
 		hashMessage.put("separator", separator);
@@ -60,7 +78,7 @@ public class LogMessage {
 		hashMessage.put("methodName", this.methodName);
 	}
 	
-	private void setupPlainMessage(String format, String separator, String message, LogLevel logLevel) {
+	private void setupPlainMessage(String format, String separator, String message) {
 		
 		/****************
 		 * FORMATOS *****************
@@ -76,11 +94,9 @@ public class LogMessage {
 		 * %M method name. 
 		 ******************************************/
 
-
-
 		String formattedMessage = format;
 		formattedMessage = formattedMessage.replaceAll(this.dateRegex, this.dateString);
-		formattedMessage = formattedMessage.replace("%p", logLevel.name());
+		formattedMessage = formattedMessage.replace("%p", this.logLevel.name());
 		formattedMessage = formattedMessage.replace("%t", this.threadName);
 		formattedMessage = formattedMessage.replace("%m", message);
 		formattedMessage = formattedMessage.replace("%%", "%");
@@ -102,38 +118,4 @@ public class LogMessage {
 		}	
 		return textInBetween;	
 	}
-	
-	public boolean equals(Object obj) {
-		if (obj.getClass() != LogMessage.class) {
-			return false;
-		}
-		
-		LogMessage logmessage = (LogMessage) obj;
-		return this.plainMessage.equals(logmessage.getPlainMessage());
-	}
-
-	public String getDateString() {
-		return dateString;
-	}
-	
-	public Date getDate() {
-		return date;
-	}
-
-	public String getThreadName() {
-		return threadName;
-	}
-
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public String getFilename() {
-		return filename;
-	}
-
-	public String getMethodName() {
-		return methodName;
-	}	
-
 }

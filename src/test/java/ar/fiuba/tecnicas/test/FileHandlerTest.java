@@ -11,6 +11,7 @@ import java.util.Scanner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.LogMessage;
@@ -40,18 +41,36 @@ public class FileHandlerTest {
 		try {
 			FileHandler fileHandler = new FileHandler(filename);			
 			fileHandler.write(logMessage);
-			
+
 			assertShouldWrite();			
 		} catch (Exception e) {
 			fail();
 		}
 	}
+	
+	@Test
+	public void shouldThrowExceptionIfFileIsFolder() {
+		FileHandler mockedFileHandler = Mockito.mock(FileHandler.class);
+		
+		try {
+			Mockito.doThrow(new RuntimeException()).when(mockedFileHandler).write(logMessage);
+			
+			mockedFileHandler.write(logMessage);
+			
+			fail("RuntimeException was not thrown");
+		} catch (RuntimeException e) {
+		}
+			
+	}
 
 	private void assertShouldWrite() throws FileNotFoundException {
 		Scanner fileReader = new Scanner(new FileReader(filename));
-				
-		assertEquals(logMessage.getPlainMessage(), fileReader.nextLine());
 		
+		String expected = logMessage.getPlainMessage();
+		String actual = fileReader.nextLine();
+
+		assertEquals(expected, actual);
+
 		fileReader.close();
 	}	
 }

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
 
-public class FormatterHelperTest {
+public class FormatterHelperTest extends FormatterHelper {
 	
 	@Test
 	public void testGetCallingMethod() {
@@ -16,7 +16,7 @@ public class FormatterHelperTest {
 	}
 	
 	@Test
-	public void getCallingFilename() {
+	public void getCallingFilenameTest() {
 		String expected = "FormatterHelperTest.java";
 		String actual = FormatterHelper.getCallingFilename();
 		
@@ -24,7 +24,7 @@ public class FormatterHelperTest {
 	}
 	
 	@Test
-	public void getCallingLineNumber() {
+	public void getCallingLineNumberTest() {
 		String expected = "29";
 		String actual = FormatterHelper.getCallingLineNumber();
 		
