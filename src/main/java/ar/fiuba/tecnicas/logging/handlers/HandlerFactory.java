@@ -11,12 +11,13 @@ public class HandlerFactory {
 		String[] outputsSplitted = outputs.split(",");
 		
 		for (String output : outputsSplitted) {
-			if (output.equals("Console")) {
-				handlers.add(new ConsoleHandler());
-			}
-			else {
-				String filename = output;
-				handlers.add(new FileHandler(filename));
+			switch(output) {
+				case("Console"):
+					handlers.add(new ConsoleHandler());
+					break;
+				default:
+					String filename = output;
+					handlers.add(new FileHandler(filename));
 			}
 		}
 		

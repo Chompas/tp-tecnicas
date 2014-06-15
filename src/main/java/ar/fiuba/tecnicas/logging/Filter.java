@@ -22,11 +22,11 @@ public class Filter {
 			return new NullLogMessage(logMessage.getDate());
 		}
 	}
-
+	
 	private boolean shouldShowMessage(LogLevel level) {
 		return level.getCode() <= globalLogLevel.getCode();
 	}
-
+	
 	private boolean shouldShowMessage(String message, String filterRegex) {
 		boolean result = true;
 		if (!filterRegex.equals("")) {

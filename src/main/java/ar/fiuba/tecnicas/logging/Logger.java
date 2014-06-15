@@ -34,27 +34,17 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-		ILogMessage logMessage = filter(date, message, level, EMPTY_LOGGER_NAME);
+		ILogMessage logMessage = filter(date, message, level, name);
 		write(logMessage);
 	}
 	
-	public void log(Date date, String message, LogLevel level, String loggerName) {
-		ILogMessage logMessage = filter(date, message, level, loggerName);
-		write(logMessage);
-	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-		ILogMessage logMessage = filter(date, message, level, EMPTY_LOGGER_NAME);
+		ILogMessage logMessage = filter(date, message, level, name);
 		logMessage.addException(e);
 		write(logMessage);
 	}
 	
-	public void log(Date date, String message, LogLevel level, Throwable e, String loggerName) {
-		ILogMessage logMessage = filter(date, message, level, loggerName);
-		logMessage.addException(e);
-		write(logMessage);
-	}
-
 	public void addHandler(IHandler handler) {
 		this.outputs.add(handler);
 	}

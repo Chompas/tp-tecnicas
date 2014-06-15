@@ -24,37 +24,12 @@ public class LogMessage implements ILogMessage {
 	private String loggerName;
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
-		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
-		this.date = date;
-		this.dateString = dateFormat.format(date);
-				
-		this.logLevel = logLevel;
+		init(date, format, separator, message, logLevel);
 		this.loggerName = loggerName;
-		
-		this.threadName = Thread.currentThread().getName();
-		this.lineNumber = FormatterHelper.getCallingLineNumber();
-		this.filename = FormatterHelper.getCallingFilename();
-		this.methodName = FormatterHelper.getCallingMethod();
-		
-		this.setupPlainMessage(format, separator, message);
-		this.setupHashMessage(format, separator, message);		
 	}
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
-		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
-		this.date = date;
-		this.dateString = dateFormat.format(date);
-				
-		this.logLevel = logLevel;
-		this.loggerName = "";
-		
-		this.threadName = Thread.currentThread().getName();
-		this.lineNumber = FormatterHelper.getCallingLineNumber();
-		this.filename = FormatterHelper.getCallingFilename();
-		this.methodName = FormatterHelper.getCallingMethod();
-		
-		this.setupPlainMessage(format, separator, message);
-		this.setupHashMessage(format, separator, message);		
+		init(date, format, separator, message, logLevel);
 	}
 	
 	public boolean equals(Object obj) {
@@ -90,6 +65,24 @@ public class LogMessage implements ILogMessage {
 	public void addException(Throwable e) {
 		plainMessage += " Exception: " + e.getMessage();
 		hashMessage.put("exception", e.getMessage());
+	}
+	
+	private void init(Date date, String format, String separator,
+			String message, LogLevel logLevel) {
+		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
+		this.date = date;
+		this.dateString = dateFormat.format(date);
+				
+		this.logLevel = logLevel;
+		this.loggerName = "";
+		
+		this.threadName = Thread.currentThread().getName();
+		this.lineNumber = FormatterHelper.getCallingLineNumber();
+		this.filename = FormatterHelper.getCallingFilename();
+		this.methodName = FormatterHelper.getCallingMethod();
+		
+		this.setupPlainMessage(format, separator, message);
+		this.setupHashMessage(format, separator, message);
 	}
 	
 	private void setupHashMessage(String format, String separator, String message) {		
