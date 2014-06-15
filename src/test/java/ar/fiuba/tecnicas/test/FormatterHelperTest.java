@@ -20,7 +20,7 @@ public class FormatterHelperTest extends FormatterHelper {
 		String expected = "FormatterHelperTest.java";
 		String actual = FormatterHelper.getCallingFilename();
 		
-		assertEquals(expected, actual);		
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -28,7 +28,7 @@ public class FormatterHelperTest extends FormatterHelper {
 		String expected = "29";
 		String actual = FormatterHelper.getCallingLineNumber();
 		
-		assertEquals(expected, actual);		
+		assertEquals(expected, actual);
 	}
 
 }

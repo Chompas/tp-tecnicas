@@ -17,7 +17,7 @@ public class LogMessageTest {
 		LogMessage logMessage = new LogMessage(new Date(), "%d{HH:mm:ss} %n %p %n %m", "-", "test", LogLevel.DEBUG);
 		Logger logger = new Logger();
 		
-		assertFalse(logMessage.equals(logger));
+		assertNotEquals(logMessage, logger);
 	}
 
 }

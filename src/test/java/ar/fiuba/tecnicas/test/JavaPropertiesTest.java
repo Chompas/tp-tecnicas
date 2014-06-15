@@ -12,31 +12,22 @@ public class JavaPropertiesTest {
 	
 	@Test
 	public void valueReadCorrectlyFromConfigFile() {
-		try {
-			this.loader = new JavaProperties("config.properties");
-			
-			String actualSeparator = loader.getValue("Separator");
-			
-			String expectedSeparator = "-";
-			assertEquals(expectedSeparator, actualSeparator);
-		} catch (Exception e) {
-			fail();
-		}			
+		this.loader = new JavaProperties("config.properties");
+		
+		String actualSeparator = loader.getValue("Separator");
+		
+		String expectedSeparator = "-";
+		assertEquals(expectedSeparator, actualSeparator);
 	}
 	
 	@Test
 	public void emptyValueReturnedIfConfigFileNotFound() {
-
-		try {
-			this.loader = new JavaProperties("");
-			
-			String actualSeparator = loader.getValue("Separator");
-			
-			String expectedSeparator = "";
-			assertEquals(expectedSeparator, actualSeparator);
-		} catch (Exception e) {
-			fail();
-		}
+		this.loader = new JavaProperties("");
+		
+		String actualSeparator = loader.getValue("Separator");
+		
+		String expectedSeparator = "";
+		assertEquals(expectedSeparator, actualSeparator);
 	}
 
 }

@@ -41,8 +41,8 @@ public class FileHandlerTest {
 			FileHandler fileHandler = new FileHandler(filename);			
 			fileHandler.write(logMessage);
 
-			assertShouldWrite();			
-		} catch (Exception e) {
+			assertShouldWrite();
+		} catch (FileNotFoundException e) {
 			fail();
 		}
 	}

@@ -15,6 +15,7 @@ import ar.fiuba.tecnicas.logging.handlers.IHandler;
 public class Logger implements ILogger {
 
 	private static String EMPTY_LOGGER_NAME = "";
+	private static String EMPTY_FILTER_REGEX = "";
 	private List<IHandler> outputs;
 	private LoggerConfig config;
 	private ILogFormatter logFormatter;
@@ -27,7 +28,7 @@ public class Logger implements ILogger {
 		this.filter = new Filter(this.config.getGlobalLogLevel());
 		this.outputs = new ArrayList<>();
 		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
-		this.filterRegex = "";
+		this.filterRegex = EMPTY_FILTER_REGEX;
 		this.customFilter = new CustomFilter();
 
 		this.addHandlersFromConfig();

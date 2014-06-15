@@ -23,19 +23,20 @@ public class LoggerAdapter implements Logger {
 	
 	private LogLevel generateLogLevel() {
 		String callingMethod = FormatterHelper.getLogLevelCallingMethod();
-		LogLevel logLevel = LogLevel.DEBUG;
-		if (callingMethod.equals("debug")) {
-			logLevel = LogLevel.DEBUG;
-		} else if (callingMethod.equals("trace")) {
-			logLevel = LogLevel.TRACE;
-		} else if (callingMethod.equals("error")) {
-			logLevel = LogLevel.ERROR;
-		} else if (callingMethod.equals("info")) {
-			logLevel = LogLevel.INFO;
-		} else if (callingMethod.equals("warn")) {
-			logLevel = LogLevel.WARN;
+		switch (callingMethod) {
+			case "debug":
+				return LogLevel.DEBUG;
+			case "trace":
+				return LogLevel.TRACE;
+			case "error":
+				return LogLevel.ERROR;
+			case "info":
+				return LogLevel.INFO;
+			case "warn":
+			    return LogLevel.WARN;
+			default:
+				return LogLevel.DEBUG;
 		}
-		return logLevel;
 	}
 	
 	private void log(String msg) {

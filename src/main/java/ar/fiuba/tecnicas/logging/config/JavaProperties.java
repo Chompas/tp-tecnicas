@@ -21,8 +21,7 @@ public class JavaProperties implements IProperties {
 
 	@Override
 	public String getValue(String key) {
-		String value;
-		value = properties.getProperty(key);
+		String value = properties.getProperty(key);
 		if (value == null) {
 			value = "";
 		}		

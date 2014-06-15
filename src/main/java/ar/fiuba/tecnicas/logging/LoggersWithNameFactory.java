@@ -8,7 +8,7 @@ public final class LoggersWithNameFactory {
 	private ArrayList<LoggerWithName> loggersWithName;
 	
 	private LoggersWithNameFactory() {
-		this.loggersWithName = new ArrayList<LoggerWithName>();
+		this.loggersWithName = new ArrayList<>();
 	}
 	
 	public static LoggersWithNameFactory getInstance() {

@@ -12,7 +12,7 @@ import ar.fiuba.tecnicas.logging.config.LogLevel;
 public class LogMessage implements ILogMessage {
 	
 	private String plainMessage;
-	private HashMap<String, String> hashMessage = new HashMap<String, String>();
+	private HashMap<String, String> hashMessage = new HashMap<>();
 	private String dateRegex = Pattern.quote("%d{") + "(.*?)" + Pattern.quote("}");
 	private Date date;
 	private String dateString;

@@ -36,7 +36,7 @@ public class JsonHandlerTest {
 
 	@Test
 	public void shouldWrite() {
-		LogMessage logMessage = new LogMessage(now, "[%p] %n %m", "-", message, LogLevel.INFO);		
+		LogMessage logMessage = new LogMessage(now, "[%p] %n %m", "-", message, LogLevel.INFO);
 		JsonHandler jsonHandler = new JsonHandler(jsonFile.getName());
 		
 		jsonHandler.write(logMessage);

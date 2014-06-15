@@ -4,16 +4,17 @@ public class DefaultProperties implements IProperties {
 
 	@Override
 	public String getValue(String key) {
-		if (key == "LogLevel") {
-			return "DEBUG";
-		} else if (key == "Separator") {
-			return "-";
-		} else if (key == "Outputs") {
-			return "Console";
-		} else if (key == "Format") {
-			return "[%p] %n %m";
-		} else {
-			return "";
+		switch (key) {
+			case "LogLevel":
+				return "DEBUG";
+			case "Separator":
+				return "-";
+			case "Outputs":
+				return "Console";
+			case "Format":
+				return "[%p] %n %m";
+			default:
+				return "";
 		}
 	}
 

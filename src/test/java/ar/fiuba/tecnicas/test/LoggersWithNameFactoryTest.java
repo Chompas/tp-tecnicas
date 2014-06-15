@@ -32,7 +32,7 @@ public class LoggersWithNameFactoryTest {
 	
 	@Test
 	public void getNonExistentLoggerShouldReturnNull() {		
-		LoggerWithName expected = null;		
+		LoggerWithName expected = null;
 		LoggerWithName actual = this.loggerFactory.getLogger("inexistentLogger");
 		
 		assertEquals(expected, actual);
@@ -40,7 +40,7 @@ public class LoggersWithNameFactoryTest {
 	
 	@Test
 	public void addDuplicateLoggerShouldReturnFalse() {		
-		boolean expected = false;		
+		boolean expected = false;
 		boolean actual = this.loggerFactory.addLogger(loggerWithName);
 		
 		assertEquals(expected, actual);
@@ -48,7 +48,7 @@ public class LoggersWithNameFactoryTest {
 	
 	@Test
 	public void addNewLoggerShouldReturnTrue() {	
-		boolean expected = true;				
+		boolean expected = true;
 		boolean actual = this.loggerFactory.addLogger(new LoggerWithName(new Logger(), "aNewLogger"));
 		
 		assertEquals(expected, actual);

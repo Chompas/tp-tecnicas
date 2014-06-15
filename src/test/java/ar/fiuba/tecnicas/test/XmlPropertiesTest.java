@@ -16,7 +16,7 @@ public class XmlPropertiesTest {
 		String actualSeparator = loader.getValue("Separator");
 
 		String expectedSeparator = "-";
-		assertEquals(expectedSeparator, actualSeparator);	
+		assertEquals(expectedSeparator, actualSeparator);
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class XmlPropertiesTest {
 		String actualSeparator = loader.getValue("Separator");
 
 		String expectedSeparator = "";
-		assertEquals(expectedSeparator, actualSeparator);		
+		assertEquals(expectedSeparator, actualSeparator);
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ public class XmlPropertiesTest {
 		String actualSeparator = loader.getValue("ThisIsAnInvalidKey");
 
 		String expectedSeparator = "";
-		assertEquals(expectedSeparator, actualSeparator);		
+		assertEquals(expectedSeparator, actualSeparator);
 	}
 
 }
