@@ -9,7 +9,9 @@ import org.junit.Test;
 import ar.fiuba.tecnicas.logging.CustomFilter;
 import ar.fiuba.tecnicas.logging.Filter;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.ILogMessage;
 import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.formatter.NullLogMessage;
 
 public class FilterTest {
 	
@@ -22,9 +24,9 @@ public class FilterTest {
 		this.filter = new Filter(LogLevel.ERROR);
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.DEBUG);
-		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.DEBUG,"", customFilter);
+		ILogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.DEBUG,"", customFilter);
 		
-		assertEquals(null, filteredMessage);
+		assertEquals(filteredMessage.getClass(),NullLogMessage.class);
 	}
 	
 	@Test
@@ -32,7 +34,7 @@ public class FilterTest {
 		this.filter = new Filter(LogLevel.DEBUG);
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
-		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
+		ILogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
 		
 		assertEquals(message, filteredMessage.getPlainMessage());
 	}
@@ -45,9 +47,9 @@ public class FilterTest {
 		this.customFilter.fromDate = tomorrow;
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
-		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
+		ILogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
 		
-		assertEquals(null, filteredMessage);
+		assertEquals(filteredMessage.getClass(),NullLogMessage.class);
 	}
 	
 	@Test
@@ -58,7 +60,7 @@ public class FilterTest {
 		this.customFilter.fromDate = yesterday;
 		
 		LogMessage logMessage = new LogMessage(new Date(), "%m", "", message, LogLevel.ERROR);
-		LogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
+		ILogMessage filteredMessage = this.filter.filter(logMessage, LogLevel.ERROR,"", customFilter);
 		
 		assertEquals(message, filteredMessage.getPlainMessage());
 	}

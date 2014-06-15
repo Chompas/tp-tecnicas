@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 
-public class LogMessage {
+public class LogMessage implements ILogMessage {
 	
 	private String plainMessage;
 	private HashMap<String, String> hashMessage = new HashMap<String, String>();

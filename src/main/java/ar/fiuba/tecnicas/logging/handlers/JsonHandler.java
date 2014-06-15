@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.formatter.ILogMessage;
 
 import com.google.gson.stream.JsonWriter;
 
@@ -17,7 +17,7 @@ public class JsonHandler implements IHandler {
 	}
 
 	@Override
-	public void write(LogMessage message) {
+	public void write(ILogMessage message) {
 		try {
 			JsonWriter jsonWriter = new JsonWriter(new FileWriter(this.filename, true));
 			jsonWriter.beginObject(); 

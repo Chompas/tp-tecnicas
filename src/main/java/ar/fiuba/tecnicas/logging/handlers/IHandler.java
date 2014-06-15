@@ -1,8 +1,8 @@
 package ar.fiuba.tecnicas.logging.handlers;
 
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.formatter.ILogMessage;
 
 public interface IHandler {
 	
-	public void write(LogMessage message);
+	public void write(ILogMessage message);
 }

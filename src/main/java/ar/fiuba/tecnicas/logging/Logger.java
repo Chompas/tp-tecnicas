@@ -7,12 +7,14 @@ import java.util.List;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.ILogMessage;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class Logger implements ILogger {
 
+	private static String EMPTY_LOGGER_NAME = "";
 	private List<IHandler> outputs;
 	private LoggerConfig config;
 	private ILogFormatter logFormatter;
@@ -32,33 +34,25 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-		LogMessage logMessage = filter(date, message, level, "");
-		if (logMessage != null) {
-			write(logMessage);
-		}
+		ILogMessage logMessage = filter(date, message, level, EMPTY_LOGGER_NAME);
+		write(logMessage);
 	}
 	
 	public void log(Date date, String message, LogLevel level, String loggerName) {
-		LogMessage logMessage = filter(date, message, level, loggerName);
-		if (logMessage != null) {
-			write(logMessage);
-		}
+		ILogMessage logMessage = filter(date, message, level, loggerName);
+		write(logMessage);
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-		LogMessage logMessage = filter(date, message, level, "");		
-		if (logMessage != null) {
-			logMessage.addException(e);
-			write(logMessage);
-		}
+		ILogMessage logMessage = filter(date, message, level, EMPTY_LOGGER_NAME);
+		logMessage.addException(e);
+		write(logMessage);
 	}
 	
 	public void log(Date date, String message, LogLevel level, Throwable e, String loggerName) {
-		LogMessage logMessage = filter(date, message, level, loggerName);		
-		if (logMessage != null) {
-			logMessage.addException(e);
-			write(logMessage);
-		}
+		ILogMessage logMessage = filter(date, message, level, loggerName);
+		logMessage.addException(e);
+		write(logMessage);
 	}
 
 	public void addHandler(IHandler handler) {
@@ -73,14 +67,12 @@ public class Logger implements ILogger {
 		this.customFilter = customFilter;
 	}
 	
-	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
+	private ILogMessage filter(Date date, String message, LogLevel level, String loggerName) {
 		LogMessage logMessage = this.logFormatter.format(date, message, level, loggerName);
-		LogMessage filteredMessage = this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
-		
-		return filteredMessage;
+		return this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
 	}
 	
-	private void write(LogMessage logMessage) {
+	private void write(ILogMessage logMessage) {
 		for (IHandler handler : this.outputs) {
 			handler.write(logMessage);
 		}
