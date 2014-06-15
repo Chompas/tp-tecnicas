@@ -16,22 +16,21 @@ public class Logger implements ILogger {
 
 	private static String EMPTY_LOGGER_NAME = "";
 	private static String EMPTY_FILTER_REGEX = "";
-	private List<IHandler> outputs;
-	private LoggerConfig config;
+	private List<IHandler> outputs = new ArrayList<>();
+	private LoggerConfig config = new LoggerConfig();
 	private ILogFormatter logFormatter;
 	private Filter filter;
-	private String filterRegex;
-	private CustomFilter customFilter;
-
-	public Logger() {		
-		this.config = new LoggerConfig();
-		this.filter = new Filter(this.config.getGlobalLogLevel());
-		this.outputs = new ArrayList<>();
-		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
-		this.filterRegex = EMPTY_FILTER_REGEX;
-		this.customFilter = new CustomFilter();
-
-		this.addHandlersFromConfig();
+	private String filterRegex = EMPTY_FILTER_REGEX;
+	private CustomFilter customFilter = new CustomFilter();
+	private String name = EMPTY_LOGGER_NAME;
+	
+	public Logger() {
+		init();
+	}
+	
+	public Logger(String name) {
+		init();
+		this.name = name;
 	}
 
 	public void log(Date date, String message, LogLevel level) {
@@ -66,6 +65,16 @@ public class Logger implements ILogger {
 	
 	public void addCustomFilter(CustomFilter customFilter) {
 		this.customFilter = customFilter;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	private void init() {
+		this.filter = new Filter(this.config.getGlobalLogLevel());
+		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
+		this.addHandlersFromConfig();
 	}
 	
 	private ILogMessage filter(Date date, String message, LogLevel level, String loggerName) {

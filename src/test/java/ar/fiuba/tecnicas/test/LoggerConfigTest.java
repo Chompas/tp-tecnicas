@@ -12,42 +12,42 @@ import ar.fiuba.tecnicas.logging.config.*;
 public class LoggerConfigTest {
 	
 	private LoggerConfig config;
-	private static File propertiesFileOriginal = new File("config.properties");
-	private static File propertiesFileCopy = new File("config2.properties");
-	private static File xmlFileOriginal = new File("config.xml");
-	private static File xmlFileCopy = new File("config2.xml");
+	private static File javaPropertiesOriginal = new File("config.properties");
+	private static File javaPropertiesCopy = new File("config2.properties");
+	private static File xmlPropertiesOriginal = new File("config.xml");
+	private static File xmlPropertiesCopy = new File("config2.xml");
 	
-	private void deletePropertiesFile() {		
+	private void deleteJavaProperties() {		
 		try {
-			Files.copy(propertiesFileOriginal.toPath(), propertiesFileCopy.toPath());
-			Files.delete(propertiesFileOriginal.toPath());
+			Files.copy(javaPropertiesOriginal.toPath(), javaPropertiesCopy.toPath());
+			Files.delete(javaPropertiesOriginal.toPath());
 		} catch (IOException e) {
 			
 		}
 	}
 	
-	private void deleteXmlFile() {		
+	private void deleteXmlProperties() {
 		try {
-			Files.copy(xmlFileOriginal.toPath(), xmlFileCopy.toPath());
-			Files.delete(xmlFileOriginal.toPath());
+			Files.copy(xmlPropertiesOriginal.toPath(), xmlPropertiesCopy.toPath());
+			Files.delete(xmlPropertiesOriginal.toPath());
 		} catch (IOException e) {
 			
 		}
 	}
 	
-	private void restorePropertiesFile() {
+	private void restoreJavaProperties() {
 		try {
-			Files.copy(propertiesFileCopy.toPath(), propertiesFileOriginal.toPath());
-			Files.delete(propertiesFileCopy.toPath());
+			Files.copy(javaPropertiesCopy.toPath(), javaPropertiesOriginal.toPath());
+			Files.delete(javaPropertiesCopy.toPath());
 		} catch (IOException e) {
 			
 		}
 	}
 	
-	private void restoreXmlFile() {
+	private void restoreXmlProperties() {
 		try {
-			Files.copy(xmlFileCopy.toPath(), xmlFileOriginal.toPath());
-			Files.delete(xmlFileCopy.toPath());
+			Files.copy(xmlPropertiesCopy.toPath(), xmlPropertiesOriginal.toPath());
+			Files.delete(xmlPropertiesCopy.toPath());
 		} catch (IOException e) {
 			
 		}
@@ -67,7 +67,7 @@ public class LoggerConfigTest {
 	
 	@Test
 	public void getLogLevelFromXmlProperties() {
-		this.deletePropertiesFile();
+		this.deleteJavaProperties();
 		this.config = new LoggerConfig();
 		
 		IProperties xmlProperties = new XmlProperties("config.xml");
@@ -76,13 +76,13 @@ public class LoggerConfigTest {
 		String actual = config.getGlobalLogLevel().toString();
 				
 		assertEquals(expected, actual);
-		this.restorePropertiesFile();
+		this.restoreJavaProperties();
 	}
 	
 	@Test
 	public void getLogLevelFromDefaultProperties() {
-		this.deletePropertiesFile();
-		this.deleteXmlFile();
+		this.deleteJavaProperties();
+		this.deleteXmlProperties();
 		this.config = new LoggerConfig();
 		
 		IProperties defaultConfig = new DefaultProperties();
@@ -91,10 +91,7 @@ public class LoggerConfigTest {
 		String actual = config.getGlobalLogLevel().toString();
 				
 		assertEquals(expected, actual);
-		this.restorePropertiesFile();
-		this.restoreXmlFile();
+		this.restoreJavaProperties();
+		this.restoreXmlProperties();
 	}
-	
-
-
 }
