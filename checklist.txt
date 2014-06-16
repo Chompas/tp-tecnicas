@@ -1,0 +1,11 @@
+PARA REVISAR ANTES DE ENTREGAR EL TP:
+
+(de más a menos importante)
+
+- Proyecto compila sin errores
+- Todos los tests en verde
+- No hay warnings
+- Repositorio limpio (no hay archivos en staging area)
+- Documentacion está actualizada
+- Todos los tests tienen nombres expresivos
+- En todas las clases: metodos publicos antes que los privados
