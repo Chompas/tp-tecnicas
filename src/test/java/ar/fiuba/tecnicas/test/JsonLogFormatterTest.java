@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
@@ -12,17 +11,12 @@ import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class JsonLogFormatterTest {
-	private Date date;
+	
+	private Date date = new Date();
 	private String message = "processing...";
 	private LogLevel level = LogLevel.DEBUG;
-	private String loggerName = "myLogger";
-	
-	private JsonLogFormatter jsonFormatter = new JsonLogFormatter();
-	
-	@Before
-	public void setUp() {
-		this.date = new Date();
-	}
+	private String loggerName = "myLogger";	
+	private JsonLogFormatter jsonFormatter = new JsonLogFormatter();	
 	
 	@Test
 	public void shouldFormatLikeJsonWithoutLoggerName() {

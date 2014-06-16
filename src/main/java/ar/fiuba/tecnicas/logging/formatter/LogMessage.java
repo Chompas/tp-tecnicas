@@ -18,21 +18,28 @@ public class LogMessage {
 	private LogLevel logLevel;
 	private LogFormatter formatter;
 	
-	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
-		init(date, format, separator, message, logLevel);
-		this.loggerName = loggerName;
-		this.threadName = Thread.currentThread().getName();
-		this.lineNumber = FormatterHelper.getCallingLineNumber();
-		this.filename = FormatterHelper.getCallingFilename();
-		this.methodName = FormatterHelper.getCallingMethod();
-	}
-
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
-		init(date, format, separator, message, logLevel);
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();
 		this.filename = FormatterHelper.getCallingFilename();
 		this.methodName = FormatterHelper.getCallingMethod();
+		this.date = date;
+		this.logLevel = logLevel;
+		this.loggerName = "";
+		this.formatter = new LogFormatter(format, separator);
+		this.plainMessage = message;
+		this.formattedMessage = this.formatter.format(this);
+	}
+	
+	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
+		this(date, format, separator, message, logLevel);
+		this.loggerName = loggerName;
+		
+		// Override last values
+		this.threadName = Thread.currentThread().getName();
+		this.lineNumber = FormatterHelper.getCallingLineNumber();
+		this.filename = FormatterHelper.getCallingFilename();
+		this.methodName = FormatterHelper.getCallingMethod();		
 	}
 
 	public boolean equals(Object obj) {
@@ -47,14 +54,6 @@ public class LogMessage {
 	@Override
 	public int hashCode() {
 		return this.getClass().toString().hashCode();
-	}
-
-	public String getPlainMessage() {
-		return this.plainMessage;
-	}
-	
-	public String getFormattedMessage() {
-		return this.formattedMessage;
 	}
 	
 	public TreeMap<String, String> getAttributes() {
@@ -71,29 +70,43 @@ public class LogMessage {
 
 	public void addException(Throwable e) {
 		this.plainMessage += " Exception: " + e.getMessage();
-		this.formattedMessage = this.formatter.format(this.date, this.plainMessage, this.logLevel);
+		this.formattedMessage = this.formatter.format(this);
 	}
-
-	private void init(Date date, String format, String separator,
-			String message, LogLevel logLevel) {
-		this.date = date;
-		this.logLevel = logLevel;
-		this.loggerName = "";
-		this.formatter = new LogFormatter(format, separator);
-		this.setupPlainMessage(format, separator, message);
+	
+	public String getPlainMessage() {
+		return this.plainMessage;
 	}
-
-	private void setupPlainMessage(String format, String separator, String message) {
-		this.plainMessage = message;
-		this.formattedMessage = this.formatter.format(this.date, message, this.logLevel);
+	
+	public String getFormattedMessage() {
+		return this.formattedMessage;
 	}
 
 	public Date getDate() {
 		return this.date;
 	}
 
-	public Object getLineNumber() {
+	public String getLineNumber() {
 		return this.lineNumber;
+	}
+
+	public LogLevel getLogLevel() {
+		return this.logLevel;
+	}
+
+	public String getFileName() {
+		return this.filename;
+	}
+
+	public String getMethod() {
+		return this.methodName;
+	}
+
+	public String getLoggerName() {
+		return this.loggerName;
+	}
+
+	public String getThread() {
+		return this.threadName;
 	}
 
 }

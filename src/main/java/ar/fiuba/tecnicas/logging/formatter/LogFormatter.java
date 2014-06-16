@@ -2,12 +2,10 @@ package ar.fiuba.tecnicas.logging.formatter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ar.fiuba.tecnicas.logging.config.DefaultProperties;
-import ar.fiuba.tecnicas.logging.config.LogLevel;
 
 public class LogFormatter implements ILogFormatter {
 
@@ -30,32 +28,7 @@ public class LogFormatter implements ILogFormatter {
 	}
 	
 	@Override
-	public String format(Date date, String message, LogLevel level) {		
-		String formattedMessage = innerFormat(date, message, level);		
-		
-		return formattedMessage;
-	}
-
-	@Override
-	public String format(Date date, String message, LogLevel level, String loggerName) {
-		String formattedMessage = innerFormat(date, message, level);
-		formattedMessage = formattedMessage.replace("%g", loggerName);
-		
-		return formattedMessage;
-	}
-	
-	private String getDateFormat(String format) {
-		Pattern pattern = Pattern.compile(this.dateRegex);
-		Matcher matcher = pattern.matcher(format);
-
-		String textInBetween = "";
-		while (matcher.find()) {
-		  textInBetween = matcher.group(1); 
-		}	
-		return textInBetween;
-	}
-	
-	private String innerFormat(Date date, String message, LogLevel level) {
+	public String format(LogMessage logMessage) {
 		/****************
 		 * FORMATOS *****************
 		 * %d{xxxxxxx} debería aceptar cualquier formato
@@ -70,20 +43,32 @@ public class LogFormatter implements ILogFormatter {
 		 * %M method name. 
 		 * %g logger name
 		 ******************************************/
-		
 		DateFormat dateFormat = new SimpleDateFormat(this.getDateFormat(format));
 		
 		String formattedMessage = format;
-		formattedMessage = formattedMessage.replaceAll(this.dateRegex, dateFormat.format(date));
-		formattedMessage = formattedMessage.replace("%p", level.toString());		
-		formattedMessage = formattedMessage.replace("%m", message);
+		formattedMessage = formattedMessage.replaceAll(this.dateRegex, dateFormat.format(logMessage.getDate()));
+		formattedMessage = formattedMessage.replace("%p", logMessage.getLogLevel().toString());		
+		formattedMessage = formattedMessage.replace("%m", logMessage.getPlainMessage());
 		formattedMessage = formattedMessage.replace("%%", "%");
 		formattedMessage = formattedMessage.replace("%n", separator);
-		formattedMessage = formattedMessage.replace("%t", Thread.currentThread().getName());
-		formattedMessage = formattedMessage.replace("%L", FormatterHelper.getCallingLineNumber());
-		formattedMessage = formattedMessage.replace("%F", FormatterHelper.getCallingFilename());
-		formattedMessage = formattedMessage.replace("%M", FormatterHelper.getCallingMethod());
+		formattedMessage = formattedMessage.replace("%t", logMessage.getThread());
+		formattedMessage = formattedMessage.replace("%L", logMessage.getLineNumber());
+		formattedMessage = formattedMessage.replace("%F", logMessage.getFileName());
+		formattedMessage = formattedMessage.replace("%M", logMessage.getMethod());
+		formattedMessage = formattedMessage.replace("%g", logMessage.getLoggerName());
+		
 		return formattedMessage;
 	}
+	
+	private String getDateFormat(String format) {
+		Pattern pattern = Pattern.compile(this.dateRegex);
+		Matcher matcher = pattern.matcher(format);
+
+		String textInBetween = "";
+		while (matcher.find()) {
+		  textInBetween = matcher.group(1); 
+		}	
+		return textInBetween;
+	}	
 	
 }

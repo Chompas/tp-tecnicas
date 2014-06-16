@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.google.gson.*;
 
-public class JsonLogFormatter {
+public class JsonLogFormatter implements ILogFormatter {
 	
 	public String format(LogMessage logMessage) {
 		JsonObject js = new JsonObject();

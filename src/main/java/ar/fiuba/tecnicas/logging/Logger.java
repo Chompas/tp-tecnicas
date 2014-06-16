@@ -17,18 +17,18 @@ public class Logger implements ILogger {
 	private static String EMPTY_FILTER_REGEX = "";
 	private List<IHandler> outputs = new ArrayList<>();
 	private LoggerConfig config = new LoggerConfig();
-	private ILogFormatter logFormatter;
 	private Filter filter;
 	private String filterRegex = EMPTY_FILTER_REGEX;
 	private CustomFilter customFilter = new CustomFilter();
 	private String name = EMPTY_LOGGER_NAME;
 	
 	public Logger() {
-		init();
+		this.filter = new Filter(this.config.getGlobalLogLevel());
+		this.addHandlersFromConfig();
 	}
 	
 	public Logger(String name) {
-		init();
+		this();
 		this.name = name;
 	}
 
@@ -58,12 +58,6 @@ public class Logger implements ILogger {
 	
 	public String getName() {
 		return this.name;
-	}
-	
-	private void init() {
-		this.filter = new Filter(this.config.getGlobalLogLevel());
-		this.logFormatter = new LogFormatter(this.config.getFormat(), this.config.getSeparator());
-		this.addHandlersFromConfig();
 	}
 	
 	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
