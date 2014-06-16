@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class JsonLogFormatterTest {
 	private Date date;
@@ -25,21 +26,23 @@ public class JsonLogFormatterTest {
 	
 	@Test
 	public void shouldFormatLikeJsonWithoutLoggerName() {
+		LogMessage logMessage = new LogMessage(date, "", "", message, level);
 		String expected = "{\"datetime\":\"" + this.date.toString() + "\"," +
 							"\"level\":\"" + this.level + "\"," +
 							"\"message\":\"" + this.message + "\"}";
-		String actual = jsonFormatter.format(date, message, level);
+		String actual = jsonFormatter.format(logMessage);
 		
 		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void shouldFormatLikeJsonWithLoggerName() {
+		LogMessage logMessage = new LogMessage(date, "", "", message, level, loggerName);
 		String expected = "{\"datetime\":\"" + this.date.toString() + "\"," +
 							"\"level\":\"" + this.level + "\"," +
 							"\"loggerName\":\"" + this.loggerName + "\"," + 
 							"\"message\":\"" + this.message + "\"}";
-		String actual = jsonFormatter.format(date, message, level, loggerName);
+		String actual = jsonFormatter.format(logMessage);
 		
 		assertEquals(expected, actual);
 	}

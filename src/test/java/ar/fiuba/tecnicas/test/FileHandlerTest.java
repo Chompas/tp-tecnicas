@@ -23,7 +23,7 @@ public class FileHandlerTest {
 	private static String message = "test";
 	private static Date now = new Date();
 	private LogMessage logMessage;
-	
+
 	@Before
 	public void init() {
 		this.logMessage = new LogMessage(now, "", "", message, LogLevel.DEBUG);

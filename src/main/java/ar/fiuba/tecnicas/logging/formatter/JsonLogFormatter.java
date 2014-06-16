@@ -1,31 +1,22 @@
 package ar.fiuba.tecnicas.logging.formatter;
 
-import java.util.Date;
-import com.google.gson.*;
-import ar.fiuba.tecnicas.logging.config.LogLevel;
+import java.util.Set;
 
+import com.google.gson.*;
 
 public class JsonLogFormatter {
 	
-	public String format(Date date, String message, LogLevel level) {
+	public String format(LogMessage logMessage) {
 		JsonObject js = new JsonObject();
-		js.addProperty("datetime", date.toString());
-		js.addProperty("level", level.toString());
-		js.addProperty("message", message);
+
+		Set<String> keys = logMessage.getAttributes().keySet();
+	    for (String key : keys) {
+	    	js.addProperty(key, logMessage.getAttributes().get(key));
+	    }
 		
 		String jsonMessage = js.toString();
 		
 		return jsonMessage;
 	}
 
-	public String format(Date date, String message, LogLevel level, String loggerName) {
-		JsonObject js = new JsonObject();
-		js.addProperty("datetime", date.toString());
-		js.addProperty("level", level.toString());
-		js.addProperty("loggerName", loggerName);
-		js.addProperty("message", message);
-		
-		String jsonMessage = js.toString();
-		return jsonMessage;
-	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.ILogMessage;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
@@ -34,13 +33,13 @@ public class Logger implements ILogger {
 	}
 
 	public void log(Date date, String message, LogLevel level) {
-		ILogMessage logMessage = filter(date, message, level, name);
+		LogMessage logMessage = filter(date, message, level, name);
 		write(logMessage);
 	}
 	
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
-		ILogMessage logMessage = filter(date, message, level, name);
+		LogMessage logMessage = filter(date, message, level, name);
 		logMessage.addException(e);
 		write(logMessage);
 	}
@@ -67,15 +66,20 @@ public class Logger implements ILogger {
 		this.addHandlersFromConfig();
 	}
 	
-	private ILogMessage filter(Date date, String message, LogLevel level, String loggerName) {
-		LogMessage logMessage = this.logFormatter.format(date, message, level, loggerName);
-		return this.filter.filter(logMessage, level,this.filterRegex, this.customFilter);
+	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
+		String plainMessage = this.logFormatter.format(date, message, level, loggerName);
+		LogMessage logMessage = new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), plainMessage, level);
+		String filteredMessage = this.filter.filter(logMessage, level, filterRegex, customFilter);
+
+		return new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), filteredMessage, level);
 	}
 	
-	private void write(ILogMessage logMessage) {
-		for (IHandler handler : this.outputs) {
-			handler.write(logMessage);
-		}
+	private void write(LogMessage logMessage) {
+		if (logMessage.getPlainMessage() != "") {
+			for (IHandler handler : this.outputs) {
+				handler.write(logMessage);
+			}
+		}		
 	}
 	
 	private void addHandlersFromConfig() {
