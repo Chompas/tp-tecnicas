@@ -1,0 +1,15 @@
+<logger>
+	<name>Logger1</name>
+	<level>INFO</level>
+	<format>json</format>
+	<output>file:out1.log</output>
+	<output>console</output>
+</logger>
+
+<logger>
+	<name>Logger2</name>
+	<level>DEBUG</level>
+	<separator>-</separator>
+	<output>console</output>
+	<format>%d{HH:mm:ss} %n %p %n %m</format>
+</logger>
