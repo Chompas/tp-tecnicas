@@ -16,6 +16,7 @@ public class LogMessage {
 	private String loggerName;
 	private Date date;
 	private LogLevel logLevel;
+	private LogFormatter formatter;
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
 		init(date, format, separator, message, logLevel);
@@ -40,7 +41,7 @@ public class LogMessage {
 		}
 
 		LogMessage logmessage = (LogMessage) obj;
-		return (this.formattedMessage == (logmessage.getFormattedMessage()));
+		return this.formattedMessage.equals(logmessage.getFormattedMessage());
 	}
 
 	@Override
@@ -69,7 +70,8 @@ public class LogMessage {
 	}
 
 	public void addException(Throwable e) {
-		plainMessage += " Exception: " + e.getMessage();
+		this.plainMessage += " Exception: " + e.getMessage();
+		this.formattedMessage = this.formatter.format(this.date, this.plainMessage, this.logLevel);
 	}
 
 	private void init(Date date, String format, String separator,
@@ -77,13 +79,13 @@ public class LogMessage {
 		this.date = date;
 		this.logLevel = logLevel;
 		this.loggerName = "";
+		this.formatter = new LogFormatter(format, separator);
 		this.setupPlainMessage(format, separator, message);
 	}
 
 	private void setupPlainMessage(String format, String separator, String message) {
 		this.plainMessage = message;
-		LogFormatter formatter = new LogFormatter(format, separator);
-		this.formattedMessage = formatter.format(this.date, message, this.logLevel);
+		this.formattedMessage = this.formatter.format(this.date, message, this.logLevel);
 	}
 
 	public Date getDate() {

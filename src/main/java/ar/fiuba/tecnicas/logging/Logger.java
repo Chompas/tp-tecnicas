@@ -67,8 +67,7 @@ public class Logger implements ILogger {
 	}
 	
 	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
-		String plainMessage = this.logFormatter.format(date, message, level, loggerName);
-		LogMessage logMessage = new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), plainMessage, level);
+		LogMessage logMessage = new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), message, level);
 		String filteredMessage = this.filter.filter(logMessage, level, filterRegex, customFilter);
 
 		return new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), filteredMessage, level);
