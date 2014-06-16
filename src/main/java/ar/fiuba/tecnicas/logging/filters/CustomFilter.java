@@ -1,4 +1,4 @@
-package ar.fiuba.tecnicas.logging;
+package ar.fiuba.tecnicas.logging.filters;
 
 import java.util.Date;
 

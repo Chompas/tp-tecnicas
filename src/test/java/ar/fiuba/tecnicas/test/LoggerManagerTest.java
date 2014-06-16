@@ -13,7 +13,7 @@ public class LoggerManagerTest {
 	private LoggerManager loggerFactory;
 	
 	@Before
-	public void init() {
+	public void setUp() {
 		this.loggerFactory = LoggerManager.getInstance();
 	}
 	
@@ -21,7 +21,7 @@ public class LoggerManagerTest {
 	public void addAndGetLoggerShouldReturnLogger() {
 		Logger logger = new Logger("firstLogger");
 		
-		this.loggerFactory.addLogger(logger);
+		assertTrue(this.loggerFactory.addLogger(logger));
 		
 		assertEquals(logger, this.loggerFactory.getLogger("firstLogger"));
 	}
@@ -33,7 +33,7 @@ public class LoggerManagerTest {
 	
 	@Test
 	public void addDuplicateLoggerShouldReturnFalse() {
-		assertTrue(this.loggerFactory.addLogger(new Logger("thirdLogger")));
+		this.loggerFactory.addLogger(new Logger("thirdLogger"));
 		assertFalse(this.loggerFactory.addLogger(new Logger("thirdLogger")));
 	}
 	
@@ -43,14 +43,23 @@ public class LoggerManagerTest {
 	}
 	
 	@Test
-	public void deleteLogger() {
+	public void deleteExistentLoggerShouldReturnTrue() {
 		this.loggerFactory.addLogger(new Logger("fifthLogger"));
 		
-		assertNotNull(this.loggerFactory.getLogger("fifthLogger"));
+		assertTrue(this.loggerFactory.deleteLogger("fifthLogger"));
+	}
+	
+	@Test
+	public void deleteNonexistentLoggerShouldReturnFalse() {
+		this.loggerFactory.addLogger(new Logger("sixthLogger"));		
+		this.loggerFactory.deleteLogger("sixthLogger");
 		
-		this.loggerFactory.deleteLogger("fifthLogger");
-		
-		assertNull(this.loggerFactory.getLogger("fifthLogger"));
+		assertFalse(this.loggerFactory.deleteLogger("sixthLogger"));
+	}
+	
+	@Test
+	public void getEmptyLogger() {
+		assertNull(this.loggerFactory.getLogger(""));
 	}
 
 }

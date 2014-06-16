@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.logging.handlers;
 
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.LogMessage;
 
 public class ConsoleHandler implements IHandler {
 

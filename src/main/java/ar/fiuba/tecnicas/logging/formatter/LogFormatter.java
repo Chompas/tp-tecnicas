@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.config.DefaultProperties;
 
 public class LogFormatter implements ILogFormatter {

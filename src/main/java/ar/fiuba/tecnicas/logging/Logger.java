@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
-import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.filters.CustomFilter;
+import ar.fiuba.tecnicas.logging.filters.Filter;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class Logger implements ILogger {

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.LogMessage;
 
 public class FileHandler implements IHandler {
 
@@ -22,6 +22,7 @@ public class FileHandler implements IHandler {
 			logFile.println(logMessage.getPlainMessage());
 			logFile.close();
 		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 }

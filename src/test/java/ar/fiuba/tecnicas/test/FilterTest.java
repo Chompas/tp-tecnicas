@@ -6,10 +6,10 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.CustomFilter;
-import ar.fiuba.tecnicas.logging.Filter;
-import ar.fiuba.tecnicas.logging.config.LogLevel;
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.filters.CustomFilter;
+import ar.fiuba.tecnicas.logging.filters.Filter;
 
 public class FilterTest {
 	

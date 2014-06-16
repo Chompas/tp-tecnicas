@@ -1,4 +1,4 @@
-package ar.fiuba.tecnicas.logging.config;
+package ar.fiuba.tecnicas.logging;
 
 public enum LogLevel {
 	TRACE(6),

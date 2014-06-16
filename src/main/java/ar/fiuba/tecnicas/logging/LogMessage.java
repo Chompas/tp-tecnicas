@@ -1,14 +1,14 @@
-package ar.fiuba.tecnicas.logging.formatter;
+package ar.fiuba.tecnicas.logging;
 
 import java.util.Date;
 import java.util.TreeMap;
 
-import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
+import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 
 public class LogMessage {
 
-	private String plainMessage;
-	private String formattedMessage;
+	private String message;
 	private String threadName;
 	private String lineNumber;
 	private String filename;
@@ -27,8 +27,7 @@ public class LogMessage {
 		this.logLevel = logLevel;
 		this.loggerName = "";
 		this.formatter = new LogFormatter(format, separator);
-		this.plainMessage = message;
-		this.formattedMessage = this.formatter.format(this);
+		this.message = message;
 	}
 	
 	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
@@ -48,7 +47,7 @@ public class LogMessage {
 		}
 
 		LogMessage logmessage = (LogMessage) obj;
-		return this.formattedMessage.equals(logmessage.getFormattedMessage());
+		return getFormattedMessage().equals(logmessage.getFormattedMessage());
 	}
 
 	@Override
@@ -63,22 +62,17 @@ public class LogMessage {
 		if (this.loggerName != "") {
 			attributes.put("loggerName", this.loggerName);
 		}
-		attributes.put("message", this.plainMessage);
+		attributes.put("message", this.message);
 		
 		return attributes;		
 	}
 
 	public void addException(Throwable e) {
-		this.plainMessage += " Exception: " + e.getMessage();
-		this.formattedMessage = this.formatter.format(this);
+		this.message += " Exception: " + e.getMessage();
 	}
 	
 	public String getPlainMessage() {
-		return this.plainMessage;
-	}
-	
-	public String getFormattedMessage() {
-		return this.formattedMessage;
+		return this.message;
 	}
 
 	public Date getDate() {
@@ -107,6 +101,10 @@ public class LogMessage {
 
 	public String getThread() {
 		return this.threadName;
+	}
+	
+	private String getFormattedMessage() {
+		return this.formatter.format(this);
 	}
 
 }

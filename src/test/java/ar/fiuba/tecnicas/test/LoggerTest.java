@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.Logger;
-import ar.fiuba.tecnicas.logging.config.LogLevel;
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class LoggerTest {

@@ -10,8 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.config.LogLevel;
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
+import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class ConsoleHandlerTest {

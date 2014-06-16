@@ -3,6 +3,7 @@ package ar.fiuba.tecnicas.logging.config;
 import java.io.File;
 import java.util.List;
 
+import ar.fiuba.tecnicas.logging.LogLevel;
 import ar.fiuba.tecnicas.logging.handlers.HandlerFactory;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 

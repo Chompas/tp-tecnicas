@@ -5,7 +5,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
-import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.LogLevel;
 import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
 
 public class LoggerAdapter implements Logger {

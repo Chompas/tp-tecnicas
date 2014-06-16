@@ -38,13 +38,14 @@ public final class LoggerManager {
 		return true;
 	}
 	
-	public void deleteLogger(String name) {
+	public boolean deleteLogger(String name) {
 		for (int i = 0; i < this.loggersWithName.size(); i++) {
 			if (this.loggersWithName.get(i).getName() == name) {
 				this.loggersWithName.remove(i);
-				break;
+				return true;
 			}
-		}		
+		}
+		return false;
 	}
 	
 	private boolean loggerWithNameExists(String name) {

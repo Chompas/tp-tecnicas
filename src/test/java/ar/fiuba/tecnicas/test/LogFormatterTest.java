@@ -9,9 +9,9 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.LogMessage;
 
 public class LogFormatterTest {
 	
