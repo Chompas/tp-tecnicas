@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public final class LoggerManager {
 	
 	private static LoggerManager uniqueInstance;
-	private ArrayList<Logger> loggersWithName;
+	private ArrayList<Logger> loggers;
 	
 	private LoggerManager() {
-		this.loggersWithName = new ArrayList<>();
+		this.loggers = new ArrayList<>();
 	}
 	
 	public static LoggerManager getInstance() {
@@ -22,7 +22,7 @@ public final class LoggerManager {
 		if (name == "") {
 			return null;
 		}
-		for (Logger logger : this.loggersWithName) {
+		for (Logger logger : this.loggers) {
 			if (logger.getName() == name) {
 				return logger;
 			}
@@ -30,18 +30,18 @@ public final class LoggerManager {
 		return null;
 	}
 
-	public boolean addLogger(Logger loggerWithName) {
-		if (loggerWithNameExists(loggerWithName.getName())) {
+	public boolean addLogger(Logger logger) {
+		if (loggerWithNameExists(logger.getName())) {
 			return false;
 		}
-		this.loggersWithName.add(loggerWithName);
+		this.loggers.add(logger);
 		return true;
 	}
 	
 	public boolean deleteLogger(String name) {
-		for (int i = 0; i < this.loggersWithName.size(); i++) {
-			if (this.loggersWithName.get(i).getName() == name) {
-				this.loggersWithName.remove(i);
+		for (int i = 0; i < this.loggers.size(); i++) {
+			if (this.loggers.get(i).getName() == name) {
+				this.loggers.remove(i);
 				return true;
 			}
 		}
@@ -49,7 +49,7 @@ public final class LoggerManager {
 	}
 	
 	private boolean loggerWithNameExists(String name) {
-		for (Logger logger : loggersWithName) {
+		for (Logger logger : loggers) {
 			if (logger.getName() == name) {
 				return true;
 			}

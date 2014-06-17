@@ -10,56 +10,56 @@ import ar.fiuba.tecnicas.logging.LoggerManager;
 
 public class LoggerManagerTest {
 	
-	private LoggerManager loggerFactory;
+	private LoggerManager loggerManager;
 	
 	@Before
 	public void setUp() {
-		this.loggerFactory = LoggerManager.getInstance();
+		this.loggerManager = LoggerManager.getInstance();
 	}
 	
 	@Test
 	public void addAndGetLoggerShouldReturnLogger() {
 		Logger logger = new Logger("firstLogger");
 		
-		assertTrue(this.loggerFactory.addLogger(logger));
+		this.loggerManager.addLogger(logger);
 		
-		assertEquals(logger, this.loggerFactory.getLogger("firstLogger"));
+		assertEquals(logger, this.loggerManager.getLogger("firstLogger"));
 	}
 	
 	@Test
 	public void getNonExistentLoggerShouldReturnNull() {		
-		assertNull(this.loggerFactory.getLogger("secondLogger"));
+		assertNull(this.loggerManager.getLogger("secondLogger"));
 	}
 	
 	@Test
 	public void addDuplicateLoggerShouldReturnFalse() {
-		this.loggerFactory.addLogger(new Logger("thirdLogger"));
-		assertFalse(this.loggerFactory.addLogger(new Logger("thirdLogger")));
+		this.loggerManager.addLogger(new Logger("thirdLogger"));
+		assertFalse(this.loggerManager.addLogger(new Logger("thirdLogger")));
 	}
 	
 	@Test
 	public void addNewLoggerShouldReturnTrue() {
-		assertTrue(this.loggerFactory.addLogger(new Logger("fourthLogger")));
+		assertTrue(this.loggerManager.addLogger(new Logger("fourthLogger")));
 	}
 	
 	@Test
 	public void deleteExistentLoggerShouldReturnTrue() {
-		this.loggerFactory.addLogger(new Logger("fifthLogger"));
+		this.loggerManager.addLogger(new Logger("fifthLogger"));
 		
-		assertTrue(this.loggerFactory.deleteLogger("fifthLogger"));
+		assertTrue(this.loggerManager.deleteLogger("fifthLogger"));
 	}
 	
 	@Test
 	public void deleteNonexistentLoggerShouldReturnFalse() {
-		this.loggerFactory.addLogger(new Logger("sixthLogger"));		
-		this.loggerFactory.deleteLogger("sixthLogger");
+		this.loggerManager.addLogger(new Logger("sixthLogger"));		
+		this.loggerManager.deleteLogger("sixthLogger");
 		
-		assertFalse(this.loggerFactory.deleteLogger("sixthLogger"));
+		assertFalse(this.loggerManager.deleteLogger("sixthLogger"));
 	}
 	
 	@Test
 	public void getEmptyLogger() {
-		assertNull(this.loggerFactory.getLogger(""));
+		assertNull(this.loggerManager.getLogger(""));
 	}
 
 }

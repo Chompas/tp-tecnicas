@@ -74,7 +74,7 @@ public class LogMessage {
 	public String getPlainMessage() {
 		return this.message;
 	}
-
+	
 	public Date getDate() {
 		return this.date;
 	}
@@ -103,7 +103,7 @@ public class LogMessage {
 		return this.threadName;
 	}
 	
-	private String getFormattedMessage() {
+	public String getFormattedMessage() {
 		return this.formatter.format(this);
 	}
 

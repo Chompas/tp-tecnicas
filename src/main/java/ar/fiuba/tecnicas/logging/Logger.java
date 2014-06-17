@@ -33,8 +33,7 @@ public class Logger implements ILogger {
 	public void log(Date date, String message, LogLevel level) {
 		LogMessage logMessage = filter(date, message, level, name);
 		write(logMessage);
-	}
-	
+	}	
 	
 	public void log(Date date, String message, LogLevel level, Throwable e) {
 		LogMessage logMessage = filter(date, message, level, name);
@@ -68,7 +67,7 @@ public class Logger implements ILogger {
 	private void write(LogMessage logMessage) {
 		if (logMessage.getPlainMessage() != "") {
 			for (IHandler handler : this.outputs) {
-				handler.write(logMessage);
+				handler.write(logMessage.getFormattedMessage());
 			}
 		}		
 	}

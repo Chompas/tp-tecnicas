@@ -57,7 +57,7 @@ public class LoggerTest {
 		
 		this.logger.log(now, this.message, this.level);
 		
-		Mockito.verify(mockedHandler).write(this.logMessage);
+		Mockito.verify(mockedHandler).write(this.logMessage.getFormattedMessage());
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class LoggerTest {
 		
 		LogMessage logErrorMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.message + " Exception: " + this.errorMessage, this.level);
 				
-		Mockito.verify(mockedHandler).write(logErrorMessage);
+		Mockito.verify(mockedHandler).write(logErrorMessage.getFormattedMessage());
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class LoggerTest {
 		
 		this.logger.log(now, this.message, this.level, new Exception(this.errorMessage));
 		
-		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage);
+		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage.getFormattedMessage());
 	}	
 	
 	@Test
@@ -91,7 +91,7 @@ public class LoggerTest {
 		
 		this.logger.log(now, this.message, this.level);
 		
-		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage);
+		Mockito.verify(mockedHandler, Mockito.never()).write(this.logEmptyMessage.getFormattedMessage());
 	}	
 	
 	@Test
@@ -104,6 +104,6 @@ public class LoggerTest {
 				
 		this.logMessage = new LogMessage(now, "%d{HH:mm:ss} %n %p %n %m", "-", this.anotherMessage, this.level);
 		
-		Mockito.verify(mockedHandler).write(this.logMessage);
+		Mockito.verify(mockedHandler).write(this.logMessage.getFormattedMessage());
 	}	
 }

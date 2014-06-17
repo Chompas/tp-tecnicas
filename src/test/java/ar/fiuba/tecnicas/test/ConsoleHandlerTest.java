@@ -4,30 +4,24 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Date;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 
 public class ConsoleHandlerTest {
 	
 	private PrintStream originalSysOut;
     private ByteArrayOutputStream mockOut;
-    private LogMessage logMessage;
-    private Date now;
+    private String message;
 
     @Before
     public void setSysOut() {
         originalSysOut = System.out;
         mockOut = new ByteArrayOutputStream();
-        now = new Date();
-        logMessage = new LogMessage(now, "", "", "hello", LogLevel.DEBUG);
         System.setOut(new PrintStream(mockOut));
+        message = "hello";
     }
 
     @After
@@ -39,8 +33,8 @@ public class ConsoleHandlerTest {
     public void outputIsCorrect() {
     	ConsoleHandler consoleHandler = new ConsoleHandler();
     	
-    	consoleHandler.write(logMessage);
+    	consoleHandler.write(message);
 
-        assertEquals(logMessage.getPlainMessage() + System.lineSeparator(), mockOut.toString());
+        assertEquals(message + System.lineSeparator(), mockOut.toString());
     }
 }

@@ -5,29 +5,18 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Date;
 import java.util.Scanner;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
 import ar.fiuba.tecnicas.logging.handlers.FileHandler;
 
 public class FileHandlerTest {
 	
 	private static String filename = "outputFile.txt";
 	private static String message = "test";
-	private static Date now = new Date();
-	private LogMessage logMessage;
-
-	@Before
-	public void init() {
-		this.logMessage = new LogMessage(now, "", "", message, LogLevel.DEBUG);
-	}
 	
 	@After
 	public void tearDown() {
@@ -39,7 +28,7 @@ public class FileHandlerTest {
 	public void shouldWrite() {
 		try {
 			FileHandler fileHandler = new FileHandler(filename);			
-			fileHandler.write(logMessage);
+			fileHandler.write(message);
 
 			assertShouldWrite();
 		} catch (FileNotFoundException e) {
@@ -52,9 +41,9 @@ public class FileHandlerTest {
 		FileHandler mockedFileHandler = Mockito.mock(FileHandler.class);
 		
 		try {
-			Mockito.doThrow(new RuntimeException()).when(mockedFileHandler).write(logMessage);
+			Mockito.doThrow(new RuntimeException()).when(mockedFileHandler).write(message);
 			
-			mockedFileHandler.write(logMessage);
+			mockedFileHandler.write(message);
 			
 			fail("RuntimeException was not thrown");
 		} catch (RuntimeException e) {
@@ -65,7 +54,7 @@ public class FileHandlerTest {
 	private void assertShouldWrite() throws FileNotFoundException {
 		Scanner fileReader = new Scanner(new FileReader(filename));
 		
-		String expected = logMessage.getPlainMessage();
+		String expected = message;
 		String actual = fileReader.nextLine();
 
 		assertEquals(expected, actual);
