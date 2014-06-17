@@ -13,7 +13,7 @@ public class Logger implements ILogger {
 
 	private static String EMPTY_LOGGER_NAME = "";
 	private static String EMPTY_FILTER_REGEX = "";
-	private List<IHandler> outputs = new ArrayList<>();
+	private List<IHandler> outputs = new ArrayList<>(); //Falta un objeto mas grande que tenga a cada "ConcreteLogger"
 	private LoggerConfig config = new LoggerConfig();
 	private Filter filter;
 	private String filterRegex = EMPTY_FILTER_REGEX;
