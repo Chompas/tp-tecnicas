@@ -2,9 +2,7 @@ package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import ar.fiuba.tecnicas.logging.config.LoggerConfig;
 import ar.fiuba.tecnicas.logging.filters.CustomFilter;
 import ar.fiuba.tecnicas.logging.filters.Filter;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
@@ -14,20 +12,23 @@ public class Logger implements ILogger {
 
 	private static String EMPTY_LOGGER_NAME = "";
 	private static String EMPTY_FILTER_REGEX = "";
-	private List<IHandler> outputs = new ArrayList<>();
-	private LoggerConfig config = new LoggerConfig();
+	private ArrayList<IHandler> outputs = new ArrayList<>();
+	private LogLevel globalLogLevel;
+	private ILogFormatter formatter;
 	private Filter filter;
 	private String filterRegex = EMPTY_FILTER_REGEX;
 	private CustomFilter customFilter = new CustomFilter();
 	private String name = EMPTY_LOGGER_NAME;
 	
-	public Logger() {
-		this.filter = new Filter(this.config.getGlobalLogLevel());
-		this.addHandlersFromConfig();
+	public Logger(LogLevel globalLogLevel, ILogFormatter formatter, ArrayList<IHandler> handlers) {
+		this.globalLogLevel = globalLogLevel;
+		this.filter = new Filter(globalLogLevel);
+		this.formatter = formatter;
+		this.outputs = handlers;
 	}
 	
-	public Logger(String name) {
-		this();
+	public Logger(LogLevel globalLogLevel, ILogFormatter formatter, ArrayList<IHandler> handlers, String name) {
+		this(globalLogLevel, formatter, handlers);
 		this.name = name;
 	}
 
@@ -42,10 +43,6 @@ public class Logger implements ILogger {
 		write(logMessage);
 	}
 	
-	public void addHandler(IHandler handler) {
-		this.outputs.add(handler);
-	}
-
 	public void addFilterRegex(String filterRegex) {
 		this.filterRegex = filterRegex;
 	}
@@ -58,11 +55,23 @@ public class Logger implements ILogger {
 		return this.name;
 	}
 	
+	public LogLevel getGlobalLogLevel() {
+		return this.globalLogLevel;
+	}
+
+	public ArrayList<IHandler> getHandlers() {
+		return this.outputs;
+	}
+
+	public ILogFormatter getIlogFormatter() {
+		return this.formatter;
+	}
+	
 	private LogMessage filter(Date date, String message, LogLevel level, String loggerName) {
-		LogMessage logMessage = new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), message, level);
+		LogMessage logMessage = new LogMessage(date, formatter, message, level);
 		String filteredMessage = this.filter.filter(logMessage, level, filterRegex, customFilter);
 
-		return new LogMessage(date, this.config.getFormat(), this.config.getSeparator(), filteredMessage, level);
+		return new LogMessage(date, formatter, filteredMessage, level);
 	}
 	
 	private void write(LogMessage logMessage) {
@@ -71,25 +80,5 @@ public class Logger implements ILogger {
 				handler.write(logMessage.getFormattedMessage());
 			}
 		}		
-	}
-	
-	private void addHandlersFromConfig() {
-		for (IHandler handler : this.config.getHandlers()) {
-			this.outputs.add(handler);
-		}
-	}
-
-	public LogLevel getGlobalLogLevel() {
-		return null;
-	}
-
-	public ArrayList<IHandler> getHandlers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ILogFormatter getIlogFormatter() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}	
 }

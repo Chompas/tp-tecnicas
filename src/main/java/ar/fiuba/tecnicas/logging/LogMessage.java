@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.TreeMap;
 
 import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
 
 public class LogMessage {
 
@@ -16,9 +16,9 @@ public class LogMessage {
 	private String loggerName;
 	private Date date;
 	private LogLevel logLevel;
-	private LogFormatter formatter;
+	private ILogFormatter formatter;
 	
-	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel) {
+	public LogMessage(Date date, ILogFormatter formatter, String message, LogLevel logLevel) {
 		this.threadName = Thread.currentThread().getName();
 		this.lineNumber = FormatterHelper.getCallingLineNumber();
 		this.filename = FormatterHelper.getCallingFilename();
@@ -26,12 +26,12 @@ public class LogMessage {
 		this.date = date;
 		this.logLevel = logLevel;
 		this.loggerName = "";
-		this.formatter = new LogFormatter(format, separator);
+		this.formatter = formatter;
 		this.message = message;
 	}
 	
-	public LogMessage(Date date, String format, String separator, String message, LogLevel logLevel, String loggerName) {
-		this(date, format, separator, message, logLevel);
+	public LogMessage(Date date, ILogFormatter formatter, String message, LogLevel logLevel, String loggerName) {
+		this(date, formatter, message, logLevel);
 		this.loggerName = loggerName;
 		
 		// Override last values

@@ -2,15 +2,33 @@ package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 
+import ar.fiuba.tecnicas.logging.config.LoggerDefault;
+import ar.fiuba.tecnicas.logging.config.PropertiesParser;
+import ar.fiuba.tecnicas.logging.config.XmlParser;
+import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
+
 public final class LoggerManager {
 	
 	private static LoggerManager uniqueInstance;
-	private ArrayList<Logger> loggers;
+	private ArrayList<ILogger> loggers;
 	
 	private LoggerManager() {
 		this.loggers = new ArrayList<>();
+		ArrayList<Logger> loadedLoggers = new ArrayList<>();
+		
+		try {
+			loadedLoggers = (new PropertiesParser()).load("config.properties");
+		} catch (CouldNotReadConfigurationException e) {
+			try {
+				loadedLoggers =  (new XmlParser()).load("config.xml");				
+			} catch (CouldNotReadConfigurationException f) {
+				this.loggers.add(new LoggerDefault());
+			}
+		} 
+		
+		addLoggers(loadedLoggers);
 	}
-	
+
 	public static LoggerManager getInstance() {
 		if (uniqueInstance == null) {
 			uniqueInstance = new LoggerManager();
@@ -18,43 +36,21 @@ public final class LoggerManager {
 		return uniqueInstance;		
 	}
 	
-	public Logger getLogger(String name) {
+	public ILogger getLogger(String name) {
 		if (name == "") {
 			return null;
 		}
-		for (Logger logger : this.loggers) {
+		for (ILogger logger : this.loggers) {
 			if (logger.getName() == name) {
 				return logger;
 			}
 		}
 		return null;
 	}
-
-	public boolean addLogger(Logger logger) {
-		if (loggerWithNameExists(logger.getName())) {
-			return false;
-		}
-		this.loggers.add(logger);
-		return true;
-	}
 	
-	public boolean deleteLogger(String name) {
-		for (int i = 0; i < this.loggers.size(); i++) {
-			if (this.loggers.get(i).getName() == name) {
-				this.loggers.remove(i);
-				return true;
-			}
+	private void addLoggers(ArrayList<Logger> loadedLoggers) {
+		for (Logger logger : loadedLoggers) {
+			this.loggers.add((ILogger)logger);
 		}
-		return false;
 	}
-	
-	private boolean loggerWithNameExists(String name) {
-		for (Logger logger : loggers) {
-			if (logger.getName() == name) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 }
