@@ -10,8 +10,8 @@ public class HandlerFactory {
 		String[] outputsSplitted = outputs.split(",");
 		
 		for (String output : outputsSplitted) {
-			switch(output) {
-				case("Console"):
+			switch(output.toLowerCase()) {
+				case("console"):
 					handlers.add(new ConsoleHandler());
 					break;
 				default:
