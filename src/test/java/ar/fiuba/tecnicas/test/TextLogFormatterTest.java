@@ -13,7 +13,7 @@ import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.LogMessage;
 import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 
-public class LogFormatterTest {
+public class TextLogFormatterTest {
 	
 	private TextLogFormatter formatter;
 	private String message;

@@ -56,7 +56,7 @@ public class LoggerManagerTest {
 	}
 	
 	@Test
-	public void getLogLevelFromJavaProperties() {		
+	public void getLoggerFromJavaProperties() {		
 		this.loggerManager = LoggerManager.getInstance();
 		this.loggerManager.loadConfiguration();
 		
@@ -64,7 +64,7 @@ public class LoggerManagerTest {
 	}
 	
 	@Test
-	public void getLogLevelFromXmlProperties() {
+	public void getLoggerFromXmlProperties() {
 		this.deleteJavaProperties();
 		
 		this.loggerManager = LoggerManager.getInstance();
@@ -79,7 +79,7 @@ public class LoggerManagerTest {
 	}
 	
 	@Test
-	public void getLogLevelFromDefaultProperties() {
+	public void getLoggerFromDefaultProperties() {
 		this.deleteJavaProperties();
 		this.deleteXmlProperties();
 		
