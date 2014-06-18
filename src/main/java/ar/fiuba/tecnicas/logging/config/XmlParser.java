@@ -2,7 +2,6 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +16,8 @@ import ar.fiuba.tecnicas.logging.Logger;
 public class XmlParser {
 
 	public ArrayList<Logger> load(String filename) {
+		
+		ArrayList<Logger> loggerList = new ArrayList<>();
 
 		try {
 			File file = new File(filename);
@@ -24,10 +25,7 @@ public class XmlParser {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(file);
 			
-			ArrayList<Logger> loggerList = new ArrayList<>();
-			
 			NodeList nodeList = document.getDocumentElement().getChildNodes();
-
 
 			for (int i = 0; i < nodeList.getLength(); i++) {
 
@@ -58,6 +56,9 @@ public class XmlParser {
 
 					System.out.println("Name: "  + loggerName);
 					System.out.println("Level: " + level);
+					
+					Logger logger = new Logger();
+					loggerList.add(logger);
 				}
 
 			}
@@ -65,7 +66,7 @@ public class XmlParser {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return loggerList;
 	}
 
 }
