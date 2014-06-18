@@ -4,10 +4,7 @@
 		<level>INFO</level>	<!-- Config object en Logger. getGlobalLogLevel() -->
 		<type>json</type> <!-- Config object in Logger. getFormat(). falta un factory que genere el IlogFormatter, 
 								y el binding al Logger -->
-		<outputs>
-			<output>file:output/out1.log</output> <!-- IHandler attribute en Logger -->
-			<output>console</output> <!-- IHandler attribute en Logger -->
-		</outputs>
+		<outputs>output/out1.log, console</outputs>
 	</logger>
 	
 	<logger>
@@ -16,9 +13,7 @@
 		<format>%d{HH:mm:ss} %n %p %n %m</format>
 		<separator>-</separator>
 		<type>text</type>
-		<outputs>
-			<output>console</output>
-		</outputs>	
+		<outputs>console</outputs>	
 	</logger>
 </loggers>
 

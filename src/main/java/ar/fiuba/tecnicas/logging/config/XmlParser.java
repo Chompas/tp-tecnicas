@@ -37,6 +37,9 @@ public class XmlParser {
 					
 					String loggerName = null;
 					String level = null;
+					String format = null;
+					String separator = null;
+					String outputs = null;
 
 					for (int j = 0; j < childNodes.getLength(); j++) {
 						Node cNode = childNodes.item(j);
@@ -50,12 +53,25 @@ public class XmlParser {
 				              case "level":
 				                level = content;
 				                break;
+				              case "format":
+					                format = content;
+					                break;
+				              case "separator":
+					                separator = content;
+					                break;
+				              case "outputs":
+					                outputs = content;
+					                break;
 				            }
 				        }
 					}
 
 					System.out.println("Name: "  + loggerName);
 					System.out.println("Level: " + level);
+					System.out.println("Format: " + format);
+					System.out.println("Separator: " + separator);
+					System.out.println("Outputs: " + outputs);
+					System.out.println("-------------");
 					
 					Logger logger = new Logger();
 					loggerList.add(logger);
