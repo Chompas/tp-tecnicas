@@ -37,11 +37,11 @@ public final class LoggerManager {
 	}
 	
 	public ILogger getLogger(String name) {
-		if (name == "") {
+		if (name.equals("")) {
 			return null;
 		}
 		for (ILogger logger : this.loggers) {
-			if (logger.getName() == name) {
+			if (logger.getName().equals(name)) {
 				return logger;
 			}
 		}

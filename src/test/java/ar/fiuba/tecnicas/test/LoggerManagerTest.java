@@ -26,7 +26,7 @@ public class LoggerManagerTest {
 			
 		}
 	}
-	
+		
 	private void deleteXmlProperties() {
 		try {
 			Files.copy(xmlPropertiesOriginal.toPath(), xmlPropertiesCopy.toPath());
@@ -67,10 +67,10 @@ public class LoggerManagerTest {
 		
 		this.loggerManager = LoggerManager.getInstance();
 		
+		this.restoreJavaProperties();
+		
 		assertNotNull(this.loggerManager.getLogger("Logger1"));
 		assertNotNull(this.loggerManager.getLogger("Logger2"));
-		
-		this.restoreJavaProperties();
 	}
 	
 	@Test
@@ -79,10 +79,10 @@ public class LoggerManagerTest {
 		this.deleteXmlProperties();
 		this.loggerManager = LoggerManager.getInstance();
 		
-		assertNotNull(this.loggerManager.getLogger("Default"));
-		
 		this.restoreJavaProperties();
 		this.restoreXmlProperties();
+		
+		assertNotNull(this.loggerManager.getLogger("Default"));	
 	}
 
 }

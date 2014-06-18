@@ -6,25 +6,42 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import ar.fiuba.tecnicas.logging.LogLevel;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
+import ar.fiuba.tecnicas.logging.formatter.FormatterFactory;
+import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
+import ar.fiuba.tecnicas.logging.handlers.HandlerFactory;
+import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class PropertiesParser {
 
 	public ArrayList<Logger> load(String fileName) throws CouldNotReadConfigurationException {
 		Properties properties = new Properties();
+		ArrayList<Logger> loggerList = new ArrayList<>();
 	
 		try {
 			InputStream file = new FileInputStream(fileName);
 			properties.load(file);
 			file.close();
 			
+			LogLevel level = LogLevel.valueOf(properties.getProperty("LogLevel"));
+			String format = properties.getProperty("Format");
 			
+			HandlerFactory handlerFactory = new HandlerFactory();
+			ArrayList<IHandler> handlers = handlerFactory.createHandlers(properties.getProperty("Outputs"));
 			
-			return null;
+			FormatterFactory formatterFactory = new FormatterFactory();
+			ILogFormatter formatter = formatterFactory.createFormatter(format);
+			
+			Logger logger = new Logger(level, formatter, handlers);
+			loggerList.add(logger);			
+			
 		} catch (IOException e) {
 			throw new CouldNotReadConfigurationException();
 		}
+		
+		return loggerList;
 	}
 
 }

@@ -91,7 +91,7 @@ public class XmlParser {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new CouldNotReadConfigurationException();
 		}
 		
 		return loggerList;

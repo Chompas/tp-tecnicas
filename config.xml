@@ -1,8 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-   <properties> 
-   	<entry key="LogLevel">DEBUG</entry>
-    <entry key="Separator">-</entry>
-    <entry key="Format">%d{HH:mm:ss} %n %p %n %m</entry>
-    <entry key="Outputs">Console,log.txt</entry>
-   </properties>
+<loggers>
+	<logger>
+		<name>Logger1</name> <!-- name attribute en Logger -->
+		<level>INFO</level>	<!-- Config object en Logger. getGlobalLogLevel() -->
+		<type>json</type> <!-- Config object in Logger. getFormat(). falta un factory que genere el IlogFormatter, 
+								y el binding al Logger -->
+		<outputs>output/out1.log,console</outputs>
+	</logger>
+	
+	<logger>
+		<name>Logger2</name>
+		<level>DEBUG</level>
+		<format>%d{HH:mm:ss} %n %p %n %m</format>
+		<separator>-</separator>
+		<type>text</type>
+		<outputs>console</outputs>	
+	</logger>
+</loggers>
+
+<!-- Idea:
+	clase LoggerParser que lea este archivo.
+	esta clase crearia objetos Logger. el constructor de Logger deberia recibir:
+		- name,
+		- globalLogLevel,
+		- IlogFormatter,
+		- Ihandlers
+	 -->
+
+
+<!--  se podrian efectuar algunas validaciones...
+	si loggers tiene mas de 1 logger, el atributo name de cada logger no puede ser vacio, y tienen que ser distintos
+	si type == json de un logger, separator y format se ignoran
+	level solo puede ser INFO, DEBUG, ...etc
+	type puede ser json o text
+	outputs puede tener 0 hijos (se asume "console"), 1 o más hijos
+	output puede ser "console" o "file:....."
+	format puede ser cualquier cosa, separator creo que tambien -->
