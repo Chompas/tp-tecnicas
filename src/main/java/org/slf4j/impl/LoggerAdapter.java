@@ -6,15 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LoggerDefault;
 import ar.fiuba.tecnicas.logging.formatter.FormatterHelper;
 
 public class LoggerAdapter implements Logger {
 	
-	private ar.fiuba.tecnicas.logging.Logger logger;
+	private LoggerDefault logger;
 	private String name;
 	
 	public LoggerAdapter() {
-		logger = new ar.fiuba.tecnicas.logging.Logger();
+		
+		logger = new LoggerDefault();
 	}
 	
 	public LoggerAdapter(String name) {

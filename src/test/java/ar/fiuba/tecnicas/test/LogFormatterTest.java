@@ -15,7 +15,7 @@ import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 
 public class LogFormatterTest {
 	
-	private LogFormatter defaultFormatter;
+	private LogFormatter formatter;
 	private String message;
 	private LogLevel level;
 	private String separator;
@@ -24,25 +24,23 @@ public class LogFormatterTest {
 
 	@Before
 	public void initialize() {
-		defaultFormatter = new LogFormatter("", "");
+		separator = "-";
+		formatter = new LogFormatter("", separator);
 		message = "simple message";
 		level = LogLevel.ERROR;
-		separator = "-";
 		date = new Date();
-		this.logMessage = new LogMessage(date, "", separator, message, level);
-		
+		this.logMessage = new LogMessage(date, formatter, message, level);		
 	}
 	
 	@Test
 	public void defaultFormatterReturningMessageWithDefaultFormatCorrectly() {
-		String formattedMessage = defaultFormatter.format(this.logMessage);
+		String formattedMessage = formatter.format(this.logMessage);
 		
 		assertEquals(formattedMessage, "[" + level.name() + "] - " + message);	
 	}
 	
 	@Test
-	public void formatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {
-		
+	public void formatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {		
 		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m", "");
 		
 		String formattedMessage = formatter.format(this.logMessage);
@@ -51,8 +49,7 @@ public class LogFormatterTest {
 	}
 	
 	@Test
-	public void formatterReturningSimpleDateFormatCorrectly() {
-		
+	public void formatterReturningSimpleDateFormatCorrectly() {		
 		String pattern = "yyyy.MM.dd";
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
@@ -64,8 +61,7 @@ public class LogFormatterTest {
 	}
 	
 	@Test
-	public void formatterReturningAnotherSimpleDateFormatCorrectly() {
-		
+	public void formatterReturningAnotherSimpleDateFormatCorrectly() {		
 		String pattern = "dd/MM/yyyy HH:mm";
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);

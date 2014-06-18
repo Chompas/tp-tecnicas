@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class JavaProperties implements IProperties {
+public class JavaProperties {
 	
 	private Properties properties = new Properties();
 	private InputStream file = null;
@@ -19,7 +19,6 @@ public class JavaProperties implements IProperties {
 		}
 	}
 
-	@Override
 	public String getValue(String key) {
 		String value = properties.getProperty(key);
 		if (value == null) {

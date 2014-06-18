@@ -10,6 +10,7 @@ import org.junit.Test;
 import ar.fiuba.tecnicas.logging.LogLevel;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.config.XmlParser;
+import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
 import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
@@ -28,23 +29,36 @@ public class XmlParserTest {
 	public void parserShouldNotCreateLoggersIfFileDoesntExist() {
 		String nonExistantFile = "nonExistantConfig.xml";
 		
-		ArrayList<Logger> loggers = parser.load(nonExistantFile);
-		
-		assertEquals(0, loggers.size());
+		try {
+			parser.load(nonExistantFile);
+			fail();
+		} catch (CouldNotReadConfigurationException e) {
+		}
 	}
 
 	@Test
 	public void parserShouldCreateTwoLoggers() {		
 		String configFile = "configTest.xml";
 		
-		ArrayList<Logger> loggers = parser.load(configFile);
+		ArrayList<Logger> loggers = new ArrayList<>();
+		try {
+			loggers = parser.load(configFile);
+		} catch (CouldNotReadConfigurationException e) {
+			fail();
+		}
 		
 		assertEquals(2, loggers.size());
 	}
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithNames() {		
-		ArrayList<Logger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = new ArrayList<>();
+		
+		try {
+			loggers = parser.load("configTest.xml");
+		} catch (CouldNotReadConfigurationException e) {
+			fail();
+		}
 		
 		assertEquals("Logger1", loggers.get(0).getName());
 		assertEquals("Logger2", loggers.get(1).getName());
@@ -52,7 +66,13 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithGlobalLogLevels() {		
-		ArrayList<Logger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = new ArrayList<>();
+		
+		try {
+			loggers = parser.load("configTest.xml");
+		} catch (CouldNotReadConfigurationException e) {
+			fail();
+		}
 		
 		assertEquals(LogLevel.INFO, loggers.get(0).getGlobalLogLevel());
 		assertEquals(LogLevel.DEBUG, loggers.get(1).getGlobalLogLevel());
@@ -60,7 +80,12 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithFormat() {		
-		ArrayList<Logger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = new ArrayList<>();
+		try {
+			loggers = parser.load("configTest.xml");
+		} catch (CouldNotReadConfigurationException e) {
+			fail();
+		}
 		
 		assertEquals(JsonLogFormatter.class, loggers.get(0).getIlogFormatter());
 		assertEquals(LogFormatter.class, loggers.get(1).getIlogFormatter());
@@ -68,7 +93,12 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithHandlers() {		
-		ArrayList<Logger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = new ArrayList<>();
+		try {
+			loggers = parser.load("configTest.xml");
+		} catch (CouldNotReadConfigurationException e) {
+			fail();
+		}
 		
 		assertEquals(2, loggers.get(0).getHandlers().size());
 		assertEquals(FileHandler.class, loggers.get(0).getHandlers().get(0));		

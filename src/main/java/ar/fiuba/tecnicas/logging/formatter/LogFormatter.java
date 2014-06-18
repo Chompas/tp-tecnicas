@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ar.fiuba.tecnicas.logging.LogMessage;
-import ar.fiuba.tecnicas.logging.config.DefaultProperties;
+import ar.fiuba.tecnicas.logging.config.LoggerDefault;
 
 public class LogFormatter implements ILogFormatter {
 
@@ -16,13 +16,13 @@ public class LogFormatter implements ILogFormatter {
 
 	public LogFormatter(String format, String separator) {
 		if (format.equals("")) {
-			this.format = (new DefaultProperties()).getValue("Format");
+			this.format = (new LoggerDefault()).getFormat();
 		} else {
 			this.format = format;
 		}
 		
 		if (separator.equals("")) {
-			this.separator = (new DefaultProperties()).getValue("Separator");
+			this.separator = (new LoggerDefault()).getSeparator();
 		} else {
 			this.separator = separator;
 		}

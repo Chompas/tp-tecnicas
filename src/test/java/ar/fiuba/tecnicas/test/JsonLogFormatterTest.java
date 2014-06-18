@@ -20,7 +20,7 @@ public class JsonLogFormatterTest {
 	
 	@Test
 	public void shouldFormatLikeJsonWithoutLoggerName() {
-		LogMessage logMessage = new LogMessage(date, "", "", message, level);
+		LogMessage logMessage = new LogMessage(date, jsonFormatter, message, level);
 		String expected = "{\"datetime\":\"" + this.date.toString() + "\"," +
 							"\"level\":\"" + this.level + "\"," +
 							"\"message\":\"" + this.message + "\"}";
@@ -31,7 +31,7 @@ public class JsonLogFormatterTest {
 	
 	@Test
 	public void shouldFormatLikeJsonWithLoggerName() {
-		LogMessage logMessage = new LogMessage(date, "", "", message, level, loggerName);
+		LogMessage logMessage = new LogMessage(date, jsonFormatter, message, level, loggerName);
 		String expected = "{\"datetime\":\"" + this.date.toString() + "\"," +
 							"\"level\":\"" + this.level + "\"," +
 							"\"loggerName\":\"" + this.loggerName + "\"," + 
