@@ -41,11 +41,11 @@ public class XmlParser {
 			  
 					NodeList childNodes = node.getChildNodes();
 					
-					String loggerName = null;
-					String level = null;
-					String format = null;
-					String separator = null;
-					String outputs = null;
+					String loggerName = "";
+					String level = "";
+					String format = "";
+					String separator = "";
+					String outputs = "";
 
 					for (int j = 0; j < childNodes.getLength(); j++) {
 						Node cNode = childNodes.item(j);
@@ -59,7 +59,7 @@ public class XmlParser {
 				              case "level":
 				                level = content;
 				                break;
-				              case "format":
+				              case "type":
 					                format = content;
 					                break;
 				              case "separator":

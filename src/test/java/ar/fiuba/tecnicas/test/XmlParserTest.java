@@ -19,9 +19,11 @@ import ar.fiuba.tecnicas.logging.handlers.FileHandler;
 public class XmlParserTest {
 	
 	private XmlParser parser;
+	private String fileName;
 	
 	@Before
 	public void setUp() {
+		this.fileName = "config.xml";
 		this.parser = new XmlParser();
 	}
 	
@@ -37,12 +39,11 @@ public class XmlParserTest {
 	}
 
 	@Test
-	public void parserShouldCreateTwoLoggers() {		
-		String configFile = "configTest.xml";
+	public void parserShouldCreateTwoLoggers() {
 		
 		ArrayList<Logger> loggers = new ArrayList<>();
 		try {
-			loggers = parser.load(configFile);
+			loggers = parser.load(this.fileName);
 		} catch (CouldNotReadConfigurationException e) {
 			fail();
 		}
@@ -55,7 +56,7 @@ public class XmlParserTest {
 		ArrayList<Logger> loggers = new ArrayList<>();
 		
 		try {
-			loggers = parser.load("configTest.xml");
+			loggers = parser.load(this.fileName);
 		} catch (CouldNotReadConfigurationException e) {
 			fail();
 		}
@@ -69,7 +70,7 @@ public class XmlParserTest {
 		ArrayList<Logger> loggers = new ArrayList<>();
 		
 		try {
-			loggers = parser.load("configTest.xml");
+			loggers = parser.load(this.fileName);
 		} catch (CouldNotReadConfigurationException e) {
 			fail();
 		}
@@ -82,20 +83,20 @@ public class XmlParserTest {
 	public void parserShouldCreateTwoLoggersWithFormat() {		
 		ArrayList<Logger> loggers = new ArrayList<>();
 		try {
-			loggers = parser.load("configTest.xml");
+			loggers = parser.load(this.fileName);
 		} catch (CouldNotReadConfigurationException e) {
 			fail();
 		}
 		
-		assertEquals(JsonLogFormatter.class, loggers.get(0).getIlogFormatter());
-		assertEquals(LogFormatter.class, loggers.get(1).getIlogFormatter());
+		assertEquals(JsonLogFormatter.class, loggers.get(0).getIlogFormatter().getClass());
+		assertEquals(LogFormatter.class, loggers.get(1).getIlogFormatter().getClass());
 	}
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithHandlers() {		
 		ArrayList<Logger> loggers = new ArrayList<>();
 		try {
-			loggers = parser.load("configTest.xml");
+			loggers = parser.load(this.fileName);
 		} catch (CouldNotReadConfigurationException e) {
 			fail();
 		}

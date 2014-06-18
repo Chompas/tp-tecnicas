@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import ar.fiuba.tecnicas.logging.ILogger;
@@ -58,6 +59,7 @@ public class LoggerManagerTest {
 	@Test
 	public void getLogLevelFromJavaProperties() {		
 		this.loggerManager = LoggerManager.getInstance();
+		this.loggerManager.loadConfiguration();
 		
 		assertNotNull(this.loggerManager.getLogger("MyLogger"));
 	}
@@ -67,8 +69,10 @@ public class LoggerManagerTest {
 		this.deleteJavaProperties();
 		
 		this.loggerManager = LoggerManager.getInstance();
+		this.loggerManager.loadConfiguration();
 		ILogger logger1 = this.loggerManager.getLogger("Logger1");
 		ILogger logger2 = this.loggerManager.getLogger("Logger2");
+		
 		this.restoreJavaProperties();
 		
 		assertNotNull(logger1);
@@ -79,7 +83,9 @@ public class LoggerManagerTest {
 	public void getLogLevelFromDefaultProperties() {
 		this.deleteJavaProperties();
 		this.deleteXmlProperties();
+		
 		this.loggerManager = LoggerManager.getInstance();
+		this.loggerManager.loadConfiguration();
 		
 		ILogger logger = this.loggerManager.getLogger("Default");
 		this.restoreJavaProperties();

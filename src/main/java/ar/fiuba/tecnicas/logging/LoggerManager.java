@@ -13,6 +13,9 @@ public final class LoggerManager {
 	private ArrayList<ILogger> loggers;
 	
 	private LoggerManager() {
+	}
+
+	public void loadConfiguration() {
 		this.loggers = new ArrayList<>();
 		ArrayList<Logger> loadedLoggers = new ArrayList<>();
 		
@@ -22,7 +25,8 @@ public final class LoggerManager {
 			try {
 				loadedLoggers =  (new XmlParser()).load("config.xml");				
 			} catch (CouldNotReadConfigurationException f) {
-				this.loggers.add(new LoggerDefault());
+				this.loggers.add((ILogger)new LoggerDefault());
+				return;
 			}
 		} 
 		
