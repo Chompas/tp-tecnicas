@@ -2,7 +2,6 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,8 +11,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import ar.fiuba.tecnicas.logging.LogLevel;
 import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
+import ar.fiuba.tecnicas.logging.formatter.FormatterFactory;
+import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.HandlerFactory;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
@@ -78,9 +80,12 @@ public class XmlParser {
 					System.out.println("-------------");
 					
 					HandlerFactory handlerFactory = new HandlerFactory();
-					List<IHandler> handlers = handlerFactory.createHandlers(outputs);
+					ArrayList<IHandler> handlers = handlerFactory.createHandlers(outputs);
 					
-					Logger logger = new Logger(level, null, handlers, loggerName);
+					FormatterFactory formatterFactory = new FormatterFactory();
+					ILogFormatter formatter = formatterFactory.createFormatter(format);
+					
+					Logger logger = new Logger(LogLevel.valueOf(level), formatter, handlers, loggerName);
 					loggerList.add(logger);
 				}
 

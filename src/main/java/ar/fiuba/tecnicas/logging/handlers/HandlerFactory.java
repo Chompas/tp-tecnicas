@@ -1,12 +1,11 @@
 package ar.fiuba.tecnicas.logging.handlers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HandlerFactory {
 	
-	public List<IHandler> createHandlers(String outputs) {
-		List <IHandler> handlers = new ArrayList<>();
+	public ArrayList<IHandler> createHandlers(String outputs) {
+		ArrayList<IHandler> handlers = new ArrayList<>();
 		
 		String[] outputsSplitted = outputs.split(",");
 		
