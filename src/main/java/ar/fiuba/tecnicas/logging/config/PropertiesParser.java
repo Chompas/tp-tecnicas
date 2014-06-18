@@ -27,6 +27,7 @@ public class PropertiesParser {
 			
 			LogLevel level = LogLevel.valueOf(properties.getProperty("LogLevel"));
 			String format = properties.getProperty("Format");
+			String name = properties.getProperty("Name");
 			
 			HandlerFactory handlerFactory = new HandlerFactory();
 			ArrayList<IHandler> handlers = handlerFactory.createHandlers(properties.getProperty("Outputs"));
@@ -34,8 +35,8 @@ public class PropertiesParser {
 			FormatterFactory formatterFactory = new FormatterFactory();
 			ILogFormatter formatter = formatterFactory.createFormatter(format);
 			
-			Logger logger = new Logger(level, formatter, handlers);
-			loggerList.add(logger);			
+			Logger logger = new Logger(level, formatter, handlers, name);
+			loggerList.add(logger);
 			
 		} catch (IOException e) {
 			throw new CouldNotReadConfigurationException();

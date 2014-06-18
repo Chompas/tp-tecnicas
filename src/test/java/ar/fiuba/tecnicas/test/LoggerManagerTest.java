@@ -8,6 +8,7 @@ import java.nio.file.Files;
 
 import org.junit.Test;
 
+import ar.fiuba.tecnicas.logging.ILogger;
 import ar.fiuba.tecnicas.logging.LoggerManager;
 
 public class LoggerManagerTest {
@@ -66,11 +67,12 @@ public class LoggerManagerTest {
 		this.deleteJavaProperties();
 		
 		this.loggerManager = LoggerManager.getInstance();
-		
+		ILogger logger1 = this.loggerManager.getLogger("Logger1");
+		ILogger logger2 = this.loggerManager.getLogger("Logger2");
 		this.restoreJavaProperties();
 		
-		assertNotNull(this.loggerManager.getLogger("Logger1"));
-		assertNotNull(this.loggerManager.getLogger("Logger2"));
+		assertNotNull(logger1);
+		assertNotNull(logger2);		
 	}
 	
 	@Test
@@ -79,10 +81,11 @@ public class LoggerManagerTest {
 		this.deleteXmlProperties();
 		this.loggerManager = LoggerManager.getInstance();
 		
+		ILogger logger = this.loggerManager.getLogger("Default");
 		this.restoreJavaProperties();
 		this.restoreXmlProperties();
 		
-		assertNotNull(this.loggerManager.getLogger("Default"));	
+		assertNotNull(logger);
 	}
 
 }
