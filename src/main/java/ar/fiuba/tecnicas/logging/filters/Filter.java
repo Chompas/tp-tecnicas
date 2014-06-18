@@ -1,7 +1,7 @@
 package ar.fiuba.tecnicas.logging.filters;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 
 public class Filter {
 

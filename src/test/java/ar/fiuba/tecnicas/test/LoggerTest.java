@@ -13,11 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
-import ar.fiuba.tecnicas.logging.Logger;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
+import ar.fiuba.tecnicas.logging.config.Logger;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
@@ -41,7 +41,7 @@ public class LoggerTest {
 	@Before
 	public void init() {
 		this.mockedHandler = mock(ConsoleHandler.class);
-		this.formatter = new LogFormatter(format, separator);
+		this.formatter = new TextLogFormatter(format, separator);
 		this.handlers = new ArrayList<>();
 		this.handlers.add(this.mockedHandler);
 		this.level = LogLevel.DEBUG;

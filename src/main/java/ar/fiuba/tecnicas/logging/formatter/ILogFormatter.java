@@ -1,6 +1,6 @@
 package ar.fiuba.tecnicas.logging.formatter;
 
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 
 public interface ILogFormatter {
 

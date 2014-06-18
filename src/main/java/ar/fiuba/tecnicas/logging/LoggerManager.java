@@ -2,6 +2,8 @@ package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 
+import ar.fiuba.tecnicas.logging.config.ILogger;
+import ar.fiuba.tecnicas.logging.config.Logger;
 import ar.fiuba.tecnicas.logging.config.LoggerDefault;
 import ar.fiuba.tecnicas.logging.config.PropertiesParser;
 import ar.fiuba.tecnicas.logging.config.XmlParser;
@@ -23,7 +25,7 @@ public final class LoggerManager {
 			loadedLoggers = (new PropertiesParser()).load("config.properties");
 		} catch (CouldNotReadConfigurationException e) {
 			try {
-				loadedLoggers =  (new XmlParser()).load("config.xml");				
+				loadedLoggers =  (new XmlParser()).load("config.xml");
 			} catch (CouldNotReadConfigurationException f) {
 				this.loggers.add((ILogger)new LoggerDefault());
 				return;
@@ -41,9 +43,6 @@ public final class LoggerManager {
 	}
 	
 	public ILogger getLogger(String name) {
-		if (name.equals("")) {
-			return null;
-		}
 		for (ILogger logger : this.loggers) {
 			if (logger.getName().equals(name)) {
 				return logger;

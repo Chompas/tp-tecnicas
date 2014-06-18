@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
 import ar.fiuba.tecnicas.logging.formatter.FormatterFactory;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
@@ -28,12 +26,13 @@ public class PropertiesParser {
 			LogLevel level = LogLevel.valueOf(properties.getProperty("LogLevel"));
 			String format = properties.getProperty("Format");
 			String name = properties.getProperty("Name");
+			String separator = properties.getProperty("Separator");
 			
 			HandlerFactory handlerFactory = new HandlerFactory();
 			ArrayList<IHandler> handlers = handlerFactory.createHandlers(properties.getProperty("Outputs"));
 			
 			FormatterFactory formatterFactory = new FormatterFactory();
-			ILogFormatter formatter = formatterFactory.createFormatter(format);
+			ILogFormatter formatter = formatterFactory.createFormatter("text", format, separator);
 			
 			Logger logger = new Logger(level, formatter, handlers, name);
 			loggerList.add(logger);

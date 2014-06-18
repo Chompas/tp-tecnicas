@@ -9,13 +9,13 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
+import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 
 public class LogFormatterTest {
 	
-	private LogFormatter formatter;
+	private TextLogFormatter formatter;
 	private String message;
 	private LogLevel level;
 	private String separator;
@@ -25,7 +25,7 @@ public class LogFormatterTest {
 	@Before
 	public void initialize() {
 		separator = "-";
-		formatter = new LogFormatter("", separator);
+		formatter = new TextLogFormatter("", separator);
 		message = "simple message";
 		level = LogLevel.ERROR;
 		date = new Date();
@@ -41,7 +41,7 @@ public class LogFormatterTest {
 	
 	@Test
 	public void formatterReturningMessageWithSimpleFormatPassedByParameterCorrectly() {		
-		LogFormatter formatter = new LogFormatter("%p + %p + %m%p%% %m", "");
+		TextLogFormatter formatter = new TextLogFormatter("%p + %p + %m%p%% %m", "");
 		
 		String formattedMessage = formatter.format(this.logMessage);
 		
@@ -54,7 +54,7 @@ public class LogFormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
+		TextLogFormatter formatter = new TextLogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
 		String formattedMessage = formatter.format(this.logMessage);
 		
 		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	
@@ -66,7 +66,7 @@ public class LogFormatterTest {
 		DateFormat dateFormat = new SimpleDateFormat(pattern);
 		String dateString = dateFormat.format(date);
 		
-		LogFormatter formatter = new LogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
+		TextLogFormatter formatter = new TextLogFormatter("%d{" + pattern + "} %n %m %n %p", separator);
 		String formattedMessage = formatter.format(this.logMessage);
 		
 		assertEquals(formattedMessage, dateString + " " + separator + " " + message + " " + separator + " " + level.name());	

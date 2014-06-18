@@ -2,7 +2,7 @@ package ar.fiuba.tecnicas.logging.formatter;
 
 import java.util.Set;
 
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 
 import com.google.gson.*;
 

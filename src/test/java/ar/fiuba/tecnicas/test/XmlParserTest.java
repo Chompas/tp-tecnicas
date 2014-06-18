@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.Logger;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.Logger;
 import ar.fiuba.tecnicas.logging.config.XmlParser;
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
 import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 import ar.fiuba.tecnicas.logging.handlers.FileHandler;
 
@@ -89,7 +89,7 @@ public class XmlParserTest {
 		}
 		
 		assertEquals(JsonLogFormatter.class, loggers.get(0).getIlogFormatter().getClass());
-		assertEquals(LogFormatter.class, loggers.get(1).getIlogFormatter().getClass());
+		assertEquals(TextLogFormatter.class, loggers.get(1).getIlogFormatter().getClass());
 	}
 	
 	@Test

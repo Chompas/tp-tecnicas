@@ -7,22 +7,22 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 import ar.fiuba.tecnicas.logging.filters.CustomFilter;
 import ar.fiuba.tecnicas.logging.filters.Filter;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 
 public class FilterTest {
 	
 	private Filter filter;
 	private static String message = "test";
 	private CustomFilter customFilter = new CustomFilter();
-	private LogFormatter formatter;
+	private TextLogFormatter formatter;
 	
 	@Before
 	public void setUp() {
-		this.formatter = new LogFormatter("%m", "");
+		this.formatter = new TextLogFormatter("%m", "");
 	}
 	
 	@Test

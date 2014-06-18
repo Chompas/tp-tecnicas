@@ -6,11 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.ILogger;
 import ar.fiuba.tecnicas.logging.LoggerManager;
+import ar.fiuba.tecnicas.logging.config.ILogger;
 
 public class LoggerManagerTest {
 	

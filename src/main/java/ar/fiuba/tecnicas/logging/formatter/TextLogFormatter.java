@@ -5,16 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 import ar.fiuba.tecnicas.logging.config.LoggerDefault;
 
-public class LogFormatter implements ILogFormatter {
+public class TextLogFormatter implements ILogFormatter {
 
 	private String format;
 	private String separator;
 	private String dateRegex = Pattern.quote("%d{") + "(.*?)" + Pattern.quote("}");
 
-	public LogFormatter(String format, String separator) {
+	public TextLogFormatter(String format, String separator) {
 		if (format.equals("")) {
 			this.format = (new LoggerDefault()).getFormat();
 		} else {

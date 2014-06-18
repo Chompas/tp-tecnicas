@@ -6,8 +6,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
+import ar.fiuba.tecnicas.logging.config.LogMessage;
 import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
 
 public class JsonLogFormatterTest {

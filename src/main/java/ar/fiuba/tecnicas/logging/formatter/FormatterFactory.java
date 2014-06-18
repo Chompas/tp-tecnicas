@@ -1,18 +1,15 @@
 package ar.fiuba.tecnicas.logging.formatter;
 
-import ar.fiuba.tecnicas.logging.config.LoggerDefault;
-
 public class FormatterFactory {
 
-	public ILogFormatter createFormatter(String format) {
-		LoggerDefault defaultLogger = new LoggerDefault();
-		switch(format) {
+	public ILogFormatter createFormatter(String type, String format, String separator) {
+		switch(type) {
 			case("json"):
 				return new JsonLogFormatter();
 			case("text"):
-				return new LogFormatter(defaultLogger.getFormat(), defaultLogger.getSeparator());
+				return new TextLogFormatter(format, separator);
 			default:
-				return new LogFormatter(defaultLogger.getFormat(), defaultLogger.getSeparator());
+				return new TextLogFormatter(format, separator);
 		}
 	}
 

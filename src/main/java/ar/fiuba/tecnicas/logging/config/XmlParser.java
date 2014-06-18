@@ -11,8 +11,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
 import ar.fiuba.tecnicas.logging.formatter.FormatterFactory;
 import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
@@ -43,8 +41,9 @@ public class XmlParser {
 					
 					String loggerName = "";
 					String level = "";
-					String format = "";
+					String type = "";
 					String separator = "";
+					String format = "";
 					String outputs = "";
 
 					for (int j = 0; j < childNodes.getLength(); j++) {
@@ -60,35 +59,30 @@ public class XmlParser {
 				                level = content;
 				                break;
 				              case "type":
-					                format = content;
-					                break;
-				              case "separator":
-					                separator = content;
-					                break;
-				              case "outputs":
-					                outputs = content;
-					                break;
+				                type = content;
+				                break;
+				               case "separator":
+					            separator = content;
+					            break;
+				               case "outputs":
+					            outputs = content;
+					            break;
+				               case "format":
+				            	  format = content;
+				            	  break;
 				            }
 				        }
 					}
-
-					System.out.println("Name: "  + loggerName);
-					System.out.println("Level: " + level);
-					System.out.println("Format: " + format);
-					System.out.println("Separator: " + separator);
-					System.out.println("Outputs: " + outputs);
-					System.out.println("-------------");
 					
 					HandlerFactory handlerFactory = new HandlerFactory();
 					ArrayList<IHandler> handlers = handlerFactory.createHandlers(outputs);
 					
 					FormatterFactory formatterFactory = new FormatterFactory();
-					ILogFormatter formatter = formatterFactory.createFormatter(format);
+					ILogFormatter formatter = formatterFactory.createFormatter(type, format, separator);
 					
 					Logger logger = new Logger(LogLevel.valueOf(level), formatter, handlers, loggerName);
 					loggerList.add(logger);
 				}
-
 			}
 		} catch (Exception e) {
 			throw new CouldNotReadConfigurationException();

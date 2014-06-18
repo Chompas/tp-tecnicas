@@ -2,10 +2,7 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.util.Date;
 
-import ar.fiuba.tecnicas.logging.ILogger;
-import ar.fiuba.tecnicas.logging.LogLevel;
-import ar.fiuba.tecnicas.logging.LogMessage;
-import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
+import ar.fiuba.tecnicas.logging.formatter.TextLogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.ConsoleHandler;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
@@ -15,13 +12,13 @@ public class LoggerDefault implements ILogger {
 	private IHandler handler;
 	private String format;
 	private String name;
-	private LogFormatter formatter;
+	private TextLogFormatter formatter;
 	
 	public LoggerDefault() {
 		this.handler = new ConsoleHandler();
 		this.format = "[%p] %n %m";
 		this.separator = "-";
-		this.formatter = new LogFormatter(this.format, this.separator);
+		this.formatter = new TextLogFormatter(this.format, this.separator);
 		this.name = "Default";
 	}
 	
