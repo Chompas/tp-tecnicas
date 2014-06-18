@@ -7,13 +7,14 @@ import java.util.List;
 import ar.fiuba.tecnicas.logging.config.LoggerConfig;
 import ar.fiuba.tecnicas.logging.filters.CustomFilter;
 import ar.fiuba.tecnicas.logging.filters.Filter;
+import ar.fiuba.tecnicas.logging.formatter.ILogFormatter;
 import ar.fiuba.tecnicas.logging.handlers.IHandler;
 
 public class Logger implements ILogger {
 
 	private static String EMPTY_LOGGER_NAME = "";
 	private static String EMPTY_FILTER_REGEX = "";
-	private List<IHandler> outputs = new ArrayList<>(); //Falta un objeto mas grande que tenga a cada "ConcreteLogger"
+	private List<IHandler> outputs = new ArrayList<>();
 	private LoggerConfig config = new LoggerConfig();
 	private Filter filter;
 	private String filterRegex = EMPTY_FILTER_REGEX;
@@ -76,5 +77,19 @@ public class Logger implements ILogger {
 		for (IHandler handler : this.config.getHandlers()) {
 			this.outputs.add(handler);
 		}
+	}
+
+	public LogLevel getGlobalLogLevel() {
+		return null;
+	}
+
+	public ArrayList<IHandler> getHandlers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ILogFormatter getIlogFormatter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

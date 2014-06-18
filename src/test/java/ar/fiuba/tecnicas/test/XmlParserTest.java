@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.fiuba.tecnicas.logging.ConcreteLogger;
 import ar.fiuba.tecnicas.logging.LogLevel;
+import ar.fiuba.tecnicas.logging.Logger;
 import ar.fiuba.tecnicas.logging.config.XmlParser;
 import ar.fiuba.tecnicas.logging.formatter.JsonLogFormatter;
 import ar.fiuba.tecnicas.logging.formatter.LogFormatter;
@@ -28,7 +28,7 @@ public class XmlParserTest {
 	public void parserShouldNotCreateLoggersIfFileDoesntExist() {
 		String nonExistantFile = "nonExistantConfig.xml";
 		
-		ArrayList<ConcreteLogger> loggers = parser.load(nonExistantFile);
+		ArrayList<Logger> loggers = parser.load(nonExistantFile);
 		
 		assertEquals(0, loggers.size());
 	}
@@ -37,14 +37,14 @@ public class XmlParserTest {
 	public void parserShouldCreateTwoLoggers() {		
 		String configFile = "configTest.xml";
 		
-		ArrayList<ConcreteLogger> loggers = parser.load(configFile);
+		ArrayList<Logger> loggers = parser.load(configFile);
 		
 		assertEquals(2, loggers.size());
 	}
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithNames() {		
-		ArrayList<ConcreteLogger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = parser.load("configTest.xml");
 		
 		assertEquals("Logger1", loggers.get(0).getName());
 		assertEquals("Logger2", loggers.get(1).getName());
@@ -52,7 +52,7 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithGlobalLogLevels() {		
-		ArrayList<ConcreteLogger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = parser.load("configTest.xml");
 		
 		assertEquals(LogLevel.INFO, loggers.get(0).getGlobalLogLevel());
 		assertEquals(LogLevel.DEBUG, loggers.get(1).getGlobalLogLevel());
@@ -60,7 +60,7 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithFormat() {		
-		ArrayList<ConcreteLogger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = parser.load("configTest.xml");
 		
 		assertEquals(JsonLogFormatter.class, loggers.get(0).getIlogFormatter());
 		assertEquals(LogFormatter.class, loggers.get(1).getIlogFormatter());
@@ -68,7 +68,7 @@ public class XmlParserTest {
 	
 	@Test
 	public void parserShouldCreateTwoLoggersWithHandlers() {		
-		ArrayList<ConcreteLogger> loggers = parser.load("configTest.xml");
+		ArrayList<Logger> loggers = parser.load("configTest.xml");
 		
 		assertEquals(2, loggers.get(0).getHandlers().size());
 		assertEquals(FileHandler.class, loggers.get(0).getHandlers().get(0));		
