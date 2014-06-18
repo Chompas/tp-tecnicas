@@ -11,6 +11,7 @@ public class XmlProperties implements IProperties {
 		this.properties = new Properties();
 		try {
 			this.properties.loadFromXML(new FileInputStream(fileName));
+			
 		} catch (Exception e) {
 		}
 	}
