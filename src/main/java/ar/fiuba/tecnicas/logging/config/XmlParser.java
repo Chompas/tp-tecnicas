@@ -2,6 +2,7 @@ package ar.fiuba.tecnicas.logging.config;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,6 +46,7 @@ public class XmlParser {
 					String separator = "";
 					String format = "";
 					String outputs = "";
+					HashMap<String,String> customOutputs = new HashMap<>();
 
 					for (int j = 0; j < childNodes.getLength(); j++) {
 						Node cNode = childNodes.item(j);
@@ -70,12 +72,38 @@ public class XmlParser {
 				               case "format":
 				            	  format = content;
 				            	  break;
+				               case "customOutputs":
+				            	   NodeList customOutputsNodes = cNode.getChildNodes();
+				            	   String implementor = "";
+				            	   String params = "";
+				            	   for (int k = 0; k < customOutputsNodes.getLength(); k++) {
+				            		   Node customNode = customOutputsNodes.item(k);
+				            		   if (customNode instanceof Element) {
+				            			    String customContent = customNode.getLastChild().getTextContent().trim();
+								            switch (customNode.getNodeName()) {
+									            case "implementor":
+									            	implementor = customContent;
+									            	break;
+									            default:
+									            	params+=customContent+",";
+									            	break;
+								            }
+				            		   }
+				            	   }
+				            	   customOutputs.put(implementor, params.substring(0, params.length()-1));
+				            	   break;
 				            }
 				        }
 					}
 					
 					HandlerFactory handlerFactory = new HandlerFactory();
 					ArrayList<IHandler> handlers = handlerFactory.createHandlers(outputs);
+					
+					ArrayList<IHandler> customHandlers = handlerFactory.createCustomHandlers(customOutputs);
+					
+					if(customHandlers.size() > 0) {
+						handlers.addAll(customHandlers);
+					}
 					
 					FormatterFactory formatterFactory = new FormatterFactory();
 					ILogFormatter formatter = formatterFactory.createFormatter(type, format, separator);
@@ -85,6 +113,7 @@ public class XmlParser {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new CouldNotReadConfigurationException();
 		}
 		

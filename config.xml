@@ -12,7 +12,11 @@
 		<format>%d{HH:mm:ss} %n %p %n %m</format>
 		<separator>-</separator>
 		<type>text</type>
-		<outputs>console</outputs>	
+		<outputs>console</outputs>
+		<customOutputs>
+			<implementor>ar.fiuba.tecnicas.test.handler.CustomHandler</implementor>
+			<param1>customHandler.log</param1>
+		</customOutputs>
 	</logger>
 </loggers>
 

@@ -105,7 +105,7 @@ public class XmlParserTest {
 		assertEquals(FileHandler.class, loggers.get(0).getHandlers().get(0).getClass());		
 		assertEquals(ConsoleHandler.class, loggers.get(0).getHandlers().get(1).getClass());
 				
-		assertEquals(1, loggers.get(1).getHandlers().size());
+		assertEquals(2, loggers.get(1).getHandlers().size());
 		assertEquals(ConsoleHandler.class, loggers.get(1).getHandlers().get(0).getClass());
 	}
 }

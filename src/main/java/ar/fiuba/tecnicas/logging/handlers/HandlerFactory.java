@@ -1,6 +1,11 @@
 package ar.fiuba.tecnicas.logging.handlers;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class HandlerFactory {
 	
@@ -20,6 +25,28 @@ public class HandlerFactory {
 			}
 		}
 		
+		return handlers;
+	}
+	
+	public ArrayList<IHandler> createCustomHandlers(HashMap<String,String> customOutputs) {
+		ArrayList<IHandler> handlers = new ArrayList<>();
+		
+		for (Map.Entry<String,String> output : customOutputs.entrySet()) {
+		
+		    String[] customOutputParameters = output.getValue().split(",");
+		
+			Class<?> clazz = null;
+			try {
+				clazz = Class.forName(output.getKey());
+				Constructor<?> constructor = null;
+				constructor = clazz.getConstructor(String.class);
+				IHandler customHandler  = (IHandler)constructor.newInstance(customOutputParameters );
+				
+				handlers.add(customHandler);
+			} catch (Exception e) {
+				return handlers;
+			}
+		}
 		return handlers;
 	}
 }
