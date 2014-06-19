@@ -25,23 +25,6 @@ public class CustomHandlerTest {
 	private String message = "custom handler message";
 	private static Date now = new Date();
 	private LogLevel level = LogLevel.DEBUG;
-
-	@Test
-	public void logInCustomHandlerFromJavaProperties() {		
-		try {
-			this.loggerManager = LoggerManager.getInstance();
-			this.loggerManager.loadConfiguration();
-			
-			ILogger logger = this.loggerManager.getLogger("MyLogger");
-			
-			logger.log(now, this.message, this.level);
-			
-			assertShouldWrite();
-			
-		} catch(FileNotFoundException e) {
-			fail();
-		}
-	}
 	
 	@Test
 	public void logInCustomHandlerLoggerFromXmlProperties() {
