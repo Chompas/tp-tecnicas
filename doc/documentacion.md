@@ -26,45 +26,45 @@ Por último, se pueden loggear `exceptions`:
 
 ## Decisiones de Diseño ##
 
-- El manejo de las múltiples instancias de Loggers con distintas configuraciones la manejamos con una clase Singleton, LoggerManager. 
+- El manejo de las múltiples instancias de Loggers con distintas configuraciones la manejamos con una clase **Singleton**, `LoggerManager`. 
 
-- La decisión sobre qué mensajes se loggean y qué mensajes no la delegamos a una clase `Filter`, para separar incumbencias.
+- Respecto a la configuración de los Loggers:
+	- Si el usuario prefiere utilizar un Logger por default, puede utilizar la clase `LoggerDefault`.
+	- Si quiere utilizar distintos Loggers, la clase `LoggerManager` delega la responsabilidad objetos tipo 
+*Parsers* para leer la configuración de un archivo de *Properties* o de un archivo *XML*.
 
-- La configuración del `Logger` se decide en la clase `LoggerConfig`, cuya responsabilidad es leer de un archivo de configuración los parámetros necesarios.
+- Hicimos una interfaz `ILogFormatter`, para permitir que el programador cree sus propias formas en que quiere loggear.
 
-- Hicimos una interfaz `ILogFormatter`, para permitir que el programador modifique la forma en que quiere que sus mensajes se escriban.
+- Hicimos una interfaz `IHandler`, para permitir que el programador agregue formas de emitir logs (por consola, por archivo, etc.).
 
-- Hicimos una interfaz `IHandler`, para permitir que el programador agregue formas de emitir logs.
+- Utilizamos el patrón de diseño **Facade** en la clase `FormatterHelper` para implementar la obtención del nombre del método, nombre de archivo y número de línea de el código que que llama a `log()`. Esto se hizo así para ocultar los detalles de implementación, que son de muy bajo nivel. 
+	- Tuvimos algunos problemas con dicha implementación, ya que se necesita utilizar el stacktrace, y saber en qué nivel del stack se produjo la llamada al log.
 
-- Hicimos una interfaz `IProperties` para permitir que el programador agregue formas de configurar el logger.
-
-- Utilizamos el patrón de diseño **Facade** en la clase `FormatterHelper` para implementar la obtención del nombre del método, nombre de archivo y número de línea de el código que que llama a `log()`. Esto se hizo así para ocultar los detalles de implementación, que son de muy bajo nivel.
-
-- Utilizamos el patrón de diseño **Factory** para decidir en tiempo de ejecución el tipo de salida que se desea utilizar.
+-  Para poder decidir en tiempo de ejecución, en base al archivo de configuración, que tipo de IHandler instanciar, utilizamos el patrón de diseño **Factory**. La clase `HandlerFactory` también permite instanciar destinos custom.
 
 
 ## TP Reloaded ##
 
 ### Impacto en el diseño ###
 
-- Throwable: nuevo método log en la clase `Logger` que recibe el `Throwable` y lo agrega al mensaje
+- Throwable: nuevo método log en la clase `Logger` que recibe el `Throwable` y lo agrega al mensaje.
 
-- Filtro Regex: permitir agregar un filtro al `Logger` a través de un nuevo método, y modificación de la clase `Filter` donde evalua esa expresión regular
+- Filtro Regex: permitir agregar un filtro al `Logger` a través de un nuevo método, y modificación de la clase `Filter` donde evalua esa expresión regular.
 
 - Nuevo nivel TRACE: el impacto fue mínimo, sólo se agregó un valor en `LogLevel`.
 
-- Inicialización automática del Logger: Se modificó la clase `LoggerConfig` para que busque automáticamente el archivo de configuración
+- Inicialización automática del Logger: Se modificó la clase `LoggerManager` para que busque automáticamente el archivo de configuración mediante sentencias `try {...} catch {...}`.
 
-- Leer configuración por XML: nueva clase `XmlProperties` que implementa la interfaz `IProperties` permitiendo la configuración por XML
+- Leer configuración por XML: nueva clase `XmlParser` que crea las clases `Logger`s definidas en el archivo XML. Esta clase es utilizada por el `LoggerManager`.
 
-- Multiples Loggers: Se utilizó el patrón de diseño **Decorator** para agregar el nombre a un `Logger` sin modificar esta clase
+- Multiples loggers: Inicialmente se utilizó el patrón de diseño **Decorator** para agregar el nombre a un `Logger` sin modificar esta clase. Pero luego simplificamos el diseño agregando simplemente un nuevo atributo `name` en la clase `Logger`, y agregando un método a la interfaz `ILogger`: `getName()`.
 
-- Formato de salida JSON: Nueva clase `LogMessage` la cual maneja el mensaje de salida, pudiendo ser texto plano o en formato json. Modificaciones en las clase `Logger` para utilizar esta nueva clase.
+- Formato de salida JSON: nueva clase `JsonLogFormatter`, que toma un objeto de tipo `LogMessage` y devuelve un `string` con los atributos que dicho `LogMessage` le proporciona.
 
 - Filter custom: nueva clase `CustomFilter` la cual define los atributos posibles para el filtrado y adaptación de la clase `Logger` para su uso
 
 - Binding SL4J: nuevo paquete y clases `LoggerFactory` y `LoggerAdapter` para redefinir los métodos de SL4J
 
-- Nueva variable %g: fuerte impacto en el diseño. Se tuvo que agregar nuevos métodos de `log()` en `ILogger` recibiendo el nombre para poder implementarla. Esto produjo la incorporación de los mismos en la clase `Logger`
+- Nueva variable %g: fuerte impacto en el diseño. Se tuvieron que agregar nuevos métodos de `log()` en `ILogger` recibiendo el nombre para poder implementarla, y agregar un método en la interfaz `ILogger`. Esto produjo la incorporación de los mismos en la clase `Logger`
 
-- Destinos custom: no implementada
+- Destinos custom: ????
