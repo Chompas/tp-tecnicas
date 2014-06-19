@@ -67,4 +67,4 @@ Por último, se pueden loggear `exceptions`:
 
 - Nueva variable %g: fuerte impacto en el diseño. Se tuvieron que agregar nuevos métodos de `log()` en `ILogger` recibiendo el nombre para poder implementarla, y agregar un método en la interfaz `ILogger`. Esto produjo la incorporación de los mismos en la clase `Logger`
 
-- Destinos custom: ????
+- Destinos custom: se modificaron los parsers de configuración para leer el nuevo atributo creado para estos destinos. Se agregó un creador de destinos custom en `HandlerFactory` el cual intenta instanciar la clase pasada como "implementor". Esto clase debe implementar la interfaz `IHandler`
