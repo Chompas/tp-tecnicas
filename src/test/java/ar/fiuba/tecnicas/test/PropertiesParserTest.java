@@ -74,10 +74,10 @@ public class PropertiesParserTest {
 	}
 	
 	@Test
-	public void twoHandlersAreCreated() {
+	public void threeHandlersAreCreated() {
 		try {
 			ArrayList<Logger> loggers = this.parser.load("config.properties");
-			assertEquals(2,loggers.get(0).getHandlers().size());
+			assertEquals(3,loggers.get(0).getHandlers().size());
 		} catch (Exception e) {
 			fail();
 		}

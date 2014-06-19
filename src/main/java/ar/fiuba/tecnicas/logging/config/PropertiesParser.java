@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import ar.fiuba.tecnicas.logging.exceptions.CouldNotReadConfigurationException;
@@ -30,6 +31,14 @@ public class PropertiesParser {
 			
 			HandlerFactory handlerFactory = new HandlerFactory();
 			ArrayList<IHandler> handlers = handlerFactory.createHandlers(properties.getProperty("Outputs"));
+			String implementor = properties.getProperty("CustomOutputs");
+			if(!implementor.equals("")) {
+				String params = properties.getProperty("Params");
+				HashMap<String,String> map = new HashMap<>();
+				map.put(implementor, params);
+				ArrayList<IHandler> customHandlers = handlerFactory.createCustomHandlers(map);
+				handlers.addAll(customHandlers);
+			}
 			
 			FormatterFactory formatterFactory = new FormatterFactory();
 			ILogFormatter formatter = formatterFactory.createFormatter("text", format, separator);
