@@ -1,10 +1,32 @@
 # Documentación #
 
-## API ##
+## Modo de uso ##
 
-La clase principal es `Logger`, que tiene un método principal `log()`. Este método recibe un `string`, que es el mensaje a loggear, y `LogLevel`, un nivel de log asociado a ese mensaje.
+Para utilizar el `logger`, en primera instancia se debe cargar su configuración.
+
+    LoggerMananager loggerManager = LoggerManager.getInstance();
+    loggerManager.loadConfiguration();
+
+Se permiten utilizar múltiples `loggers` con distintos nombres, y loggear en todos ellos o solo en algunos. Por ejemplo, asumiendo que en la configuración se definió un Logger con nombre `Logger-Module-A`:
+   
+    ILogger logger = loggerManager.getLogger("Logger-Module-A");
+    logger.log(new Date(), "processing...", LogLevel.DEBUG);
+	....
+	loggerManager.logAll(new Date(), "processing...", LogLevel.DEBUG);
+
+También puede utilizarse un `logger` que tiene una configuración default (formato predefinido y salida únicamente por consola):
+
+	ILogger logger = new LoggerDefault();
+	logger.log(new Date(), "processing...", LogLevel.DEBUG);
+
+Por último, se pueden loggear `exceptions`:
+
+	Exception myException = new Exception();
+	logger.log(new Date(), "processing...", LogLevel.DEBUG, myException);
 
 ## Decisiones de Diseño ##
+
+- El manejo de las múltiples instancias de Loggers con distintas configuraciones la manejamos con una clase Singleton, LoggerManager. 
 
 - La decisión sobre qué mensajes se loggean y qué mensajes no la delegamos a una clase `Filter`, para separar incumbencias.
 

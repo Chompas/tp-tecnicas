@@ -1,8 +1,10 @@
 package ar.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import ar.fiuba.tecnicas.logging.config.ILogger;
+import ar.fiuba.tecnicas.logging.config.LogLevel;
 import ar.fiuba.tecnicas.logging.config.Logger;
 import ar.fiuba.tecnicas.logging.config.LoggerDefault;
 import ar.fiuba.tecnicas.logging.config.PropertiesParser;
@@ -14,11 +16,8 @@ public final class LoggerManager {
 	private static LoggerManager uniqueInstance;
 	private ArrayList<ILogger> loggers;
 	
-	private LoggerManager() {
-	}
-
 	public void loadConfiguration() {
-		this.loggers = new ArrayList<>();
+		this.loggers.clear();
 		ArrayList<Logger> loadedLoggers = new ArrayList<>();
 		
 		try {
@@ -34,12 +33,24 @@ public final class LoggerManager {
 		
 		addLoggers(loadedLoggers);
 	}
-
+	
 	public static LoggerManager getInstance() {
 		if (uniqueInstance == null) {
 			uniqueInstance = new LoggerManager();
 		}
 		return uniqueInstance;		
+	}
+	
+	public void logAll(Date date, String message, LogLevel level) {
+		for (ILogger logger : this.loggers) {
+			logger.log(date, message, level);
+		}
+	}
+	
+	public void logAll(Date date, String message, LogLevel level, Throwable e) {
+		for (ILogger logger : this.loggers) {
+			logger.log(date, message, level, e);
+		}
 	}
 	
 	public ILogger getLogger(String name) {
@@ -49,6 +60,10 @@ public final class LoggerManager {
 			}
 		}
 		return null;
+	}
+		
+	private LoggerManager() {
+		this.loggers = new ArrayList<>();
 	}
 	
 	private void addLoggers(ArrayList<Logger> loadedLoggers) {
