@@ -30,7 +30,7 @@ Por último, se pueden loggear `exceptions`:
 
 - Respecto a la configuración de los Loggers:
 	- Si el usuario prefiere utilizar un Logger por default, puede utilizar la clase `LoggerDefault`.
-	- Si quiere utilizar distintos Loggers, la clase `LoggerManager` delega la responsabilidad objetos tipo 
+	- Si quiere utilizar distintos Loggers, la clase `LoggerManager` delega la responsabilidad en objetos tipo 
 *Parsers* para leer la configuración de un archivo de *Properties* o de un archivo *XML*.
 
 - Hicimos una interfaz `ILogFormatter`, para permitir que el programador cree sus propias formas en que quiere loggear.
